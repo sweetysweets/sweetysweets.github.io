@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: yilia | 一只头秃程序猿</title>
+  <title>云主机centos下配置hadoop+spark集群全记录 | 一只头秃程序猿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天也很努力的圆圆">
-<meta property="og:type" content="website">
-<meta property="og:title" content="一只头秃程序猿">
-<meta property="og:url" content="http://yoursite.com/tags/yilia/index.html">
+  <meta name="description" content="先放图= = 踩了无数坑终于特喵搞好了！  下面记录一下全过程 环境准备我买的是阿里云的轻量应用服务器，学生认证后9.5¥/月，三台服务器均安装centos系统 master：公网ip 139.196.75.247 内网ip 172.16.47.126Slave01:公网ip 47.107.112.152 内网ip 172.16.17.40slave02:公网ip 120.77.80.108 内网">
+<meta name="keywords" content="hadoop,spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="云主机centos下配置hadoop+spark集群全记录">
+<meta property="og:url" content="http://yoursite.com/2018/10/28/hadoop-spark-conf/index.html">
 <meta property="og:site_name" content="一只头秃程序猿">
-<meta property="og:description" content="今天也很努力的圆圆">
+<meta property="og:description" content="先放图= = 踩了无数坑终于特喵搞好了！  下面记录一下全过程 环境准备我买的是阿里云的轻量应用服务器，学生认证后9.5¥/月，三台服务器均安装centos系统 master：公网ip 139.196.75.247 内网ip 172.16.47.126Slave01:公网ip 47.107.112.152 内网ip 172.16.17.40slave02:公网ip 120.77.80.108 内网">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/%E7%BB%88%E4%BA%8E%E5%A6%A5%E4%BA%86.png">
+<meta property="og:updated_time" content="2018-10-28T04:16:44.836Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一只头秃程序猿">
-<meta name="twitter:description" content="今天也很努力的圆圆">
+<meta name="twitter:title" content="云主机centos下配置hadoop+spark集群全记录">
+<meta name="twitter:description" content="先放图= = 踩了无数坑终于特喵搞好了！  下面记录一下全过程 环境准备我买的是阿里云的轻量应用服务器，学生认证后9.5¥/月，三台服务器均安装centos系统 master：公网ip 139.196.75.247 内网ip 172.16.47.126Slave01:公网ip 47.107.112.152 内网ip 172.16.17.40slave02:公网ip 120.77.80.108 内网">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/%E7%BB%88%E4%BA%8E%E5%A6%A5%E4%BA%86.png">
   
     <link rel="alternative" href="/atom.xml" title="一只头秃程序猿" type="application/atom+xml">
   
@@ -157,64 +161,246 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-hadoop-spark-conf" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/03/yilia-customization/" class="archive-article-date">
-  	<time datetime="2018-10-03T12:03:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-03</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/03/yilia-customization/">yilia主题个性化配置与修改</a>
+    <h1 class="article-title" itemprop="name">
+      云主机centos下配置hadoop+spark集群全记录
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/10/28/hadoop-spark-conf/" class="archive-article-date">
+  	<time datetime="2018-10-28T02:43:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>先放图= = 踩了无数坑终于特喵搞好了！</p>
+<p><img src="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/%E7%BB%88%E4%BA%8E%E5%A6%A5%E4%BA%86.png" alt=""></p>
+<p>下面记录一下全过程</p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>我买的是阿里云的轻量应用服务器，学生认证后9.5¥/月，三台服务器均安装centos系统</p>
+<p>master：公网ip 139.196.75.247 内网ip 172.16.47.126<br>Slave01:公网ip 47.107.112.152 内网ip 172.16.17.40<br>slave02:公网ip 120.77.80.108 内网ip 172.16.20.154<br>以上全是centos 7.2 </p>
+<p>在此基础上搭建java1.8+hadoop2.7+scala2.11.12+spark2.3.2集群</p>
+<h3 id="安装java"><a href="#安装java" class="headerlink" title="安装java"></a>安装java</h3><p>yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel //此时所有的机器的java都安装在同一个地方</p>
+<p>//所有的机器修改/etc/profile文件增加JAVA_HOME环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
+<p>增加：</p>
+<figure class="highlight plain"><figcaption><span>JAVA_HOME</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 配置hostname </span><br><span class="line"></span><br><span class="line">在3台机器上分别执行</span><br></pre></td></tr></table></figure>
+<p>//主服务器<br>vim /etc/sysconfig/network<br>添加一行<br>hostname=master<br>:wq<br>//执行命令<br>hostname master<br>exit<br>重新ssh登进</p>
+<p>//slave01<br>vim /etc/sysconfig/network</p>
+<p>hostname=slave01<br>:wq<br>hostname slave01<br>exit<br>重新ssh登进</p>
+<p>//slave02<br>vim /etc/sysconfig/network</p>
+<p>hostname=slave02<br>:wq<br>hostname slave02<br>exit<br>重新ssh登进<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 配置hosts文件</span><br></pre></td></tr></table></figure></p>
+<p>vim /etc/hosts</p>
+<p>//主服务器添加如下信息<br>172.16.47.126 master<br>47.107.112.152 slave01<br>120.77.80.108 slave02<br>//slave01<br>172.16.17.40 slave01<br>139.196.75.247 master<br>120.77.80.108 slave02<br>//slave02<br>172.16.20.154 slave02<br>139.196.75.247 master<br>47.107.112.152 slave01</p>
+<p>注意:本机的hostname与内网ip对应<br>其他的hostname与外网ip对应<br>然后依次ping master,ping slave1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 增加hadoop用户</span><br><span class="line"></span><br><span class="line">可有可无，嫌麻烦的直接在root下执行即可</span><br></pre></td></tr></table></figure></p>
+<p>在各台机器上执行<br>useradd hadoop<br>passwd hadoop<br>//这里会提醒hadoop密码不够安全，不要管，继续输入hadoop密码即可</p>
+<p>//这里是设置权限，让hadoop有root的权限<br>vim /etc/sudoers<br>在root下面复制一行，将root改为hadoop<br>hadoop ALL=(ALL) ALL </p>
+<p>//配置完别忘了让其生效<br>source /etc/sudoers<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 配置ssh免登陆</span><br></pre></td></tr></table></figure></p>
+<p>3台服务器上都执行<br>ssh-keygen<br>然后一直回车<br>主服务器上执行：<br> ssh-copy-id hadoop@slave01<br> ssh-copy-id hadoop@slave02<br>从服务器上执行:<br> ssh-copy-id hadoop@master<br> ssh-copy-id hadoop@slave02</p>
+<p>//这一步需要输入密码<br>//如果你使用root用户配置，那就是 ssh-copy-id root@slave02<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 关闭各机器防火墙</span><br></pre></td></tr></table></figure></p>
+<p>systemctl start firewalld<br>firewall-cmd –permanent –zone=public –add-port=50070/tcp  //namenode web端口<br>firewall-cmd –permanent –zone=public –add-port=50070/udp<br>firewall-cmd –permanent –zone=public –add-port=9000/tcp   //namenode rpc端口<br>firewall-cmd –permanent –zone=public –add-port=9000/udp<br>firewall-cmd –permanent –zone=public –add-port=50010/udp  //datanode rpc端口<br>firewall-cmd –permanent –zone=public –add-port=50010/udp<br>firewall-cmd –permanent –zone=public –add-port=50075/udp  //下载文件端口<br>firewall-cmd –permanent –zone=public –add-port=50075/udp<br>firewall-cmd –permanent –zone=public –add-port=8031/tcp   //nodemanager rpc端口<br>firewall-cmd –permanent –zone=public –add-port=8031/udp<br>firewall-cmd –reload<br>以上所有端口在namenode和datanode均全部开启<br>需要什么端口可以自行开放</p>
+<p><strong>**</strong>推荐一种暴力方法<strong><strong>*</strong></strong><br>firewall-cmd –permanent –zone=public –add-port=10-50100/tcp<br>firewall-cmd –permanent –zone=public –add-port=10-50100/udp<br>firewall-cmd –reload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 安装hadoop</span><br><span class="line"></span><br><span class="line">首先我在自己电脑上下载了[hadoop-2.7.7](https://archive.apache.org/dist/hadoop/core/hadoop-2.7.7/)的压缩文件，用filezilla传到服务器的某个文件夹下，也可以scp或者直接在服务器上下载</span><br></pre></td></tr></table></figure></p>
+<p>su hadoop  //如果root用户，不需要切换hadoop</p>
+<p>cd /home/hadoop<br>tar xvf hadoop-2.7.7.tar.gz //将hadoop解压到hadoop-2.7.7文件夹下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 配置hadoop</span><br><span class="line"></span><br><span class="line">hadoop的配置文件在hadoop目录下/etc/hadoop文件夹下</span><br><span class="line"></span><br><span class="line">先```cd /etc/hadoop```,然后配置各文件</span><br><span class="line"></span><br><span class="line">##### hadoop-env.sh</span><br></pre></td></tr></table></figure></p>
+<p>vim hadoop-env.sh<br>将JAVA_HOME修改为本机的JAVA_HOME<br>JAVA_HOME=/usr/lib/jvm/java-openjdk<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### core-site.xml</span><br></pre></td></tr></table></figure></p>
+<p>vim core-site.xml</p>
+<p><configuration><br>    <property><br>         <name>fs.defaultFS</name><br>        <value>hdfs://master:9000/</value><br>    </property><br>    <property><br>         <name>io.file.buffer.size</name><br>        <value>131072</value><br>    </property><br>    <property><br>        <name>hadoop.tmp.dir</name><br>        <value>/home/hadoop/hadoop-2.7.7/tmp</value><br>    </property><br></configuration><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### hdfs-site.xml</span><br></pre></td></tr></table></figure></p>
+<p>vim hdfs-site.xml</p>
+<p><configuration><br>    <property><br>        <name>dfs.namenode.secondary.http-address</name><br>        <value>master:50090</value><br>    </property><br>    <property><br>        <name>dfs.namenode.name.dir</name><br>        <value>file:///home/hadoop/hadoop-2.7.7/hdfs/namenode</value><br>        <description>NameNode directory for namespace and transaction logs storage.</description><br>    </property><br>    <property><br>        <name>dfs.datanode.data.dir</name><br>        <value>file:///home/hadoop/hadoop-2.7.7/hdfs/datanode</value><br>        <description>DataNode directory</description><br>    </property><br>    <property><br>        <name>dfs.replication</name><br>        <value>2</value><br>    </property><br></configuration><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">##### mapred-site.xml</span><br></pre></td></tr></table></figure></p>
+<p>//这里可能没有mapred-site.xml文件，需要以下操作<br>cp mapred-site.xml.template mapred-site.xml<br>vim mapred-site.html<br>//添加如下信息</p>
+<p><configuration><br> <property><br>     <name>mapreduce.framework.name</name><br>      <value>yarn</value><br>  </property><br>  <property><br>          <name>mapreduce.jobhistory.address</name><br>          <value>master:10020</value><br>  </property><br>  <property><br>          <name>mapreduce.jobhistory.address</name><br>          <value>master:19888</value><br>  </property><br></configuration><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### yarn-site.xml</span><br></pre></td></tr></table></figure></p>
+<p>vim yarn-site.xml<br>//如果没有这个文件，看看有没有template，若没有，新建一个也可<br>&lt;?xml version=”1.0”?&gt;</p>
+<p><configuration><br> <property><br>     <name>mapreduce.framework.name</name><br>      <value>yarn</value><br>  </property><br>  <property><br>          <name>mapreduce.jobhistory.address</name><br>          <value>master:10020</value><br>  </property><br>  <property><br>          <name>mapreduce.jobhistory.address</name><br>          <value>master:19888</value><br>  </property><br></configuration><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 分发</span><br><span class="line"></span><br><span class="line">将hadoop打包发送到两台slave主机，过程较慢，要有耐心</span><br></pre></td></tr></table></figure></p>
+<p>tar -zcvf hadoop-2.7.7.tar.gz hadoop-2.7.7/<br>scp -r hadoop-2.7.7.tar.gz hadoop@slave01:/home/hadoop/hadoop-2.7.7<br>scp -r hadoop-2.7.7.tar.gz hadoop@slave02:/home/hadoop/hadoop-2.7.7<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 配置master节点并启动</span><br><span class="line"></span><br><span class="line">##### slaves配置</span><br></pre></td></tr></table></figure></p>
+<p>cd /etc/hadoop/<br>vim slaves<br>然后在namenode上，（仅在namenode上修改slaves文件）<br>vim slaves (slaves文件在hadoop/etc目录中)<br>slaves文件内容：<br>slave1<br>slave2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 格式化hdfs</span><br><span class="line"></span><br><span class="line">//进入hadoop文件夹，执行</span><br></pre></td></tr></table></figure></p>
+<p>hadoop namenode -format</p>
+<p>//如果执行不了，请添加hadoop的环境变量,参见<a href="#参考">文章尾部</a><br>//注意执行一次就可以了。。多执行会出错。。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">执行截图：</span><br><span class="line"></span><br><span class="line">![](https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/format.png)</span><br><span class="line"></span><br><span class="line">##### 启动hadoop</span><br></pre></td></tr></table></figure></p>
+<p>//进入hadoop文件夹，执行<br>sbin/start-dfs.sh<br>sbin/start-yarn.sh<br>//或者下面的命令<br>sbin/start-all.sh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">到此我们的hadoop集群就搭建好了，查看是否运行成功使用``jps``命令</span><br><span class="line"></span><br><span class="line">![](https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/jps.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">![](https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/jps2.png)</span><br><span class="line"></span><br><span class="line">### 动态扩容 </span><br><span class="line"></span><br><span class="line">直接scp一份到一个服务器，起一个datanode即可 ,非常方便</span><br><span class="line"></span><br><span class="line">### 安装scala</span><br><span class="line"></span><br><span class="line">我下载了[Scala 2.11.12](https://www.scala-lang.org/download/2.11.12.html)</span><br><span class="line"></span><br><span class="line">使用filezilla或scp传到服务器上</span><br></pre></td></tr></table></figure></p>
+<p>首先建立scala存放目录<br>mkdir /usr/local/scala<br>然后释放scala并安装至指定目录<br>tar -xvzf scala-2.11.12.tgz &amp;&amp; mv scala-2.11.12 /usr/local/scala/<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 配置scala环境变量</span><br></pre></td></tr></table></figure></p>
+<p>vim /etc/profile<br>在PATH后追加scala的二进制位置，<br>这里是： :/usr/local/scala/scala-2.11.8/bin<br>source /etc/profile<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 验证安装</span><br></pre></td></tr></table></figure></p>
+<p>scala -version<br>//输出版本信息则ok<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">我的输出如下：</span><br><span class="line"></span><br><span class="line">![](https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/scala.png)</span><br><span class="line"></span><br><span class="line">&gt; ps</span><br><span class="line">&gt;</span><br><span class="line">&gt; 安装scala需要java1.8环境，一般使用sun的jdk1.8，我装的openjdk没有release文件夹，但不影响后续操作</span><br><span class="line"></span><br><span class="line">### 安装spark</span><br><span class="line"></span><br><span class="line">我下载了 [spark-2.3.2-bin-hadoop2.7.tgz](https://www.apache.org/dyn/closer.lua/spark/spark-2.3.2/spark-2.3.2-bin-hadoop2.7.tgz)</span><br><span class="line"></span><br><span class="line">使用filezilla或scp传到服务器上</span><br></pre></td></tr></table></figure></p>
+<p>tar xvf spark-2.3.2-bin-hadoop2.7.tgz</p>
+<p>//名字太长了重命名一下<br>mv spark-2.3.2-bin-hadoop2.7.tgz spark<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 配置spark</span><br><span class="line"></span><br><span class="line">spark的配置文件存放在spark安装目录下的conf文件夹，三台机子的配置一摸一样，可以直接配好了scp过去（推荐filezilla，贼快）</span><br></pre></td></tr></table></figure></p>
+<p>cd /conf<br>//spark配置文件需要自己从template复制<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### spark-env.sh</span><br></pre></td></tr></table></figure></p>
+<p>cp spark-env.sh.template spark-env.sh<br>vim spark-env.sh</p>
+<p>//请将环境变量设为自己的目录<br>export SCALA_HOME=/usr/local/scala/scala-2.11.12<br>export JAVA_HOME=/usr/lib/jvm/java-openjdk<br>export SPARK_MASTER_HOST=master<br>export SPARK_MASTER_PORT=7077<br>export SPARK_WORKER_MEMORY=500m<br>export SPARK_EXECUTOR_MEMORY=100m<br>export SPARK_DRIVER_MEMORY=100m<br>export HADOOP_CONF_DIR=/home/hadoop/hadoop-2.7.7/etc/hadoop<br>export PYSPARK_PYTHON=/usr/bin/python3<br>export PYSPARK_DRIVER_PYTHON=/usr/bin/python3<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### slaves</span><br></pre></td></tr></table></figure></p>
+<p>cp slaves.template slaves<br>vim slaves</p>
+<p>//添加<br>master<br>slave01<br>slave02<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 分发</span><br><span class="line"></span><br><span class="line">将配好的spark打包发给slave01和slave02，参见hadoop的分发</span><br><span class="line"></span><br><span class="line">### 启动spark</span><br><span class="line"></span><br><span class="line">进入spark安装目录，</span><br></pre></td></tr></table></figure></p>
+<p>sbin/start-all.sh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![](https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/spark-start.png)</span><br><span class="line"></span><br><span class="line">可以在7077端口查看spark信息</span><br><span class="line"></span><br><span class="line">### 参考</span><br><span class="line"></span><br><span class="line">环境变量文件一共添加的内容如下：</span><br></pre></td></tr></table></figure></p>
+<p>export HADOOP_HOME=/home/hadoop/hadoop-2.7.7<br>export PATH=$PATH:$HADOOP_HOME/bin:/usr/local/scala/scala-2.11.12/bin<br>export JAVA_HOME=/usr/lib/jvm/java-openjdk<br><code>`</code></p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>太坑啦，本来想本地主机配，局域网环境不好设置，mac和windows又有ssh的问题，虚拟机还有配置网络等等一系列乱七八糟的问题，最后用云主机踩的坑比较少，不过还是遇到一些问题，记录一下</p>
+<blockquote>
+<p> ps.  hadoop启动问题可以查看hadoop安装目录下的logs中的log文件看看报了什么错再搜索解决。</p>
+</blockquote>
+<h5 id="There-are-0-datanode-s-running-and-no-node-s-are-excluded-in-this-operation"><a href="#There-are-0-datanode-s-running-and-no-node-s-are-excluded-in-this-operation" class="headerlink" title="There are 0 datanode(s) running and no node(s) are excluded in this operation."></a>There are 0 datanode(s) running and no node(s) are excluded in this operation.</h5><p>出现上述问题可能是格式化两次hadoop，导致datanode和namenode的id号不同</p>
+<p>解决方法1：重启linux,再使用start-dfs.sh和start-yarn.sh 重启一下hadoop</p>
+<p>解决办法2：找到hadoop安装目录下 hadoop-2.7.7/hdfs/namenode里面的current文件夹删除</p>
+<p>然后从新执行一下 hadoop namenode -format</p>
+<p>再使用start-dfs.sh和start-yarn.sh 重启一下hadoop</p>
+<p>用jps命令看一下就可以看见datanode已经启动了</p>
+<p>暴力解决方法:</p>
+<p>删除掉各个节点上面的tmp(可能与我设置的路径和文件不同,对应你自己在hdfs-site.xml中设置的dfs.name.dir路径就好了),然后格式化集群,最后重启集群,搞定。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wechat.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">yilia</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+  <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+  <p>扫一扫，分享到微信</p>
+  <div class="wx-qrcode">
+    <img src="http://qr.liantu.com/api.php?text=http://sweets.ml/2018/10/28/hadoop-spark-conf/" alt="微信分享二维码">
+  </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/10/22/reflections-on-management/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">reflections-on-management</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -237,9 +423,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: false,
