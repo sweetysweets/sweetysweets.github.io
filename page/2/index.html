@@ -159,6 +159,276 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-deep-forest" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/28/deep-forest/">《Deep Forest：Towards an Alternative to Deep Neural Networks》学习笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2018/10/28/deep-forest/" class="archive-article-date">
+  	<time datetime="2018-10-28T13:42:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>在本文中，我们提出了gcForest，一种决策树集成方法，其性能在广泛的任务中对深度神经网络具有高度的竞争性。与需要在超参数调整方面付出巨大努力的深度神经网络相比，gcFor est更容易训练;即使它在我们的实验中应用于不同域的不同数据，也可以通过几乎相同的超参数设置实现出色的性能。 gcForest的培训过程是高效的，用户可以根据可用的计算资源控制培训成本。效率可以进一步提高，因为gcForest自然易于并行实现。此外，与需要大规模训练数据的深度神经网络相比，即使只有小规模的训练数据，gcForest也能很好地工作。</p>
+<h3 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1 介绍"></a>1 介绍</h3><p>近年来，深度神经网络在各种应用中取得了巨大成功，特别是在涉及视觉和语音信息的任务中[Krizhenvsky等，2012; Hinton等，2012]，导致了深度学习的热潮[Goodfellow et al。，2016]。</p>
+<p>虽然深度神经网络功能强大，但它们存在一些不足之处。首先，众所周知，训练通常需要大量的训练数据，禁止深度神经网络直接应用于具有小规模数据的任务。请注意，即使在大数据时代，由于标记的高成本，许多实际任务仍然缺少足够数量的标记数据，导致深度神经网络在这些任务中的性能较差。其次，深度神经网络是非常复杂的模型，培训过程通常需要强大的计算能力，阻碍大公司以外的个人能够充分开发学习能力。更重要的是，深度神经网络具有太多的超参数，并且学习性能严重依赖于仔细调整它们。例如，即使有几位作者都使用卷积神经网络[LeCun et al。，1998; Krizhenvsky等，2012; Simonyan和Zisserman，2014]，他们实际上使用了不同的学习模型，因为卷积层结构有很多不同的选择。这一事实不仅使深度神经网络的训练非常棘手，更像是一门艺术而非科学/工程，而且深度神经网络的理论分析极其困难，因为太多干扰因素与几乎无限的配置组合。</p>
+<p>人们普遍认为，表征学习能力（representation learning）对于深度神经网络至关重要。同样值得注意的是，要利用大量的训练数据，学习模型的能力应该很大;这部分解释了为什么深度神经网络非常复杂，比支持向量机等普通学习模型复杂得多。我们推测，如果我们能够将这些属性赋予其他一些合适形式的学习模型，我们可能能够实现与深度神经网络竞争的性能，但在上述缺陷上更少。</p>
+<p>在本文中，我们提出了一种新的决策树集成方法gcForest（multi-Grained Cascade Forest）。该方法生成一个深度森林集合，具有级联结构，使gcForest能够进行<a href="https://zh.wikipedia.org/zh-hans/%E8%A1%A8%E5%BE%81%E5%AD%A6%E4%B9%A0" target="_blank" rel="noopener">表征学习</a>。当输入具有高维度时，可以通过多粒度扫描进一步增强其表征学习能力，从而可能使gcForest具有上下文或结构感知能力。可以自适应地确定级联级别的数量，使得可以自动设置模型复杂度，使得gcForest即使在小规模数据上也能够出色地执行。此外，用户可以根据可用的计算资源控制训练成本。 gcForest的超参数比深度神经网络少得多;更好的消息是，它的性能对于超参数设置非常强大，因此在大多数情况下，即使是来自不同域的不同数据，也可以通过使用默认设置获得出色的性能。这不仅使gcForest的训练变得方便，而且理论分析虽然超出了本文的范围，但可能比深度神经网络更容易（不用说树学习者通常比神经网络更容易分析）。在我们的实验中，gcForest相比深度神经网络实现了极具竞争力的性能，而gcForest的训练时间成本小于深度神经网络的训练时间成本。</p>
+<p>我们认为，为了解决复杂的学习任务，学习模型可能不得不深入（deep）。 然而，当前的深度模型总是神经网络，可以通过反向传播训练的多层参数化可微分非线性模块。 有趣的是考虑是否可以通过其他模块实现深度学习，因为它们有自己的优势，并且如果能够深入可能展现出巨大的潜力。 本文致力于解决这一基本问题，并阐述如何建设深度森林; 这可能为许多任务的深层神经网络的替代打开了一扇大门。</p>
+<p>在接下来的部分中，我们将介绍gcForest并报告实验，然后是相关的工作和结论。</p>
+<blockquote>
+<p>图1：梯级森林结构的图示。假设级联的每个级别由两个随机森林（黑色）和两个完全随机的树林（蓝色）组成。 假设有三个类可以预测; 因此，每个森林将输出一个三维类向量，然后将其连接起来以重新表示原始输入。</p>
+</blockquote>
+<blockquote>
+<p>图2：类向量生成的图示。叶节点中的不同标记意味着不同的类。</p>
+</blockquote>
+<blockquote>
+<p>图3：使用滑动窗口扫描的特征重新表示的图示。 假设有三个类，原始特征是400-dim，滑动窗口是100-dim。</p>
+</blockquote>
+<blockquote>
+<p>图4：gcForest的整个过程。 假设有三个类要预测，原始特征是400维，使用了三种滑动窗口的尺寸</p>
+</blockquote>
+<h3 id="2-拟议方法"><a href="#2-拟议方法" class="headerlink" title="2 拟议方法"></a>2 拟议方法</h3><p>在本节中，我们将首先介绍级联森林结构，然后是多粒度扫描，然后是整体架构和超参数的注释。</p>
+<h5 id="2-1级联森林结构-Cascade-Forest"><a href="#2-1级联森林结构-Cascade-Forest" class="headerlink" title="2.1级联森林结构(Cascade Forest)"></a>2.1级联森林结构(Cascade Forest)</h5><p>深度神经网络中的表征学习主要依赖于原始特征的逐层处理。受到这种认可机制的启发，gcForest采用级联结构，如图1所示，其中每级级联接收由其前一级处理的特征信息，并将其处理结果输出到下一级。</p>
+<p>每个级别都是决策树森林的集合，即对一些集成的集成。在这里，我们包括不同类型的森林以鼓励多样性，众所周知，多样性对于整体建设至关重要[周，2012]。 为简单起见，假设我们使用两个完全随机的树森林（tree forests）和两个随机森林[Breiman，2001]。每个完全随机的树林包含500个完全随机的树[Liu et al。，2008]，通过随机选择一个特征生成 在树的每个节点分裂，并且不断增长树，直到每个叶节点只包含相同类的实例。 同样，每个随机森林包含500棵树，通过随机选择√d个特征作为候选（d是输入特征的数量）并选择一个分裂的最佳基尼值<a href="https://zh.wikipedia.org/zh/%E5%9F%BA%E5%B0%BC%E7%B3%BB%E6%95%B0" target="_blank" rel="noopener">基尼系数</a>。每个森林中树的数量是一个超参数，将在2.3节中讨论。</p>
+<p>给定一个实例，每个森林将通过计算有关实例落在的叶节点上不同类别的训练样例的百分比，然后对同一森林中的所有树进行平均，来生成类分布的估计，如图所示图2，其中红色高亮显示实例遍历(traverses to )叶子节点的路径。</p>
+<p>估计的类分布形成一个类向量，然后将其与原始特征向量连接起来，以便输入到下一级联。例如，假设有三个类，那么四个森林中的每一个都将产生一个三维类向量;因此，下一级级联将获得12（= 3×4）个增强特征。</p>
+<p>为了降低过拟合的风险，每个森林产生的类向量通过<code>k-fold交叉验证</code>生成。详细地说，每个实例将用作训练数据k-1次，产生k-1类向量，然后将其平均以产生最终类向量作为下一级级联的增强特征。在扩展新级别之后，将在验证集上估计整个级联的性能，并且如果没有显着的性能增益，则训练过程将终止;因此，自动确定级联<code>级别</code>的数量。与模型复杂性固定的大多数深度神经网络相比，gcForest通过在适当时终止训练来自适应地决定其模型复杂性。这使其能够适用于不同规模的训练数据，而不仅限于大规模训练数据。</p>
+<blockquote>
+<p><em>K</em>-fold cross-validation</p>
+<p>K次交叉验证，将训练集分割成K个子样本，一个单独的子样本被保留作为验证模型的数据，其他K-1个样本用来训练。交叉验证重复K次，每个子样本验证一次，平均K次的结果或者使用其它结合方式，最终得到一个单一估测。这个方法的优势在于，同时重复运用随机产生的子样本进行训练和验证，每次的结果验证一次，10次交叉验证是最常用的。</p>
+</blockquote>
+<h5 id="2-2多粒度扫描"><a href="#2-2多粒度扫描" class="headerlink" title="2.2多粒度扫描"></a>2.2多粒度扫描</h5><p>深度神经网络在处理特征关系方面具有强大的功能，例如，卷积神经网络(CNN)对图像数据有效，其中原始像素之间的空间关系是关键的[LeCun et al。，1998; Krizhenvsky等，2012];<a href="https://zh.wikipedia.org/wiki/%E9%80%92%E5%BD%92%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C" target="_blank" rel="noopener">递归神经网络</a>(RNN)对序列数据有效，其中序列关系是关键的[Graves et al。，2013; Cho等，2014]。受到这种认识的启发，我们通过多粒度扫描程序增强了几连森林。</p>
+<p>如图3所示，滑动窗口用于扫描原始特征。假设有400个原始特征，并且使用了100个特征的窗口大小。对于序列数据，将通过滑动一个特征的窗口来生成100维特征向量;总共产生301个特征向量。如果原始特征具有空间关系，比如图像像素为400的20×20的面板，则一个10×10窗口将产生121个特征向量（即121个10×10的面板）。从正/负训练样例中提取的所有特征向量被视为正/负实例；它们将被用于生成类向量，如第2.1节：从相同大小的窗口提取的实例将用于训练完全随机树森林和随机森林，然后生成类向量并连接为变换特征。如图3所示，假设有3个类，并使用100维窗口;然后，每个森林产生301个三维类向量，导致对应于原始400维原始特征向量出现了1,806维变换特征向量。请注意，当转换的特征向量太长而无法容纳时，可以执行特征采样，例如，通过对滑动窗口扫描生成的实例进行子采样，因为完全随机树不依赖于特征分割选择，而随机森林对不准确的特征分割选择非常不敏感。</p>
+<p>图3仅显示了一种尺寸的滑动窗口。 通过使用多个尺寸的滑动窗口，将生成不同粒度的特征向量，如图4所示。</p>
+<h5 id="2-3总体程序和超参数"><a href="#2-3总体程序和超参数" class="headerlink" title="2.3总体程序和超参数"></a>2.3总体程序和超参数</h5><p>图4总结了gcForest的整个过程。假设原始输入具有400个原始特征，并且三个窗口大小用于多粒度扫描。对于m个训练示例，具有100个特征的窗口将生成301×m个100维训练示例的数据集。这些数据将用于训练一个完全随机的树林和一个随机森林，每个森林包含500棵树。如果要预测三个类，将获得如第2.1节中所述的1,806维特征向量。然后，转换后的训练集将用于训练一级级联森林。</p>
+<p>类似地，尺寸为200和300个特征的滑动窗口将分别为每个原始训练示例生成1,206维和606维特征向量。利用前一等级生成的类向量进行增强的变换特征向量将分别用于训练二级和三级级联森林。将重复此过程，直到验证性能收敛。换句话说，最终模型实际上是级联森林的级联，其中级联中的每个级别由多个级别（级联森林）组成，每个级别对应于单粒度扫描，如图4所示。注意，对于困难的任务如果计算资源允许，用户可以尝试多粒度。</p>
+<p>给定一个测试实例，它将通过多粒度扫描程序获得其相应的转换特征表示，然后通过级联直到最后一级。 最终预测将通过在最后一级聚合四个三维类向量，并使用具有最大聚合值的类来获得。</p>
+<p>表1总结了深度神经网络和gcForest的超参数，其中给出了我们实验中使用的默认值。</p>
+<blockquote>
+<p>表1：超参数和默认设置的摘要。 粗体突出了具有相对较大影响的超参数; “？”表示默认值未知，或通常需要针对不同任务的不同设置。</p>
+</blockquote>
+<h3 id="3-实验"><a href="#3-实验" class="headerlink" title="3 实验"></a>3 实验</h3><h5 id="3-1配置"><a href="#3-1配置" class="headerlink" title="3.1配置"></a>3.1配置</h5><p>在本节中，我们将gcForest与深度神经网络和其他几种流行的学习算法进行比较。目标是验证gcForest可以实现与深度神经网络高度竞争的性能，甚至可以在各种任务中更轻松地进行参数调整。因此，在所有实验中，gcForest使用相同的级联结构：每个级别由4个完全随机的树森林和4个随机森林组成，每个森林包含500棵树，如第2.1节所述。三折交叉验证用于类向量生成。级联级别的数量是自动确定的。详细地说，我们将训练集分为两部分，即增长集和估计集（一些实验数据集与训练/验证集一起给出。 为避免混淆，我们将训练集生成的子集称为增长/估计集。）;然后我们使用增长集用于构建级联森林，并使用估计集来估计性能。如果增加新极联不会改善性能，则级联的增长终止并且获得估计的级别数。然后，基于合并增长和估计集来重新训练级联。对于所有实验，我们将80％的训练数据用于增长集，20％用于估计集。对于多粒度扫描，使用三种窗口大小。对于d（指特征维度）原始特征，我们使用尺寸为⌊d/16⌋，⌊d/8⌋，⌊d/4⌋的特征窗口;如果原始特征是面板结构（例如图像），则特征窗口也具有面板结构，如图3所示。注意，仔细的特定任务的调整可能可以带来更好的性能;尽管如此，我们发现即使使用相同的参数设置而不进行微调，gcForest也能够在广泛的任务中实现出色的性能。</p>
+<p>对于深度神经网络配置，我们使用ReLU作为激活函数，使用交叉熵进行损失函数，adadelta用于优化，根据训练数据的规模，隐藏层的丢失率为0.25或0.5。 然而，网络结构超参数无法在任务中修复，否则性能将令人尴尬地令人不满意。 例如，网络在ADULT数据集上达到80％的准确度，在具有相同架构的YEAST上仅获得30％的准确度（仅改变输入/输出节点的数量以适应数据）。 因此，对于深度神经网络，我们检查验证集上的各种体系结构，并选择具有最佳性能的体系结构，然后在训练集上重新训练整个网络并报告测试准确性。</p>
+<h5 id="3-2结果"><a href="#3-2结果" class="headerlink" title="3.2结果"></a>3.2结果</h5><h6 id="图像分类"><a href="#图像分类" class="headerlink" title="图像分类"></a>图像分类</h6><p>MNIST数据集[LeCun等，1998]包含60,000个大小为28乘28的图像用于训练（和验证），以及10,000个图像用于测试。我们将其与LeNet-5（具有丢失和Re-LU的LeNet的现代版本），具有rbf内核的SVM以及具有2,000棵树的标准随机森林的重新实现进行比较。我们还包括[Hinton等，2006]中报道的深入网络的结果。测试结果表明，gcForest虽然只是使用表1中的默认设置，但却实现了极具竞争力的性能。<br>表2：MNIST测试精度的比较<br>人脸识别<br>ORL数据集[Samaria和Harter，1994]包含400个来自40个人的400张灰度面部图像。我们将它与由2个转换层组成的CNN进行比较，其中32个特征映射为3×3内核，每个转换层后面都有一个2×2的最大合并层。一层128个隐藏单元的密集层与卷积层完全连接，最后</p>
+<h3 id="5-结论"><a href="#5-结论" class="headerlink" title="5 结论"></a>5 结论</h3><p>通过认识到深度学习的关键在于表征学习和大型模型能力，本文试图将这些属性赋予树集合并提出gcForest方法。 与深度神经网络相比，gcForest在实验中实现了极具竞争力的性能。 更重要的是，gcForest具有更少的超参数，在我们的实验中，通过使用相同的参数设置，可以在各个域中获得出色的性能。 gcForest的<a href="http://lamda.nju.edu.cn/code_gcForest.ashx" target="_blank" rel="noopener">代码</a>。</p>
+<p>建造深度森林还有其他可能性。 作为一项开创性的研究，我们只是朝这个方向探讨了一点。 为了解决复杂的任务，学习模型可能需要深入研究。 然而，当前的深度模型总是神经网络。 本文阐述了如何构建深度森林，我们相信它可能为许多任务的深层神经网络的替代打开了一扇大门。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">集成学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/10/28/deep-forest/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-hadoop-spark-conf" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/28/hadoop-spark-conf/">云主机centos下配置hadoop+spark集群全记录</a>
+    </h1>
+  
+
+        
+        <a href="/2018/10/28/hadoop-spark-conf/" class="archive-article-date">
+  	<time datetime="2018-10-28T02:43:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>先放图= = 踩了无数坑终于特喵搞好了！</p>
+<p><img src="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/%E7%BB%88%E4%BA%8E%E5%A6%A5%E4%BA%86.png" alt=""></p>
+<p>下面记录一下全过程</p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>我买的是阿里云的轻量应用服务器，学生认证后9.5¥/月，三台服务器均安装centos系统</p>
+<p>master：公网ip 139.196.75.247 内网ip 172.16.47.126<br>Slave01:公网ip 47.107.112.152 内网ip 172.16.17.40<br>slave02:公网ip 120.77.80.108 内网ip 172.16.20.154<br>以上全是centos 7.2 </p>
+<p>在此基础上搭建java1.8+hadoop2.7+scala2.11.12+spark2.3.2集群</p>
+<h3 id="安装java"><a href="#安装java" class="headerlink" title="安装java"></a>安装java</h3><p>yum install java-1.8.0-openjdk java-1.8.0-openjdk-devel //此时所有的机器的java都安装在同一个地方</p>
+<p>//所有的机器修改/etc/profile文件增加JAVA_HOME环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
+<p>增加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/lib/jvm/java-openjdk</span><br></pre></td></tr></table></figure>
+<h3 id="配置hostname"><a href="#配置hostname" class="headerlink" title="配置hostname"></a>配置hostname</h3><p>在3台机器上分别执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//主服务器</span><br><span class="line">vim /etc/sysconfig/network</span><br><span class="line">添加一行</span><br><span class="line">hostname=master</span><br><span class="line">:wq</span><br><span class="line">//执行命令</span><br><span class="line">hostname master</span><br><span class="line">exit</span><br><span class="line">重新ssh登进</span><br><span class="line"></span><br><span class="line">//slave01</span><br><span class="line">vim /etc/sysconfig/network</span><br><span class="line"></span><br><span class="line">hostname=slave01</span><br><span class="line">:wq</span><br><span class="line">hostname slave01</span><br><span class="line">exit</span><br><span class="line">重新ssh登进</span><br><span class="line"></span><br><span class="line">//slave02</span><br><span class="line">vim /etc/sysconfig/network</span><br><span class="line"></span><br><span class="line">hostname=slave02</span><br><span class="line">:wq</span><br><span class="line">hostname slave02</span><br><span class="line">exit</span><br><span class="line">重新ssh登进</span><br></pre></td></tr></table></figure>
+<h3 id="配置hosts文件"><a href="#配置hosts文件" class="headerlink" title="配置hosts文件"></a>配置hosts文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/hosts</span><br><span class="line"></span><br><span class="line">//主服务器添加如下信息</span><br><span class="line">172.16.47.126 master</span><br><span class="line">47.107.112.152 slave01</span><br><span class="line">120.77.80.108 slave02</span><br><span class="line">//slave01</span><br><span class="line">172.16.17.40 slave01</span><br><span class="line">139.196.75.247 master</span><br><span class="line">120.77.80.108 slave02</span><br><span class="line">//slave02</span><br><span class="line">172.16.20.154 slave02</span><br><span class="line">139.196.75.247 master</span><br><span class="line">47.107.112.152 slave01</span><br><span class="line"></span><br><span class="line">注意:本机的hostname与内网ip对应</span><br><span class="line">其他的hostname与外网ip对应</span><br><span class="line">然后依次ping master,ping slave1</span><br></pre></td></tr></table></figure>
+<h3 id="增加hadoop用户"><a href="#增加hadoop用户" class="headerlink" title="增加hadoop用户"></a>增加hadoop用户</h3><p>可有可无，嫌麻烦的直接在root下执行即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">在各台机器上执行</span><br><span class="line">useradd hadoop</span><br><span class="line">passwd hadoop </span><br><span class="line">//这里会提醒hadoop密码不够安全，不要管，继续输入hadoop密码即可</span><br><span class="line"></span><br><span class="line">//这里是设置权限，让hadoop有root的权限</span><br><span class="line">vim /etc/sudoers</span><br><span class="line">在root下面复制一行，将root改为hadoop</span><br><span class="line">hadoop ALL=(ALL) ALL </span><br><span class="line"></span><br><span class="line">//配置完别忘了让其生效</span><br><span class="line">source /etc/sudoers</span><br></pre></td></tr></table></figure>
+<h3 id="配置ssh免登陆"><a href="#配置ssh免登陆" class="headerlink" title="配置ssh免登陆"></a>配置ssh免登陆</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">3台服务器上都执行</span><br><span class="line">ssh-keygen</span><br><span class="line">然后一直回车</span><br><span class="line">主服务器上执行：</span><br><span class="line"> ssh-copy-id hadoop@slave01</span><br><span class="line"> ssh-copy-id hadoop@slave02</span><br><span class="line">从服务器上执行:</span><br><span class="line"> ssh-copy-id hadoop@master</span><br><span class="line"> ssh-copy-id hadoop@slave02</span><br><span class="line"> </span><br><span class="line">//这一步需要输入密码</span><br><span class="line">//如果你使用root用户配置，那就是 ssh-copy-id root@slave02</span><br></pre></td></tr></table></figure>
+<h3 id="关闭各机器防火墙"><a href="#关闭各机器防火墙" class="headerlink" title="关闭各机器防火墙"></a>关闭各机器防火墙</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">systemctl start firewalld</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=50070/tcp  //namenode web端口</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=50070/udp</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=9000/tcp   //namenode rpc端口</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=9000/udp</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=50010/udp  //datanode rpc端口</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=50010/udp</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=50075/udp  //下载文件端口</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=50075/udp</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=8031/tcp   //nodemanager rpc端口</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=8031/udp</span><br><span class="line">firewall-cmd --reload </span><br><span class="line">以上所有端口在namenode和datanode均全部开启</span><br><span class="line">需要什么端口可以自行开放</span><br><span class="line"></span><br><span class="line">******推荐一种暴力方法*********</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=10-50100/tcp </span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=10-50100/udp </span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<h3 id="安装hadoop"><a href="#安装hadoop" class="headerlink" title="安装hadoop"></a>安装hadoop</h3><p>首先我在自己电脑上下载了<a href="https://archive.apache.org/dist/hadoop/core/hadoop-2.7.7/" target="_blank" rel="noopener">hadoop-2.7.7</a>的压缩文件，用filezilla传到服务器的某个文件夹下，也可以scp或者直接在服务器上下载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">su hadoop  //如果root用户，不需要切换hadoop</span><br><span class="line"></span><br><span class="line">cd /home/hadoop</span><br><span class="line">tar xvf hadoop-2.7.7.tar.gz //将hadoop解压到hadoop-2.7.7文件夹下</span><br></pre></td></tr></table></figure>
+<h3 id="配置hadoop"><a href="#配置hadoop" class="headerlink" title="配置hadoop"></a>配置hadoop</h3><p>hadoop的配置文件在hadoop目录下/etc/hadoop文件夹下</p>
+<p>先<code>cd /etc/hadoop</code>,然后配置各文件</p>
+<h5 id="hadoop-env-sh"><a href="#hadoop-env-sh" class="headerlink" title="hadoop-env.sh"></a>hadoop-env.sh</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim hadoop-env.sh</span><br><span class="line">将JAVA_HOME修改为本机的JAVA_HOME</span><br><span class="line">JAVA_HOME=/usr/lib/jvm/java-openjdk</span><br></pre></td></tr></table></figure>
+<h5 id="core-site-xml"><a href="#core-site-xml" class="headerlink" title="core-site.xml"></a>core-site.xml</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">vim core-site.xml</span><br><span class="line"></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line"> 		&lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;hdfs://master:9000/&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line"> 		&lt;name&gt;io.file.buffer.size&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;131072&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;/home/hadoop/hadoop-2.7.7/tmp&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="hdfs-site-xml"><a href="#hdfs-site-xml" class="headerlink" title="hdfs-site.xml"></a>hdfs-site.xml</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">vim hdfs-site.xml</span><br><span class="line"></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;master:50090&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;file:///home/hadoop/hadoop-2.7.7/hdfs/namenode&lt;/value&gt;</span><br><span class="line">		&lt;description&gt;NameNode directory for namespace and transaction logs storage.&lt;/description&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;file:///home/hadoop/hadoop-2.7.7/hdfs/datanode&lt;/value&gt;</span><br><span class="line">		&lt;description&gt;DataNode directory&lt;/description&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;2&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="mapred-site-xml"><a href="#mapred-site-xml" class="headerlink" title="mapred-site.xml"></a>mapred-site.xml</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//这里可能没有mapred-site.xml文件，需要以下操作</span><br><span class="line">cp mapred-site.xml.template mapred-site.xml</span><br><span class="line">vim mapred-site.html</span><br><span class="line">//添加如下信息</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line"> 	&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">  	&lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">          &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;</span><br><span class="line">          &lt;value&gt;master:10020&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">          &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;</span><br><span class="line">          &lt;value&gt;master:19888&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="yarn-site-xml"><a href="#yarn-site-xml" class="headerlink" title="yarn-site.xml"></a>yarn-site.xml</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">vim yarn-site.xml</span><br><span class="line">//如果没有这个文件，看看有没有template，若没有，新建一个也可</span><br><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line"> 	&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">  	&lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">          &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;</span><br><span class="line">          &lt;value&gt;master:10020&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">          &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;</span><br><span class="line">          &lt;value&gt;master:19888&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="分发"><a href="#分发" class="headerlink" title="分发"></a>分发</h3><p>将hadoop打包发送到两台slave主机，过程较慢，要有耐心</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -zcvf hadoop-2.7.7.tar.gz hadoop-2.7.7/</span><br><span class="line">scp -r hadoop-2.7.7.tar.gz hadoop@slave01:/home/hadoop/hadoop-2.7.7</span><br><span class="line">scp -r hadoop-2.7.7.tar.gz hadoop@slave02:/home/hadoop/hadoop-2.7.7</span><br></pre></td></tr></table></figure>
+<h3 id="配置master节点并启动"><a href="#配置master节点并启动" class="headerlink" title="配置master节点并启动"></a>配置master节点并启动</h3><h5 id="slaves配置"><a href="#slaves配置" class="headerlink" title="slaves配置"></a>slaves配置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/hadoop/</span><br><span class="line">vim slaves</span><br><span class="line">然后在namenode上，（仅在namenode上修改slaves文件） </span><br><span class="line">vim slaves (slaves文件在hadoop/etc目录中) </span><br><span class="line">slaves文件内容： </span><br><span class="line">slave1 </span><br><span class="line">slave2</span><br></pre></td></tr></table></figure>
+<h5 id="格式化hdfs"><a href="#格式化hdfs" class="headerlink" title="格式化hdfs"></a>格式化hdfs</h5><p>//进入hadoop文件夹，执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hadoop namenode -format</span><br><span class="line"></span><br><span class="line">//如果执行不了，请添加hadoop的环境变量,参见[文章尾部](#参考)</span><br><span class="line">//注意执行一次就可以了。。多执行会出错。。</span><br></pre></td></tr></table></figure>
+<p>执行截图：</p>
+<p><img src="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/format.png" alt=""></p>
+<h5 id="启动hadoop"><a href="#启动hadoop" class="headerlink" title="启动hadoop"></a>启动hadoop</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//进入hadoop文件夹，执行</span><br><span class="line">sbin/start-dfs.sh </span><br><span class="line">sbin/start-yarn.sh </span><br><span class="line">//或者下面的命令</span><br><span class="line">sbin/start-all.sh</span><br></pre></td></tr></table></figure>
+<p>到此我们的hadoop集群就搭建好了，查看是否运行成功使用<code>jps</code>命令</p>
+<p><img src="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/jps.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/jps2.png" alt=""></p>
+<h3 id="动态扩容"><a href="#动态扩容" class="headerlink" title="动态扩容"></a>动态扩容</h3><p>直接scp一份到一个服务器，起一个datanode即可 ,非常方便</p>
+<h3 id="安装scala"><a href="#安装scala" class="headerlink" title="安装scala"></a>安装scala</h3><p>我下载了<a href="https://www.scala-lang.org/download/2.11.12.html" target="_blank" rel="noopener">Scala 2.11.12</a></p>
+<p>使用filezilla或scp传到服务器上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">首先建立scala存放目录</span><br><span class="line">mkdir /usr/local/scala </span><br><span class="line">然后释放scala并安装至指定目录</span><br><span class="line">tar -xvzf scala-2.11.12.tgz &amp;&amp; mv scala-2.11.12 /usr/local/scala/</span><br></pre></td></tr></table></figure>
+<h5 id="配置scala环境变量"><a href="#配置scala环境变量" class="headerlink" title="配置scala环境变量"></a>配置scala环境变量</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line">在PATH后追加scala的二进制位置，</span><br><span class="line">这里是： :/usr/local/scala/scala-2.11.8/bin </span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+<h5 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala -version</span><br><span class="line">//输出版本信息则ok</span><br></pre></td></tr></table></figure>
+<p>我的输出如下：</p>
+<p><img src="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/scala.png" alt=""></p>
+<blockquote>
+<p>ps</p>
+<p>安装scala需要java1.8环境，一般使用sun的jdk1.8，我装的openjdk没有release文件夹，但不影响后续操作</p>
+</blockquote>
+<h3 id="安装spark"><a href="#安装spark" class="headerlink" title="安装spark"></a>安装spark</h3><p>我下载了 <a href="https://www.apache.org/dyn/closer.lua/spark/spark-2.3.2/spark-2.3.2-bin-hadoop2.7.tgz" target="_blank" rel="noopener">spark-2.3.2-bin-hadoop2.7.tgz</a></p>
+<p>使用filezilla或scp传到服务器上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar xvf spark-2.3.2-bin-hadoop2.7.tgz</span><br><span class="line"></span><br><span class="line">//名字太长了重命名一下</span><br><span class="line">mv spark-2.3.2-bin-hadoop2.7.tgz spark</span><br></pre></td></tr></table></figure>
+<h3 id="配置spark"><a href="#配置spark" class="headerlink" title="配置spark"></a>配置spark</h3><p>spark的配置文件存放在spark安装目录下的conf文件夹，三台机子的配置一摸一样，可以直接配好了scp过去（推荐filezilla，贼快）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /conf</span><br><span class="line">//spark配置文件需要自己从template复制</span><br></pre></td></tr></table></figure>
+<h5 id="spark-env-sh"><a href="#spark-env-sh" class="headerlink" title="spark-env.sh"></a>spark-env.sh</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">cp spark-env.sh.template spark-env.sh</span><br><span class="line">vim spark-env.sh</span><br><span class="line"></span><br><span class="line">//请将环境变量设为自己的目录</span><br><span class="line">export SCALA_HOME=/usr/local/scala/scala-2.11.12</span><br><span class="line">export JAVA_HOME=/usr/lib/jvm/java-openjdk</span><br><span class="line">export SPARK_MASTER_HOST=master</span><br><span class="line">export SPARK_MASTER_PORT=7077</span><br><span class="line">export SPARK_WORKER_MEMORY=500m</span><br><span class="line">export SPARK_EXECUTOR_MEMORY=100m</span><br><span class="line">export SPARK_DRIVER_MEMORY=100m</span><br><span class="line">export HADOOP_CONF_DIR=/home/hadoop/hadoop-2.7.7/etc/hadoop</span><br><span class="line">export PYSPARK_PYTHON=/usr/bin/python3</span><br><span class="line">export PYSPARK_DRIVER_PYTHON=/usr/bin/python3</span><br></pre></td></tr></table></figure>
+<h5 id="slaves"><a href="#slaves" class="headerlink" title="slaves"></a>slaves</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cp slaves.template slaves</span><br><span class="line">vim slaves</span><br><span class="line"></span><br><span class="line">//添加</span><br><span class="line">master</span><br><span class="line">slave01</span><br><span class="line">slave02</span><br></pre></td></tr></table></figure>
+<h3 id="分发-1"><a href="#分发-1" class="headerlink" title="分发"></a>分发</h3><p>将配好的spark打包发给slave01和slave02，参见hadoop的分发</p>
+<h3 id="启动spark"><a href="#启动spark" class="headerlink" title="启动spark"></a>启动spark</h3><p>进入spark安装目录，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sbin/start-all.sh</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/spark-start.png" alt=""></p>
+<p>可以在7077端口查看spark信息</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>环境变量文件一共添加的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export HADOOP_HOME=/home/hadoop/hadoop-2.7.7</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin:/usr/local/scala/scala-2.11.12/bin</span><br><span class="line">export JAVA_HOME=/usr/lib/jvm/java-openjdk</span><br></pre></td></tr></table></figure>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>太坑啦，本来想本地主机配，局域网环境不好设置，mac和windows又有ssh的问题，虚拟机还有配置网络等等一系列乱七八糟的问题，最后用云主机踩的坑比较少，不过还是遇到一些问题，记录一下</p>
+<blockquote>
+<p> ps.  hadoop启动问题可以查看hadoop安装目录下的logs中的log文件看看报了什么错再搜索解决。</p>
+</blockquote>
+<h5 id="There-are-0-datanode-s-running-and-no-node-s-are-excluded-in-this-operation"><a href="#There-are-0-datanode-s-running-and-no-node-s-are-excluded-in-this-operation" class="headerlink" title="There are 0 datanode(s) running and no node(s) are excluded in this operation."></a>There are 0 datanode(s) running and no node(s) are excluded in this operation.</h5><p>出现上述问题可能是格式化两次hadoop，导致datanode和namenode的id号不同</p>
+<p>解决方法1：重启linux,再使用start-dfs.sh和start-yarn.sh 重启一下hadoop</p>
+<p>解决办法2：找到hadoop安装目录下 hadoop-2.7.7/hdfs/namenode里面的current文件夹删除</p>
+<p>然后从新执行一下 hadoop namenode -format</p>
+<p>再使用start-dfs.sh和start-yarn.sh 重启一下hadoop</p>
+<p>用jps命令看一下就可以看见datanode已经启动了</p>
+<p>暴力解决方法:</p>
+<p>删除掉各个节点上面的tmp(可能与我设置的路径和文件不同,对应你自己在hdfs-site.xml中设置的dfs.name.dir路径就好了),然后格式化集群,最后重启集群,搞定。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/10/28/hadoop-spark-conf/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-reflections-on-management" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1225,7 +1495,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">android</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1234,6 +1508,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1246,10 +1528,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
               </li>
              
               <li class="article-tag-list-item">
