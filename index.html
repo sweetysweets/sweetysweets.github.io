@@ -180,27 +180,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="弹出键盘的时候Toolbar被拉伸或者移出屏幕的问题"><a href="#弹出键盘的时候Toolbar被拉伸或者移出屏幕的问题" class="headerlink" title="弹出键盘的时候Toolbar被拉伸或者移出屏幕的问题"></a>弹出键盘的时候Toolbar被拉伸或者移出屏幕的问题</h1><p>今天遇到了一个问题，如下图所示：</p>
-<p><img src="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/android-bug/test.gif" alt=""></p>
-<h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3><h4 id="fitsSystemWindow属性"><a href="#fitsSystemWindow属性" class="headerlink" title="fitsSystemWindow属性"></a>fitsSystemWindow属性</h4><p>根据官方对fitsSystemWindows属性<a href="https://link.jianshu.com?t=https://developer.android.com/reference/android/view/View.html#fitSystemWindows(android.graphics.Rect" target="_blank" rel="noopener">（链接）</a>)的描述，当View的fitsSystemWindows设置为true的时候，系统会自动为该View设置相应的padding以适应键盘、状态栏、导航栏等系统窗口，这就可以解释为什么给Toolbar设置fitsSystemWindows之后Toolbar会自动加上paddingTop以适应状态栏，如果没有加上fitsSystemWindows=true，Toolbar则会有部分被状态栏覆盖。</p>
-<h4 id="EditText问题分析"><a href="#EditText问题分析" class="headerlink" title="EditText问题分析"></a>EditText问题分析</h4><p>在其他页面上没有遇到这个问题，是因为这些页面没有需要自适应键盘窗口的问题，但这个页面由于edittext的存在，键盘会弹出，此时系统会为topbar设置相应的padding以适应键盘，导致这样的问题。</p>
-<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><h4 id="第一次尝试"><a href="#第一次尝试" class="headerlink" title="第一次尝试"></a>第一次尝试</h4><p>一开始的想法是删除fitsSystemWindow属性，手动设置topbar的高度，尝试无果，卒233</p>
-<p>原因： 我的topbar使用的是QMUI组件，无法支持自定义的高度设置，如果设置的高度不合适，会导致title和返回键的垂直位置非常奇怪=。=</p>
-<p>只能想其他的办法。。</p>
-<h4 id="第二次尝试"><a href="#第二次尝试" class="headerlink" title="第二次尝试"></a>第二次尝试</h4><p>想了一下，如果我不能先删除fitsSystemWindow属性，那么是不是可以在点击edittext的时候再设置fitsSystemWindow为false，这样就不会导致状态栏高度变化，也不会出现padding变高的情况。emmm，尝试了之后发现第一次点击还是会变高，但之后的点击是可以的！</p>
-<h4 id="第三次尝试"><a href="#第三次尝试" class="headerlink" title="第三次尝试"></a>第三次尝试</h4><p>后面又想，既然这样可以实现，我应该可以在activity加载完成后调用设置fitsSystemWindow为false的方法，应该就可以实现我的要求，后面查了一下activity的生命周期，看到onStart是在onCreate之后执行，所以尝试覆写了onStart方法，试图解决=。 =</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">    public void onStart() &#123;</span><br><span class="line">        super.onStart();</span><br><span class="line">        mTopBar.setFitsSystemWindows(false);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>emmmm，onStart虽然在activity加载完成后执行，但还是在显示之前执行的，所以并没有卵用。</p>
-<h4 id="最终"><a href="#最终" class="headerlink" title="最终"></a>最终</h4><p>后来尝试了onResume。。也不行。。然后意外的找到了这个方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void onWindowFocusChanged(boolean hasFocus) &#123;</span><br><span class="line">    // TODO Auto-generated method stub</span><br><span class="line">    super.onWindowFocusChanged(hasFocus);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Called when the current Window of the activity gains or loses focus.</p>
-<p>这个方法在一个Activity完全加载完毕后，会执行（也就是它获得焦点），感觉有戏，试了一下，果然可以！折腾我一下午终于搞定了&gt;.&lt;</p>
-<h4 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h4><p>添加代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">   public void onWindowFocusChanged(boolean hasFocus) &#123;</span><br><span class="line">       // TODO Auto-generated method stub</span><br><span class="line">       super.onWindowFocusChanged(hasFocus);</span><br><span class="line">       Log.e(TAG,String.valueOf(hasFocus));</span><br><span class="line">       if(hasFocus)&#123;</span><br><span class="line">           mTopBar.setFitsSystemWindows(false);</span><br><span class="line">       &#125;else&#123;</span><br><span class="line">           mTopBar.setFitsSystemWindows(true);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<p>结果截图：</p>
-<p><img src="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/android-bug/result.gif" alt=""></p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p> <a href="https://www.jianshu.com/p/1b22a1d2a7b8" target="_blank" rel="noopener">https://www.jianshu.com/p/1b22a1d2a7b8</a></p>
-<p><a href="https://blog.csdn.net/wangjia55/article/details/23268341" target="_blank" rel="noopener">https://blog.csdn.net/wangjia55/article/details/23268341</a></p>
-
+        
+          <a class="article-more-a" href="/2019/01/02/android-bug/#more">more >></a>
+        
       
 
       
@@ -1315,15 +1297,11 @@ return len - max +1;
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">软件工程管理</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1331,11 +1309,19 @@ return len - max +1;
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
+                <a href="javascript:void(0)" class="js-tag color2">软件工程管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1344,10 +1330,6 @@ return len - max +1;
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
