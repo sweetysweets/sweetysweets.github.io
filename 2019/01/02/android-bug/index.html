@@ -17,8 +17,8 @@
 <meta property="og:description" content="弹出键盘的时候Toolbar被拉伸或者移出屏幕的问题今天遇到了一个问题，如下图所示：">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/android-bug/test.gif">
-<meta property="og:image" content="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/android-bug/result.gif">
-<meta property="og:updated_time" content="2019-01-02T09:57:47.065Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/android-bug/%E4%BF%AE%E6%94%B9%E5%90%8E.gif">
+<meta property="og:updated_time" content="2019-01-03T01:23:23.568Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次坑爹的安卓调试经历&gt;.&lt;">
 <meta name="twitter:description" content="弹出键盘的时候Toolbar被拉伸或者移出屏幕的问题今天遇到了一个问题，如下图所示：">
@@ -201,7 +201,7 @@
 <h4 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h4><p>添加代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">   public void onWindowFocusChanged(boolean hasFocus) &#123;</span><br><span class="line">       // TODO Auto-generated method stub</span><br><span class="line">       super.onWindowFocusChanged(hasFocus);</span><br><span class="line">       Log.e(TAG,String.valueOf(hasFocus));</span><br><span class="line">       if(hasFocus)&#123;</span><br><span class="line">           mTopBar.setFitsSystemWindows(false);</span><br><span class="line">       &#125;else&#123;</span><br><span class="line">           mTopBar.setFitsSystemWindows(true);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p>结果截图：</p>
-<p><img src="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/android-bug/result.gif" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/android-bug/%E4%BF%AE%E6%94%B9%E5%90%8E.gif" alt=""></p>
 <h3 id="总结经验"><a href="#总结经验" class="headerlink" title="总结经验"></a>总结经验</h3><p>用开源控件要谨慎啊。。想要啥效果都不好改，限制太多，还不如自己定制。。虽然麻烦点，但是总归是可控的2333</p>
 <p>再也不看见好看的开源控件就恨不得全拿过用了=。 =</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p> <a href="https://www.jianshu.com/p/1b22a1d2a7b8" target="_blank" rel="noopener">https://www.jianshu.com/p/1b22a1d2a7b8</a></p>
@@ -453,11 +453,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color2">软件工程管理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -465,7 +465,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">软件工程管理</a>
+                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
               </li>
              
               <li class="article-tag-list-item">
