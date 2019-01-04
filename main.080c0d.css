@@ -561,6 +561,7 @@ html, body, #container {
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
+      -webkit-box-orient: vertical;
       -webkit-line-clamp: 2; }
     .left-col #header .header-menu {
       font-weight: 300;
