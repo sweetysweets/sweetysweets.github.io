@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>动态规划算法笔记 | 一只头秃程序猿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="动态规划算法问题描述从一列数中筛除尽可能少的数使得从左往右看，这些数是从小到大再从大到小的。 解题思路假设一个数组arr[n]，它的分段点是i（0-i递增，i到n-1递减），假设我们用方法LIS(i)（最长递增子序列）找到从0到i的递增子序列，LDS找到从i到n-1的最长递减子序列，那么它的总长度为LIS(i) + LDS(i) - 1，所以我们扫描整个数组，即让i从0到n-1，找出使LIS(i)">
+  <meta name="description" content="动态规划算法问题描述从一列数中筛除尽可能少的数使得从左往右看，这些数是从小到大再从大到小的。">
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="动态规划算法笔记">
 <meta property="og:url" content="http://yoursite.com/2018/12/15/algorithm-lis/index.html">
 <meta property="og:site_name" content="一只头秃程序猿">
-<meta property="og:description" content="动态规划算法问题描述从一列数中筛除尽可能少的数使得从左往右看，这些数是从小到大再从大到小的。 解题思路假设一个数组arr[n]，它的分段点是i（0-i递增，i到n-1递减），假设我们用方法LIS(i)（最长递增子序列）找到从0到i的递增子序列，LDS找到从i到n-1的最长递减子序列，那么它的总长度为LIS(i) + LDS(i) - 1，所以我们扫描整个数组，即让i从0到n-1，找出使LIS(i)">
+<meta property="og:description" content="动态规划算法问题描述从一列数中筛除尽可能少的数使得从左往右看，这些数是从小到大再从大到小的。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-15T01:32:05.953Z">
+<meta property="og:updated_time" content="2019-01-15T01:07:07.042Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态规划算法笔记">
-<meta name="twitter:description" content="动态规划算法问题描述从一列数中筛除尽可能少的数使得从左往右看，这些数是从小到大再从大到小的。 解题思路假设一个数组arr[n]，它的分段点是i（0-i递增，i到n-1递减），假设我们用方法LIS(i)（最长递增子序列）找到从0到i的递增子序列，LDS找到从i到n-1的最长递减子序列，那么它的总长度为LIS(i) + LDS(i) - 1，所以我们扫描整个数组，即让i从0到n-1，找出使LIS(i)">
+<meta name="twitter:description" content="动态规划算法问题描述从一列数中筛除尽可能少的数使得从左往右看，这些数是从小到大再从大到小的。">
   
     <link rel="alternative" href="/atom.xml" title="一只头秃程序猿" type="application/atom+xml">
   
@@ -184,6 +184,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="动态规划算法"><a href="#动态规划算法" class="headerlink" title="动态规划算法"></a>动态规划算法</h1><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>从一列数中筛除尽可能少的数使得从左往右看，这些数是从小到大再从大到小的。</p>
+ <a id="more"></a>
 <h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>假设一个数组arr[n]，它的分段点是i（0-i递增，i到n-1递减），假设我们用方法LIS(i)（最长递增子序列）找到从0到i的递增子序列，LDS找到从i到n-1的最长递减子序列，那么它的总长度为LIS(i) + LDS(i) - 1，所以我们扫描整个数组，即让i从0到n-1，找出使LIS(i) + LDS(i) - 1最大的即可。</p>
 <h4 id="预备知识–最长递增子序列的求解方法"><a href="#预备知识–最长递增子序列的求解方法" class="headerlink" title="预备知识–最长递增子序列的求解方法"></a>预备知识–最长递增子序列的求解方法</h4><p>以i结尾的序列的最长递增子序列和其[0, i - 1]“前缀”的最长递增子序列有关，设LIS[i]保存以i结尾的最长递增子序列的长度：<br>​    若i = 0，则LIS[i] = 1；<br>​    若i &gt; 0，则LIS[i]的值和其[0, i - 1]前缀的最长递增子序列长度有关，用j遍历[0, i - 1]得到其最长递增子序列为LIS[j]，对每一个LIS[j]，如果序列array[j]  &lt; array[i]并且LIS[j] + 1 &gt; LIS[i]，则LIS[i]的值变成LIS[j] + 1。即：<br>​    LIS[i] = max{1, LIS[j] + 1}，其中array[i] &gt; array[j] 且 j = [0, i - 1]。</p>
 <p>我们假设a[0]….a[i-1] 有一个最长递增子序列，其长度f(i-1)&lt;=i, 且该最长递增子序列的最后一个元素为b。</p>
@@ -192,7 +193,6 @@
 <p>​      事实上，并不需要怎么做。我们举个例子： a[]={1、2、5、3、7}</p>
 <p>​      a[0] … a[3] 的最大递增子序列有两个{1,2,5}和{1,2,3}，当增加a[4]的时候，如果a[4]&gt;5，则两个子序列都需要增加a[4]；如果a[4]&gt;3，则{1,2,3}+a[4]将必定成为新的最大子序列，而{1,2,5}不确定。因此我们看出，只要保存所有最大序列的最小的末尾元素即可。</p>
 <p>   代码如下所示。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>（2）二分查找+动态规划实现<br>​    假设存在一个序列d[1…9] = 2 1 5 3 6 4 8 9 7，可以看出它的LIS长度是5。<br>​    下面一步一步试着找到它。<br>​    我们定义一个序列B，然后令i = 1 to 9逐个考察这个序列。<br>​    此外，我们用一个变量len来记录现在的最长算到多少。<br>​    首先，把d[1]有序的放到B中，令B[1] = 2，就是说当只有一个数字2的时候，长度为1的LIS的最小末尾是2，这时len = 1；<br>​    然后，把d[2]有序的放到B中，令B[1] = 1，就是说长度为1的LIS的最小末尾是1，d[1] = 2已经没用了，很容易理解吧，这时len = 1；<br>​    接着，d[3] = 5，d[3] &gt; B[1]，所以令B[1 + 1] = B[2] = d[3] = 5，就是说长度为2的LIS的最小末尾是5，很容易理解吧，这时B[1…2] = 1, 5，len = 2；<br>​    再来，d[4] = 3，它正好在1,5之间，放在1的位置显然不合适，因为1小于3，长度为1的LIS最小末尾应该是1，这样很容易推知，长度为2的LIS最小末尾是3，于是可以把5淘汰掉，这时B[1…2] = 1,3，len = 2；<br>​    继续，d[5] = 6，它在3的后面，因为B[2] = 3，而6在3后面，于是很容易推知B[3] = 6，这时B[1…3] = 1,3,6，还是很容易理解吧？这时len = 3；<br>​    第6个，d[6] = 4，你看它在3和6之间，于是就可以把6替换掉，得到B[3] = 4。B[1…3] = 1,3,4，这时len = 3；<br>​    第7个，d[7] = 8，它很大，比4大，于是B[4] = 8，这时len = 4；<br>​    第8个，d[8] = 9，得到B[5] = 9，len继续增大，这时len = 5；<br>​    最后一个，d[9] = 7，它在B[3] = 4和B[4] = 8之间，所以我们知道，最新的B[4] = 7, B[1…5] = 1,3,4,7,9，len = 5。<br>​    于是我们知道了LIS的长度为5。<br>​    注意，注意。这个1,3,4,7,9不是LIS，它只是存储了对应长度LIS的最小末尾。有了这个末尾，我们就可以一个一个地插入数据。虽然最后一个d[9] = 7更新进去对于这个数组数据没有什么意义，但是如果后面再出现两个数字8和9，那么就可以把8更新到d[5]，9更新到d[6]，得到LIS的长度为6。<br>​    然后应该发现一件事情了：在B中插入数据是有序的，而且进行替换而不需要移动——也就是说，可以使用二分查找，将每一个数字的插入时间优化到O(logn)，于是算法的时间复杂度就降低到了O(nlogn)了。<br>​    代码如下：<br>int LIS(int <em>array,int len)<br>{<br>​    //LIS数组中存储的是 递增子序列中最大值最小的子序列的最后一个元素（最大元素）在array中的位置<br>​    int </em>LIS = new int[len];<br>​    int left,mid,right;<br>​    int max=1;<br>​    LIS[0]=array[0];<br>​    for(int i = 1;i &lt; len;++i)<br>​    {<br>​        left = 0;<br>​        right = max;<br>​        while(left &lt;=right)<br>​        {<br>​            mid = (left+right)/2;<br>​            if(LIS[mid] &lt; array[i])<br>​                left = mid +1;<br>​            else<br>​                right = mid -1;<br>​        }<br>​        LIS[left] = array[i];//插入<br>​        if(left &gt; max)<br>​        {<br>​            max++;<br>​        }<br>​    }<br>​    delete LIS;<br>​    return max;<br>}<br>​    </p>
 <pre><code>下面就开始实现“从一列数中筛除尽可能少的数使得从左往右看，这些数是从小到大再从大到小的“这个问题。
 双端LIS问题，用动态规划的思想可以解决，目标规划函数为max{B[i] + C[i] - 1}，其中B[i]是从左到右的，0~i个数之间满足递增的数字个数；C[i]为从右到左的，n- 1 ~ i个数之间满足递增的数字个数。最后结果为n - max + 1，其中动态规划的时候，可以用二分查找进行处理，如上述求最长递增子序列的方法二。
@@ -582,11 +582,11 @@ return len - max +1;
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -677,7 +677,7 @@ return len - max +1;
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">做着微小的事情。&lt;br&gt;&lt;br&gt;&lt;br&gt;微信 lingpeitang14</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">还是一只菜狗子啊。&lt;br&gt;&lt;br&gt;&lt;br&gt;微信 lingpeitang14</div>
   	  	
     	</section>
     

@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="一只头秃程序猿">
 <meta property="og:description" content="摘要在本文中，我们提出了gcForest，一种决策树集成方法，其性能在广泛的任务中对深度神经网络具有高度的竞争性。与需要在超参数调整方面付出巨大努力的深度神经网络相比，gcFor est更容易训练;即使它在我们的实验中应用于不同域的不同数据，也可以通过几乎相同的超参数设置实现出色的性能。 gcForest的培训过程是高效的，用户可以根据可用的计算资源控制培训成本。效率可以进一步提高，因为gcFor">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-29T17:35:52.140Z">
+<meta property="og:updated_time" content="2019-01-15T01:06:10.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Deep Forest：Towards an Alternative to Deep Neural Networks》学习笔记">
 <meta name="twitter:description" content="摘要在本文中，我们提出了gcForest，一种决策树集成方法，其性能在广泛的任务中对深度神经网络具有高度的竞争性。与需要在超参数调整方面付出巨大努力的深度神经网络相比，gcFor est更容易训练;即使它在我们的实验中应用于不同域的不同数据，也可以通过几乎相同的超参数设置实现出色的性能。 gcForest的培训过程是高效的，用户可以根据可用的计算资源控制培训成本。效率可以进一步提高，因为gcFor">
@@ -184,6 +184,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>在本文中，我们提出了gcForest，一种决策树集成方法，其性能在广泛的任务中对深度神经网络具有高度的竞争性。与需要在超参数调整方面付出巨大努力的深度神经网络相比，gcFor est更容易训练;即使它在我们的实验中应用于不同域的不同数据，也可以通过几乎相同的超参数设置实现出色的性能。 gcForest的培训过程是高效的，用户可以根据可用的计算资源控制培训成本。效率可以进一步提高，因为gcForest自然易于并行实现。此外，与需要大规模训练数据的深度神经网络相比，即使只有小规模的训练数据，gcForest也能很好地工作。</p>
+ <a id="more"></a>
 <h3 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1 介绍"></a>1 介绍</h3><p>近年来，深度神经网络在各种应用中取得了巨大成功，特别是在涉及视觉和语音信息的任务中[Krizhenvsky等，2012; Hinton等，2012]，导致了深度学习的热潮[Goodfellow et al。，2016]。</p>
 <p>虽然深度神经网络功能强大，但它们存在一些不足之处。首先，众所周知，训练通常需要大量的训练数据，禁止深度神经网络直接应用于具有小规模数据的任务。请注意，即使在大数据时代，由于标记的高成本，许多实际任务仍然缺少足够数量的标记数据，导致深度神经网络在这些任务中的性能较差。其次，深度神经网络是非常复杂的模型，培训过程通常需要强大的计算能力，阻碍大公司以外的个人能够充分开发学习能力。更重要的是，深度神经网络具有太多的超参数，并且学习性能严重依赖于仔细调整它们。例如，即使有几位作者都使用卷积神经网络[LeCun et al。，1998; Krizhenvsky等，2012; Simonyan和Zisserman，2014]，他们实际上使用了不同的学习模型，因为卷积层结构有很多不同的选择。这一事实不仅使深度神经网络的训练非常棘手，更像是一门艺术而非科学/工程，而且深度神经网络的理论分析极其困难，因为太多干扰因素与几乎无限的配置组合。</p>
 <p>人们普遍认为，表征学习能力（representation learning）对于深度神经网络至关重要。同样值得注意的是，要利用大量的训练数据，学习模型的能力应该很大;这部分解释了为什么深度神经网络非常复杂，比支持向量机等普通学习模型复杂得多。我们推测，如果我们能够将这些属性赋予其他一些合适形式的学习模型，我们可能能够实现与深度神经网络竞争的性能，但在上述缺陷上更少。</p>
@@ -516,11 +517,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -611,7 +612,7 @@
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">做着微小的事情。&lt;br&gt;&lt;br&gt;&lt;br&gt;微信 lingpeitang14</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">还是一只菜狗子啊。&lt;br&gt;&lt;br&gt;&lt;br&gt;微信 lingpeitang14</div>
   	  	
     	</section>
     

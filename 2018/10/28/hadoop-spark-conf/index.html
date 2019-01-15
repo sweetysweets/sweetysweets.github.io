@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>云主机centos下配置hadoop+spark集群全记录 | 一只头秃程序猿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="先放图= = 踩了无数坑终于特喵搞好了！  下面记录一下全过程 环境准备我买的是阿里云的轻量应用服务器，学生认证后9.5¥/月，三台服务器均安装centos系统 master：公网ip 139.196.75.247 内网ip 172.16.47.126Slave01:公网ip 47.107.112.152 内网ip 172.16.17.40slave02:公网ip 120.77.80.108 内网">
+  <meta name="description" content="先放图= = 踩了无数坑终于特喵搞好了！  下面记录一下全过程">
 <meta name="keywords" content="hadoop,spark">
 <meta property="og:type" content="article">
 <meta property="og:title" content="云主机centos下配置hadoop+spark集群全记录">
 <meta property="og:url" content="http://yoursite.com/2018/10/28/hadoop-spark-conf/index.html">
 <meta property="og:site_name" content="一只头秃程序猿">
-<meta property="og:description" content="先放图= = 踩了无数坑终于特喵搞好了！  下面记录一下全过程 环境准备我买的是阿里云的轻量应用服务器，学生认证后9.5¥/月，三台服务器均安装centos系统 master：公网ip 139.196.75.247 内网ip 172.16.47.126Slave01:公网ip 47.107.112.152 内网ip 172.16.17.40slave02:公网ip 120.77.80.108 内网">
+<meta property="og:description" content="先放图= = 踩了无数坑终于特喵搞好了！  下面记录一下全过程">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/%E7%BB%88%E4%BA%8E%E5%A6%A5%E4%BA%86.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/format.png">
@@ -22,10 +22,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/jps2.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/scala.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/spark-start.png">
-<meta property="og:updated_time" content="2018-10-28T05:12:30.092Z">
+<meta property="og:updated_time" content="2019-01-15T01:07:25.623Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="云主机centos下配置hadoop+spark集群全记录">
-<meta name="twitter:description" content="先放图= = 踩了无数坑终于特喵搞好了！  下面记录一下全过程 环境准备我买的是阿里云的轻量应用服务器，学生认证后9.5¥/月，三台服务器均安装centos系统 master：公网ip 139.196.75.247 内网ip 172.16.47.126Slave01:公网ip 47.107.112.152 内网ip 172.16.17.40slave02:公网ip 120.77.80.108 内网">
+<meta name="twitter:description" content="先放图= = 踩了无数坑终于特喵搞好了！  下面记录一下全过程">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/%E7%BB%88%E4%BA%8E%E5%A6%A5%E4%BA%86.png">
   
     <link rel="alternative" href="/atom.xml" title="一只头秃程序猿" type="application/atom+xml">
@@ -193,6 +193,7 @@
         <p>先放图= = 踩了无数坑终于特喵搞好了！</p>
 <p><img src="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/hadoop-spark-conf/%E7%BB%88%E4%BA%8E%E5%A6%A5%E4%BA%86.png" alt=""></p>
 <p>下面记录一下全过程</p>
+ <a id="more"></a>
 <h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>我买的是阿里云的轻量应用服务器，学生认证后9.5¥/月，三台服务器均安装centos系统</p>
 <p>master：公网ip 139.196.75.247 内网ip 172.16.47.126<br>Slave01:公网ip 47.107.112.152 内网ip 172.16.17.40<br>slave02:公网ip 120.77.80.108 内网ip 172.16.20.154<br>以上全是centos 7.2 </p>
 <p>在此基础上搭建java1.8+hadoop2.7+scala2.11.12+spark2.3.2集群</p>
@@ -559,11 +560,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -654,7 +655,7 @@
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">做着微小的事情。&lt;br&gt;&lt;br&gt;&lt;br&gt;微信 lingpeitang14</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">还是一只菜狗子啊。&lt;br&gt;&lt;br&gt;&lt;br&gt;微信 lingpeitang14</div>
   	  	
     	</section>
     
