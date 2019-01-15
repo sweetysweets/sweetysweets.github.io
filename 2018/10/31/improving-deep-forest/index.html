@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="一只头秃程序猿">
 <meta property="og:description" content="摘要大多数深度学习研究都是基于神经网络模型，其中多层参数化非线性可微模块通过反向传播进行训练。最近，已经表明深度学习也可以通过不可微分的模块来实现，而没有称为深度森林的反向传播训练。开发的表示学习过程基于级联的决策树林级联，其中高内存需求和高时间成本抑制了大型模型的训练。在本文中，我们提出了一种简单而有效的方法来提高深层森林的效率。关键的想法是将具有高可信度的实例直接传递到最后阶段，而不是通过所有">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-31T17:53:22.939Z">
+<meta property="og:updated_time" content="2019-01-15T01:11:06.250Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="improving-deep-forest">
 <meta name="twitter:description" content="摘要大多数深度学习研究都是基于神经网络模型，其中多层参数化非线性可微模块通过反向传播进行训练。最近，已经表明深度学习也可以通过不可微分的模块来实现，而没有称为深度森林的反向传播训练。开发的表示学习过程基于级联的决策树林级联，其中高内存需求和高时间成本抑制了大型模型的训练。在本文中，我们提出了一种简单而有效的方法来提高深层森林的效率。关键的想法是将具有高可信度的实例直接传递到最后阶段，而不是通过所有">
@@ -184,6 +184,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>大多数深度学习研究都是基于神经网络模型，其中多层参数化非线性可微模块通过反向传播进行训练。最近，已经表明深度学习也可以通过不可微分的模块来实现，而没有称为深度森林的反向传播训练。开发的表示学习过程基于级联的决策树林级联，其中高内存需求和高时间成本抑制了大型模型的训练。在本文中，我们提出了一种简单而有效的方法来提高深层森林的效率。关键的想法是将具有高可信度的实例直接传递到最后阶段，而不是通过所有级别。我们还提供了一个理论分析，表明随着级联中的级别增加，将模型复杂度从低到高改变的方法，这进一步降低了内存需求和时间成本。我们的实验表明，所提出的方法可以实现极具竞争力的预测性能，并且可以将时间成本和内存需求显着降低一个数量级。</p>
+ <a id="more"></a>
 <h3 id="1-引言"><a href="#1-引言" class="headerlink" title="1 引言"></a>1 引言</h3><p>深度学习在各种应用中取得了巨大成功，尤其是视觉和语音信息[1]，[2]。大多数关于深度学习的研究都是基于神经网络模型，或者更准确地说，是基于反向传播训练的多层参数化非线性可微模块。通过认识到深度学习的关键可能在于逐层处理，模型内特征转换和足够的模型复杂性，Zhou和Feng [3]提出了一种名为gcForest的深度学习方法，它是通过不可微分来实现的。没有反向传播训练的模块。</p>
 <p>从本质上讲，gcForest是一种新颖的决策树集合方法，其预测精度与广泛任务中的深度神经网络具有高度竞争性。此外，gcForest更容易训练，因为它具有较少的超参数。已经表明，通过使用几乎相同的超参数设置，gcForest可以在不同域上的数据集上实现高预测准确性。另一个优点是可以自动为不同的训练数据集确定gcForest的模型复杂度，使gcForest即使在小规模数据集上也能很好地运行。相比之下，深度神经网络通常需要大量的训练数据，这使得它们无法应用于小规模数据集。</p>
 <p>具有级联结构的深森林群体使gc-Forest能够进行表征学习。在这种级联结构中，每个级别由决策树森林[4]，[5]的集合组成，即集合的集合[6]。每个级别接收一组新的特征作为输入，这是其前一级别的输出。对于文本或结构数据，gcForest通过称为多粒度扫描的技术进一步增强其表征学习能力。<br>虽然[7]中的结果表明较大的模型可能倾向于提供更好的准确性，但周和冯[3]没有尝试过更大的模型，更多的谷物和更多的森林和树木（在每个森林中）受到高的限制内存需求和时间成本。</p>
@@ -497,11 +498,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">android</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -509,11 +510,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
               </li>
              
               <li class="article-tag-list-item">
