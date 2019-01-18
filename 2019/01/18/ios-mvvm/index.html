@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="一只头秃程序猿">
 <meta property="og:description" content="ios中的架构设计前言在 iOS 客户端开发中，MVC 作为官方推荐的主流架构，不但 SDK 已经为我们实现好了 UIView、UIViewController 等相关的组件，更是有大量的文档和范例供我们参考学习，可以说是一种非常通用而成熟的架构设计，但 MVC 也有他的坏处。由于 MVC 的概念过于简单朴素，已经越来越难以适应如今客户端的需求，大量的代码逻辑在 MVC 中并没有定义得很清楚究竟应">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-18T08:43:57.188Z">
+<meta property="og:updated_time" content="2019-01-18T08:47:14.746Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ios架构学习笔记">
 <meta name="twitter:description" content="ios中的架构设计前言在 iOS 客户端开发中，MVC 作为官方推荐的主流架构，不但 SDK 已经为我们实现好了 UIView、UIViewController 等相关的组件，更是有大量的文档和范例供我们参考学习，可以说是一种非常通用而成熟的架构设计，但 MVC 也有他的坏处。由于 MVC 的概念过于简单朴素，已经越来越难以适应如今客户端的需求，大量的代码逻辑在 MVC 中并没有定义得很清楚究竟应">
@@ -190,6 +190,7 @@
 <li>根据数据或操作更新界面。</li>
 </ul>
 <p>成为了人们所说的 Massive View Controller。</p>
+<a id="more"></a>
 <h3 id="如何简化Controller的工作"><a href="#如何简化Controller的工作" class="headerlink" title="如何简化Controller的工作"></a>如何简化Controller的工作</h3><p>设计一个可读性强和扩展性强的viewController非常重要，如何简化controller的工作，对模块进行解耦呢？现在流行的iOS架构大概有MVC，MVCS，MVVM。</p>
 <h3 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h3><p>最经典的软件结构设计模式，也是曾经Apple推荐的设计模式，苹果的官方文档中还能够看到MVC的痕迹<a href="https://link.jianshu.com/?t=https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html" target="_blank" rel="noopener">Apple MVC</a>。在MVC中，因为viewController既要负责页面的所有生命周期，又要负责网络处理，还要处理用户的交互操作，导致大量的代码逻辑堆积在viewController，极大的影响了代码的可读性和扩展性。因此，为了解决上述问题，又衍生出了MVCS和MVVM等模式。</p>
 <h2 id="MVCS"><a href="#MVCS" class="headerlink" title="MVCS"></a>MVCS</h2><p>MVCS是在MVC的基础上衍生出来的架构模式，S是Store的意思。可以简单的理解为，MVCS是把网络层从Controller中剥离出来，使用独立的Store类进行网络数据的请求和数据处理，从而达到减轻viewController压力的目的。在苹果很多的官方示例中都有这种结构的写法。</p>
@@ -496,15 +497,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">软件工程管理</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,10 +518,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
