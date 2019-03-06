@@ -160,6 +160,112 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-datastructure-sort" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/06/datastructure-sort/">数据结构之排序</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/06/datastructure-sort/" class="archive-article-date">
+  	<time datetime="2019-03-06T03:30:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p>排序真的是心头大病，年年学年年考年年忘233，老是搞得晕头转向的，希望这次能记长久一点……</p>
+<p><strong>归并排序</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(self,seq, low, mid, height)</span>:</span></span><br><span class="line">        <span class="string">"""合并两个已排序好的列表，产生一个新的已排序好的列表"""</span></span><br><span class="line">        <span class="comment"># 通过low,mid height 将[low:mid) [mid:height)提取出来</span></span><br><span class="line">        left = seq[low:mid]</span><br><span class="line">        right = seq[mid:height]</span><br><span class="line">        print(<span class="string">'left:'</span>, left, <span class="string">'right:'</span>, right)</span><br><span class="line"></span><br><span class="line">        k = <span class="number">0</span>  <span class="comment"># left的下标</span></span><br><span class="line">        j = <span class="number">0</span>  <span class="comment"># right的下标</span></span><br><span class="line">        result = []  <span class="comment"># 保存本次排序好的内容</span></span><br><span class="line">        <span class="comment"># 将最小的元素依次添加到result数组中</span></span><br><span class="line">        <span class="keyword">while</span> k &lt; len(left) <span class="keyword">and</span> j &lt; len(right):</span><br><span class="line">            <span class="keyword">if</span> left[k] &lt;= right[j]:</span><br><span class="line">                result.append(left[k])</span><br><span class="line">                k += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                result.append(right[j])</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">        <span class="comment"># 将对比完后剩余的数组内容 添加到已排序好数组中</span></span><br><span class="line">        result += left[k:]</span><br><span class="line">        result += right[j:]</span><br><span class="line">        <span class="comment"># 将原始数组中[low:height)区间 替换为已经排序好的数组</span></span><br><span class="line">        seq[low:height] = result</span><br><span class="line">        <span class="comment"># print("seq:", seq)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge_sort</span><span class="params">(self,arr)</span>:</span></span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; len(arr):</span><br><span class="line">            low = <span class="number">0</span></span><br><span class="line">            <span class="comment"># print('子数组 长度 : ', i)</span></span><br><span class="line">            <span class="keyword">while</span> low &lt; len(arr):</span><br><span class="line">                mid = low + i</span><br><span class="line">                height = min(low + <span class="number">2</span> * i, len(arr))</span><br><span class="line">                <span class="keyword">if</span> mid &lt; height:</span><br><span class="line">                    <span class="comment"># print('low ', low, 'mid:', mid, 'height:', height)</span></span><br><span class="line">                    self.merge(arr, low, mid, height)</span><br><span class="line">                low += <span class="number">2</span> * i</span><br><span class="line">            i *= <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p><strong>快速排序</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.选取一个数字作为基准，可选取末位数字</span></span><br><span class="line"><span class="comment"># 2.将数列第一位开始，依次与此数字比较，如果小于此数，将小数交换到左边，最后达到小于基准数的在左边，大于基准数的在右边，分为两个数组</span></span><br><span class="line"><span class="comment"># 3.分别对两个数组重复上述步骤</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分治思想 递归调用</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(array)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(array) &lt; <span class="number">2</span>:  <span class="comment"># 基线条件（停止递归的条件）</span></span><br><span class="line">        <span class="keyword">return</span> array</span><br><span class="line">    <span class="keyword">else</span>:  <span class="comment"># 递归条件</span></span><br><span class="line">        baseValue = array[<span class="number">0</span>]  <span class="comment"># 选择基准值</span></span><br><span class="line">        <span class="comment"># 由所有小于基准值的元素组成的子数组</span></span><br><span class="line">        less = [m <span class="keyword">for</span> m <span class="keyword">in</span> array[<span class="number">1</span>:] <span class="keyword">if</span> m &lt; baseValue]</span><br><span class="line">        <span class="comment"># 包括基准在内的同时和基准相等的元素，在上一个版本的百科当中，并没有考虑相等元素</span></span><br><span class="line">        equal = [w <span class="keyword">for</span> w <span class="keyword">in</span> array <span class="keyword">if</span> w == baseValue]</span><br><span class="line">        <span class="comment"># 由所有大于基准值的元素组成的子数组</span></span><br><span class="line">        greater = [n <span class="keyword">for</span> n <span class="keyword">in</span> array[<span class="number">1</span>:] <span class="keyword">if</span> n &gt; baseValue]</span><br><span class="line">    <span class="keyword">return</span> quickSort(less) + equal + quickSort(greater)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 非递归</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partition</span><span class="params">(arr, low, high)</span>:</span>  <span class="comment">#分区操作，返回基准线下标</span></span><br><span class="line">    privot = arr[low]</span><br><span class="line">    <span class="keyword">while</span> low &lt; high:</span><br><span class="line">        <span class="keyword">while</span> low &lt; high <span class="keyword">and</span> arr[high] &gt;= privot:</span><br><span class="line">            high -= <span class="number">1</span></span><br><span class="line">            arr[low] = arr[high]</span><br><span class="line">            <span class="keyword">while</span> low &lt; high <span class="keyword">and</span> arr[low] &lt;= privot:</span><br><span class="line">                low += <span class="number">1</span></span><br><span class="line">                arr[high] = arr[low]</span><br><span class="line">                <span class="comment"># 此时start = end</span></span><br><span class="line">                arr[low] = privot</span><br><span class="line">                <span class="keyword">return</span> low</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(arr)</span>:</span></span><br><span class="line">    <span class="string">'''''模拟栈操作实现非递归的快速排序'''</span></span><br><span class="line">	<span class="keyword">if</span> len(arr) &lt; <span class="number">2</span>:</span><br><span class="line">		<span class="keyword">return</span> arr</span><br><span class="line">	stack = []</span><br><span class="line">	stack.append(len(arr) - <span class="number">1</span>)</span><br><span class="line">	stack.append(<span class="number">0</span>)</span><br><span class="line">	<span class="keyword">while</span> stack:</span><br><span class="line">		l = stack.pop()</span><br><span class="line">		r = stack.pop()</span><br><span class="line">		index = self.partition(arr, l, r)</span><br><span class="line">        <span class="keyword">if</span> l &lt; index - <span class="number">1</span>:</span><br><span class="line">            stack.append(index - <span class="number">1</span>)</span><br><span class="line">			stack.append(l)</span><br><span class="line">			<span class="keyword">if</span> r &gt; index + <span class="number">1</span>:</span><br><span class="line">				stack.append(r)</span><br><span class="line">                stack.append(index + <span class="number">1</span>)</span><br><span class="line">     <span class="keyword">return</span> arr</span><br></pre></td></tr></table></figure>
+<p><strong>插入排序</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 当前需要排序的元素(array[i])，跟已经排序好的最后一个元素比较(array[i-1])，如果满足条件继续执行后面的程序，否则循环到下一个要排序的元素。</span></span><br><span class="line"><span class="comment"># 缓存当前要排序的元素的值，以便找到正确的位置进行插入。</span></span><br><span class="line"><span class="comment"># 排序的元素跟已经排序号的元素比较，比它大的向后移动(升序)。</span></span><br><span class="line"><span class="comment"># 要排序的元素，插入到正确的位置。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert_sort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(nums)<span class="number">-1</span>):</span><br><span class="line">        tmp = nums[i]  <span class="comment"># current data waiting for sort</span></span><br><span class="line">        j = i<span class="number">-1</span></span><br><span class="line">        <span class="keyword">while</span> j&gt;=<span class="number">0</span> <span class="keyword">and</span> nums[j] &gt;tmp:</span><br><span class="line">            nums[j+<span class="number">1</span>] =nums[j] <span class="comment"># 把已经排序好的元素后移一位，留下需要插入的位置</span></span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line">        nums[j] = tmp</span><br></pre></td></tr></table></figure>
+<p><strong>冒泡排序</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 冒泡排序的思想: 每次比较两个相邻的元素, 如果他们的顺序错误就把他们交换位置</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)<span class="number">-1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(len(nums)<span class="number">-1</span>-i):</span><br><span class="line">        	<span class="keyword">if</span> nums[j] &gt; nums[j + <span class="number">1</span>]:</span><br><span class="line">                nums[j], nums[j + <span class="number">1</span>] = nums[j + <span class="number">1</span>], nums[j]</span><br></pre></td></tr></table></figure>
+<p><strong>选择排序</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 选择排序注意点(假设第一层循环变量为：i;第二层循环变量为：j)：</span></span><br><span class="line"><span class="comment"># [0,i-1]是已经排序好的元素。</span></span><br><span class="line"><span class="comment"># 定义一个变量，用来记录本次循环下找到的最小元素的下标。</span></span><br><span class="line"><span class="comment"># 第二层循环是从[i,length -1]中找到最小元素的下标，用来与i元素交换。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select_sort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)<span class="number">-1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i+<span class="number">1</span>,len(nums)<span class="number">-1</span>):</span><br><span class="line">            <span class="keyword">if</span> nums[i]&gt;nums[j]</span><br><span class="line">            	nums[i],nums[j] = nums[j],nums[i]</span><br></pre></td></tr></table></figure>
+<p><strong>堆排序</strong> 参见<a href="https://www.jianshu.com/p/d174f1862601" target="_blank" rel="noopener">https://www.jianshu.com/p/d174f1862601</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">swap_param</span><span class="params">(L, i, j)</span>:</span></span><br><span class="line">    L[i], L[j] = L[j], L[i]</span><br><span class="line">    <span class="keyword">return</span> L</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heap_adjust</span><span class="params">(L, start, end)</span>:</span></span><br><span class="line">    temp = L[start]</span><br><span class="line"></span><br><span class="line">    i = start</span><br><span class="line">    j = <span class="number">2</span> * i</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> j &lt;= end:</span><br><span class="line">        <span class="keyword">if</span> (j &lt; end) <span class="keyword">and</span> (L[j] &lt; L[j + <span class="number">1</span>]):</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> temp &lt; L[j]:</span><br><span class="line">            L[i] = L[j]</span><br><span class="line">            i = j</span><br><span class="line">            j = <span class="number">2</span> * i</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    L[i] = temp</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heap_sort</span><span class="params">(L)</span>:</span></span><br><span class="line">    L_length = len(L) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    first_sort_count = L_length / <span class="number">2</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(first_sort_count):</span><br><span class="line">        heap_adjust(L, first_sort_count - i, L_length)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(L_length - <span class="number">1</span>):</span><br><span class="line">        L = swap_param(L, <span class="number">1</span>, L_length - i)</span><br><span class="line">        heap_adjust(L, <span class="number">1</span>, L_length - i - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [L[i] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(L))]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    L = deque([<span class="number">50</span>, <span class="number">16</span>, <span class="number">30</span>, <span class="number">10</span>, <span class="number">60</span>,  <span class="number">90</span>,  <span class="number">2</span>, <span class="number">80</span>, <span class="number">70</span>])</span><br><span class="line">    L.appendleft(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">print</span> heap_sort(L)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p><strong>计数排序</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># 时间复杂度n^2 空间复杂度1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">count_sort</span><span class="params">(self,nums)</span>:</span></span><br><span class="line">        n = len(nums)</span><br><span class="line">        b = [<span class="keyword">None</span>] * n</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            p = <span class="number">0</span></span><br><span class="line">            q = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">                <span class="keyword">if</span> nums[j] &lt; nums[i]:</span><br><span class="line">                    p += <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> nums[j] == nums[i]:</span><br><span class="line">                    q += <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> range(p, p + q):  </span><br><span class="line">            <span class="comment">##说明这几个位置的值都相同，也可以只判断小的,,不可以，会有none</span></span><br><span class="line">                b[k] = nums[i]</span><br><span class="line">        <span class="keyword">return</span> b</span><br></pre></td></tr></table></figure>
+<h2 id="leetcode-返回滑动窗口最大值-队列"><a href="#leetcode-返回滑动窗口最大值-队列" class="headerlink" title="leetcode 返回滑动窗口最大值(队列)"></a>leetcode 返回滑动窗口最大值(队列)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxSlidingWindow</span><span class="params">(self, nums: List[int], k: int)</span> -&gt; List[int]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:<span class="keyword">return</span> []</span><br><span class="line">        res,window = [],[]</span><br><span class="line">        <span class="keyword">for</span> i,x <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">            <span class="keyword">if</span> i &gt;= k <span class="keyword">and</span> window[<span class="number">0</span>] &lt;= i - k:</span><br><span class="line">                window.pop(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">while</span> window <span class="keyword">and</span> nums[window[<span class="number">-1</span>]] &lt;= x:</span><br><span class="line">                window.pop()</span><br><span class="line">            window.append(i)</span><br><span class="line">            <span class="keyword">if</span> i &gt;= k - <span class="number">1</span>:</span><br><span class="line">                res.append(nums[window[<span class="number">0</span>]])</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<h2 id="O-n-时间复杂度内找到一组数据的第-K-大元素"><a href="#O-n-时间复杂度内找到一组数据的第-K-大元素" class="headerlink" title="O(n) 时间复杂度内找到一组数据的第 K 大元素"></a>O(n) 时间复杂度内找到一组数据的第 K 大元素</h2><p>TopK问题,即寻找最大的K个数,这个问题非常常见,比如从1千万搜索记录中找出最热门的10个关键词.</p>
+<p>方法一:先排序,然后截取前k个数.</p>
+<p>时间复杂度：O(n<em>logn)+O(k)=O(n</em>logn)。</p>
+<p>方法二:最小堆.</p>
+<p>维护容量为k的最小堆.根据最小堆性质,堆顶一定是最小的,如果小于堆顶,则直接pass,如果大于堆顶,则替换掉堆顶,并heapify整理堆,其中heapify的时间复杂度是logk.</p>
+<p>时间复杂度:O(k+(n-k)<em>logk)=O(n</em>logk)</p>
+<p>方法三:<br>quick select算法.其实就类似于快排.不同地方在于quick select每趟只需要往一个方向走.</p>
+<p>时间复杂度:O(n).</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">qselect</span><span class="params">(A,k)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(A)&lt;k:<span class="keyword">return</span> A</span><br><span class="line">    pivot = A[<span class="number">-1</span>]</span><br><span class="line">    right = [pivot] + [x <span class="keyword">for</span> x <span class="keyword">in</span> A[:<span class="number">-1</span>] <span class="keyword">if</span> x&gt;=pivot]</span><br><span class="line">    rlen = len(right)</span><br><span class="line">    <span class="keyword">if</span> rlen==k:</span><br><span class="line">        <span class="keyword">return</span> right</span><br><span class="line">    <span class="keyword">if</span> rlen&gt;k:</span><br><span class="line">        <span class="keyword">return</span> qselect(right, k)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        left = [x <span class="keyword">for</span> x <span class="keyword">in</span> A[:<span class="number">-1</span>] <span class="keyword">if</span> x&lt;pivot]</span><br><span class="line">        <span class="keyword">return</span> qselect(left, k-rlen) + right</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">    <span class="keyword">print</span> qselect([<span class="number">11</span>,<span class="number">8</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">7</span>,<span class="number">9</span>], i)</span><br></pre></td></tr></table></figure>
+<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><p><strong>二分查找 实现一个有序数组的二分查找算法</strong>  非递归</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binary_chop</span><span class="params">(alist, data)</span>:</span></span><br><span class="line">    n = len(alist)</span><br><span class="line">    first = <span class="number">0</span></span><br><span class="line">    last = n - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> first &lt;= last:</span><br><span class="line">        mid = (last + first) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> alist[mid] &gt; data:</span><br><span class="line">            last = mid - <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> alist[mid] &lt; data:</span><br><span class="line">            first = mid + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+<p><strong>实现模糊二分查找算法（比如大于等于给定值的第一个元素）</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fuzzyHalfSearch</span><span class="params">(nums,num)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    <span class="keyword">if</span> num&gt;nums[<span class="number">-1</span>]:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> num &lt;= nums[<span class="number">0</span>]:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">elif</span> num == nums[<span class="number">-1</span>]:</span><br><span class="line">        <span class="keyword">return</span> len(nums)<span class="number">-1</span></span><br><span class="line">    </span><br><span class="line">    low = <span class="number">0</span></span><br><span class="line">    high = len(nums)<span class="number">-2</span></span><br><span class="line">    <span class="keyword">while</span> low &lt;= high:</span><br><span class="line">        medim = (high+low)/<span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> num&gt;nums[medim] <span class="keyword">and</span> num&lt;=nums[medim+<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">return</span> medim+<span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> num &gt; nums[medim+<span class="number">1</span>]:</span><br><span class="line">            low = medim+<span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> num &lt;= nums[medim]:</span><br><span class="line">            high = medim</span><br><span class="line">    <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+<h2 id="Leetcode-Sqrt-x-（x-的平方根）"><a href="#Leetcode-Sqrt-x-（x-的平方根）" class="headerlink" title="Leetcode Sqrt(x) （x 的平方根）"></a>Leetcode Sqrt(x) （x 的平方根）</h2><p>英文版：<a href="https://leetcode.com/problems/sqrtx/" target="_blank" rel="noopener">Loading…</a><br>中文版：<a href="https://leetcode-cn.com/problems/sqrtx/" target="_blank" rel="noopener">Loading…</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://en.wikipedia.org/wiki/Integer_square_root#Using_only_integer_division</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mySqrt</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type x: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> x &lt;= <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> x</span><br><span class="line">        r = x</span><br><span class="line">        <span class="keyword">while</span> r &gt; x / r:</span><br><span class="line">            r = (r + x / r) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> int(r)</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Data Structure</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/06/datastructure-sort/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
     <article id="post-leetcode-557" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -879,85 +985,6 @@
 
 
   
-    <article id="post-leetcode-26" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/28/leetcode-26/">leetcode-26 Remove Duplicates from Sorted Array 删除排序数组中的重复项</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/28/leetcode-26/" class="archive-article-date">
-  	<time datetime="2019-02-28T01:52:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>Given a sorted array <em>nums</em>, remove the duplicates <a href="https://en.wikipedia.org/wiki/In-place_algorithm" target="_blank" rel="noopener"><strong>in-place</strong></a> such that each element appear only <em>once</em> and return the new length.</p>
-<p>Do not allocate extra space for another array, you must do this by <strong>modifying the input array in-place</strong> with O(1) extra memory.</p>
-        
-          <a class="article-more-a" href="/2019/02/28/leetcode-26/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/28/leetcode-26/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1056,11 +1083,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">android</a>
+                <a href="javascript:void(0)" class="js-tag color2">软件工程管理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">软件工程管理</a>
+                <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1092,11 +1119,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+                <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1104,11 +1131,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+                <a href="javascript:void(0)" class="js-tag color1">yilia</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">yilia</a>
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
               </li>
             
             <div class="clearfix"></div>
