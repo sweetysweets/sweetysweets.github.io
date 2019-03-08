@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>一只头秃程序猿</title>
+  <title>数据结构之字符串 | 一只头秃程序猿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="一只头秃程序猿">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+  <meta name="description" content="字符串实现一个字符集，只包含 a～z 这 26 个英文字母的 Trie 树Trie字典树主要用于存储字符串，Trie 的每个 Node 保存一个字符。用链表来描述的话，就是一个字符串就是一个链表。每个Node都保存了它的所有子节点。是一种哈希树的变种。典型应用是用于统计和排序大量的字符串（但不仅限于字符串），所以经常被搜索引擎系统用于文本词频统计。它的优点是：最大限度地减少无谓的字符串比较，查询效">
+<meta name="keywords" content="Data Structure">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构之字符串">
+<meta property="og:url" content="http://yoursite.com/2019/03/08/datasource-string/index.html">
 <meta property="og:site_name" content="一只头秃程序猿">
+<meta property="og:description" content="字符串实现一个字符集，只包含 a～z 这 26 个英文字母的 Trie 树Trie字典树主要用于存储字符串，Trie 的每个 Node 保存一个字符。用链表来描述的话，就是一个字符串就是一个链表。每个Node都保存了它的所有子节点。是一种哈希树的变种。典型应用是用于统计和排序大量的字符串（但不仅限于字符串），所以经常被搜索引擎系统用于文本词频统计。它的优点是：最大限度地减少无谓的字符串比较，查询效">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-08T07:14:05.116Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一只头秃程序猿">
+<meta name="twitter:title" content="数据结构之字符串">
+<meta name="twitter:description" content="字符串实现一个字符集，只包含 a～z 这 26 个英文字母的 Trie 树Trie字典树主要用于存储字符串，Trie 的每个 Node 保存一个字符。用链表来描述的话，就是一个字符串就是一个链表。每个Node都保存了它的所有子节点。是一种哈希树的变种。典型应用是用于统计和排序大量的字符串（但不仅限于字符串），所以经常被搜索引擎系统用于文本词频统计。它的优点是：最大限度地减少无谓的字符串比较，查询效">
   
     <link rel="alternative" href="/atom.xml" title="一只头秃程序猿" type="application/atom+xml">
   
@@ -158,39 +163,80 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-datastructure-linkedlist" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-datasource-string" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/28/datastructure-linkedlist/">数据结构之链表</a>
+    <h1 class="article-title" itemprop="name">
+      数据结构之字符串
     </h1>
   
 
         
-        <a href="/2019/02/28/datastructure-linkedlist/" class="archive-article-date">
-  	<time datetime="2019-02-28T06:04:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-28</time>
+        <a href="/2019/03/08/datasource-string/" class="archive-article-date">
+  	<time datetime="2019-03-08T06:16:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p>和数组相比，链表是一种在物理内存上不连续的数据结构。链表的特点是</p>
-<ul>
-<li>插入删除快</li>
-<li>查找慢</li>
-</ul>
-<p>链表有单链表，双链表，循环单链表，循环双链表，可以方便的解决一些算法中的问题。</p>
-        
-          <a class="article-more-a" href="/2019/02/28/datastructure-linkedlist/#more">more >></a>
-        
+        <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><h2 id="实现一个字符集，只包含-a～z-这-26-个英文字母的-Trie-树"><a href="#实现一个字符集，只包含-a～z-这-26-个英文字母的-Trie-树" class="headerlink" title="实现一个字符集，只包含 a～z 这 26 个英文字母的 Trie 树"></a>实现一个字符集，只包含 a～z 这 26 个英文字母的 Trie 树</h2><p>Trie字典树主要用于存储字符串，<strong>Trie</strong> 的每个 <strong>Node</strong> 保存一个字符。用链表来描述的话，就是一个字符串就是一个链表。每个Node都保存了它的所有子节点。是一种哈希树的变种。典型应用是用于统计和排序大量的字符串（但不仅限于字符串），所以经常被搜索引擎系统用于文本词频统计。它的优点是：最大限度地减少无谓的字符串比较，查询效率比哈希表高。Trie树有一些特性：<br>1）根节点不包含字符，除根节点外每一个节点都只包含一个字符。<br>2）从根节点到某一节点，路径上经过的字符连接起来，为该节点对应的字符串。<br>3）每个节点的所有子节点包含的字符都不相同。<br>4）如果字符的种数为n，则每个结点的出度为n，这也是空间换时间的体现，浪费了很多的空间。<br>5）插入查找的复杂度为O(n)，n为字符串长度。<br>基本思想（以字母树为例）：<br>1、插入过程<br>对于一个单词，从根开始，沿着单词的各个字母所对应的树中的节点分支向下走，直到单词遍历完，将最后的节点标记为红色，表示该单词已插入Trie树。<br>2、查询过程<br>同样的，从根开始按照单词的字母顺序向下遍历trie树，一旦发现某个节点标记不存在或者单词遍历完成而最后的节点未标记为红色，则表示该单词不存在，若最后的节点标记为红色，表示该单词存在。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.root = TrieNode()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, word)</span>:</span></span><br><span class="line">        node = self.root</span><br><span class="line">        <span class="keyword">for</span> chars <span class="keyword">in</span> word:</span><br><span class="line">            child = node.data.get(chars)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> child :</span><br><span class="line">                node.data[chars] = TrieNode()</span><br><span class="line">            node = node.data[chars]</span><br><span class="line">        node.is_word = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, word)</span>:</span></span><br><span class="line">        node = self.root</span><br><span class="line">        <span class="keyword">for</span> chars <span class="keyword">in</span> word:</span><br><span class="line">            node = node.data.get(chars)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> node:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">return</span> node.is_word    <span class="comment"># 判断单词是否是完整的存在在trie树中</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">startsWith</span><span class="params">(self, prefix)</span>:</span></span><br><span class="line">        node = self.root</span><br><span class="line">        <span class="keyword">for</span> chars <span class="keyword">in</span> prefix:</span><br><span class="line">            node = node.data.get(chars)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> node:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_start</span><span class="params">(self, prefix)</span>:</span></span><br><span class="line">        word_list = []</span><br><span class="line">        <span class="keyword">if</span> pre_node.is_word:</span><br><span class="line">            word_list.append(pre)</span><br><span class="line">            <span class="keyword">for</span> x <span class="keyword">in</span> pre_node.data.keys():</span><br><span class="line">                word_list.extend(get_key(pre + str(x), pre_node.data.get(x)))</span><br><span class="line">       	<span class="keyword">return</span> word_list</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get_key</span><span class="params">(pre, pre_node)</span>:</span></span><br><span class="line">		words = []</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.startsWith(prefix):</span><br><span class="line">            <span class="keyword">return</span>  words</span><br><span class="line">        <span class="keyword">if</span> self.search(prefix):</span><br><span class="line">            words.append(prefix)</span><br><span class="line">            <span class="keyword">return</span> words</span><br><span class="line">        node = self.root</span><br><span class="line">        <span class="keyword">for</span> chars <span class="keyword">in</span> prefix:</span><br><span class="line">            node = node.data.get(chars)</span><br><span class="line">        <span class="keyword">return</span> get_key(prefix, node)</span><br></pre></td></tr></table></figure>
+<p>关于trie一个好玩的问题<a href="https://www.zhihu.com/question/27168319" target="_blank" rel="noopener">https://www.zhihu.com/question/27168319</a></p>
+<h2 id="实现字符串匹配算法"><a href="#实现字符串匹配算法" class="headerlink" title="实现字符串匹配算法"></a>实现字符串匹配算法</h2><p><strong>字符串回溯匹配(朴素算法)</strong></p>
+<p>算法基本思想：<br>将搜索词整个后移一位，再从头逐个比较。这样做虽然可行，但是效率很差，因为你要把”搜索位置”移到已经比较过的位置，重比一遍。</p>
+<p>最坏情况是每趟比较都在最后出现不等，最多比较n－m＋1 趟，总比较次数为m<em>(n－m＋1)，所以算法时间复杂性为O(m</em>n)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nmatching</span><span class="params">(t, p)</span>:</span></span><br><span class="line">    i, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    n, m = len(t), len(p)</span><br><span class="line">    <span class="keyword">while</span> i &lt; n <span class="keyword">and</span> j &lt; m:</span><br><span class="line">        <span class="keyword">if</span> t[i] == p[j]:</span><br><span class="line">            i, j = i+<span class="number">1</span>, j+<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            i, j = i-j+<span class="number">1</span>, <span class="number">0</span>        <span class="comment">#i-j+1是关键，遇字符不等时将模式串t右移一个字符</span></span><br><span class="line">    <span class="keyword">if</span> j == m:                     <span class="comment">#找到一个匹配，返回索引值</span></span><br><span class="line">        <span class="keyword">return</span> i-j</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>                       <span class="comment">#未找到，返回-1</span></span><br></pre></td></tr></table></figure>
+<p><strong>KMP算法</strong><br>当字符不匹配时，你其实知道前面的字符是什么。KMP算法的想法是设法利用这个已知信息，不要把字符串t中的”搜索位置”移回已经比较过的位置，继续把搜索位置向后移。匹配中只做不得不做的字符比较，字符串t搜索位置i不回溯。可以针对搜索词，算出一张《部分匹配表》（Partial Match Table）</p>
+<p>KMP算法流程：<br>假设当前字符串t匹配到 i 位置，模式串P匹配到 j 位置.</p>
+<p>if j = -1，或者当前字符匹配成功（即t[i] == p[j]），则i，j= i+1, j+1，继续匹配下一个字符；<br>if j != -1，且当前字符匹配失败（即t[i] != p[j]），则 i 不变，j = next[j]。此举意味着失配时，模式串P相对于字符串S向右移动了j - next [j] 位。</p>
+<p>上面两个if判断在字符串没有搜索结束前，两个条件必定满足一个，两个条件互为否命题。<br>当匹配失败时，模式串向右移动的位数为：失配字符所在位置 - 失配字符对应的next 值，即移动的实际位数为：j - next[j]，且此值大于等于1。</p>
+<p>pnext 数组各值含义<br>pnext 数组各值含义：代表当前字符之前的字符串中，有多大长度的相同前缀后缀。例如next [j] = k，代表j 之前的字符串中有最大长度为k 的相同前缀后缀。（p0p1……pk-1 = pj-kpj-k+1……pj-1）。即：模式串向右移动的位数为：已匹配字符数 - 失配字符的上一位字符所对应的最大长度值<br>某个字符失配时，该字符对应的next 值会告诉你下一步匹配中，模式串应该跳到哪个位置（跳到next [j] 的位置）。<br>如果next [j] 等于0或-1，则跳到模式串的开头字符，若next [j] = k 且 k &gt; 0，代表下次匹配跳到j 之前的某个字符，而不是跳到开头，且具体跳过了k 个字符。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">matchingKMP</span><span class="params">(t,p,pnext)</span>:</span>     <span class="comment">#需要传入一个部分匹配表pnext</span></span><br><span class="line">    i, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    n, m = len(t), len(p)</span><br><span class="line">    <span class="keyword">while</span> i &lt; n <span class="keyword">and</span> j &lt; m:</span><br><span class="line">        <span class="keyword">if</span> j == <span class="number">-1</span> <span class="keyword">or</span> t[i] == p[j]: <span class="comment">#如果j = -1，或者当前字符匹配成功（即S[i] == P[j]），都令i+1，j+1</span></span><br><span class="line">            i, j = i+<span class="number">1</span>, j+<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:                       <span class="comment">#如果j != -1，且当前字符匹配失败（即S[i] != P[j]），则令 i 不变，j = next[j] # next[j]即为j所对应的next值</span></span><br><span class="line">            j = pnext[j]</span><br><span class="line">        <span class="keyword">if</span> j == m:                  <span class="comment"># 找到匹配，返回索引值</span></span><br><span class="line">            <span class="keyword">return</span> i - j</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>                       <span class="comment"># 无法匹配，返回-1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">genPNext0</span><span class="params">(p)</span>:</span></span><br><span class="line">    j, k, m = <span class="number">0</span>, <span class="number">-1</span>, len(p)</span><br><span class="line">    pnext = [<span class="number">-1</span>]*m</span><br><span class="line">    <span class="keyword">while</span> j &lt; m<span class="number">-1</span>:                  <span class="comment">#生成pnext</span></span><br><span class="line">        <span class="keyword">while</span> k &gt;= <span class="number">0</span> <span class="keyword">and</span> p[j] != p[k]:</span><br><span class="line">            k = pnext[k]            </span><br><span class="line">        j, k = j+<span class="number">1</span>, k+<span class="number">1</span></span><br><span class="line">        pnext[j] = k                <span class="comment">#考虑前面</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> pnext</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成pnext表，作用：当模式串中的某个字符跟文本串中的某个字符匹配失配时，模式串下一步应该跳到哪个位置</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">genPNext</span><span class="params">(p)</span>:</span>                    </span><br><span class="line">    j, k, m = <span class="number">0</span>, <span class="number">-1</span>, len(p)</span><br><span class="line">    pnext = [<span class="number">-1</span>]*m</span><br><span class="line">    <span class="keyword">while</span> j &lt; m<span class="number">-1</span>:                  <span class="comment">#生成pnext</span></span><br><span class="line">        <span class="keyword">while</span> k &gt;= <span class="number">0</span> <span class="keyword">and</span> p[j] != p[k]:</span><br><span class="line">            k = pnext[k]            <span class="comment">#设k = pnext[k]</span></span><br><span class="line">        j, k = j+<span class="number">1</span>, k+<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> p[j] == p[k]:            <span class="comment">#递推过程</span></span><br><span class="line">            pnext[j] = pnext[k]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            pnext[j] = k            </span><br><span class="line">            <span class="comment">#next [j] = k 且 k &gt; 0，表示下次匹配跳到j 之前的某个字符，而不是跳到开头，且具体跳过了k 个字符</span></span><br><span class="line">    <span class="keyword">return</span> pnext</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    t = <span class="string">'bbc abcdab abcdabdabde'</span></span><br><span class="line">    p = <span class="string">'abcdabdab'</span></span><br><span class="line">    print(<span class="string">'------------------------------------'</span>)</span><br><span class="line">    print(matchingKMP(t,p,genPNext(p)))</span><br></pre></td></tr></table></figure>
+<h2 id="LeetCode-练习题"><a href="#LeetCode-练习题" class="headerlink" title="LeetCode 练习题"></a>LeetCode 练习题</h2><p><strong>Reverse String （反转字符串）</strong><br>英文版：<a href="https://leetcode.com/problems/reverse-string/" target="_blank" rel="noopener">Loading…</a><br>中文版：<a href="https://leetcode-cn.com/problems/reverse-string/" target="_blank" rel="noopener">Loading…</a></p>
+<p>解题见我的<a href="https://sweets.ml/2019/03/02/leetcode-344/" target="_blank" rel="noopener">另一篇博客</a></p>
+<p><strong>Reverse Words in a String（翻转字符串里的单词）</strong><br>英文版：<a href="https://leetcode.com/problems/reverse-words-in-a-string/" target="_blank" rel="noopener">Loading…</a><br>中文版：<a href="https://leetcode-cn.com/problems/reverse-words-in-a-string/" target="_blank" rel="noopener">Loading…</a></p>
+<p>解题见我的<a href="https://sweets.ml/2019/03/03/leetcode-557/" target="_blank" rel="noopener">另一篇博客</a></p>
+<p><strong>String to Integer (atoi)（字符串转换整数 (atoi)）</strong><br>英文版：<a href="https://leetcode.com/problems/string-to-integer-atoi/" target="_blank" rel="noopener">Loading…</a><br>中文版：<a href="https://leetcode-cn.com/problems/string-to-integer-atoi/" target="_blank" rel="noopener">Loading…</a></p>
+<p>第一次超出时间限制了，发现是因为while循环中忘记对i进行++操作了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myAtoi</span><span class="params">(self, str)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type str: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        res = []</span><br><span class="line">        flag = <span class="keyword">True</span>          <span class="comment"># 标记，默认字符串第一个非空格字符为有效整数或'-'或‘+’</span></span><br><span class="line">        </span><br><span class="line">        numslist = [<span class="string">'0'</span>,<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'3'</span>,<span class="string">'4'</span>,<span class="string">'5'</span>,<span class="string">'6'</span>,<span class="string">'7'</span>,<span class="string">'8'</span>,<span class="string">'9'</span>] </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(str)):</span><br><span class="line">            <span class="keyword">if</span> str[i] ==<span class="string">' '</span> <span class="keyword">and</span> flag:  </span><br><span class="line">                <span class="comment"># 如果均为空格字符，且无非空字符出现继续</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">                </span><br><span class="line">            <span class="keyword">if</span> str[i] == <span class="string">'+'</span> <span class="keyword">and</span> flag: </span><br><span class="line">                <span class="comment"># 如果“+”字符第一次出现，则添加到列表中，标记修改为False并继续</span></span><br><span class="line">                res.append(str[i])</span><br><span class="line">                flag = <span class="keyword">False</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">                </span><br><span class="line">            <span class="keyword">if</span> str[i] == <span class="string">'-'</span> <span class="keyword">and</span> flag: </span><br><span class="line">                <span class="comment"># 如果“-”字符第一次出现，则添加到列表中，标记修改为False并继续</span></span><br><span class="line">                res.append(str[i])</span><br><span class="line">                flag = <span class="keyword">False</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">                </span><br><span class="line">            <span class="keyword">if</span> str[i] <span class="keyword">not</span> <span class="keyword">in</span> numslist: <span class="comment"># 除过上述情况，如果字符不为数字，则直接退出迭代</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                res.append(str[i])     <span class="comment"># 反之有数字出现,添加到列表中，并修改标记为False</span></span><br><span class="line">                flag = <span class="keyword">False</span></span><br><span class="line">                </span><br><span class="line">        res = <span class="string">''</span>.join(res)             <span class="comment"># 拼接字符串 </span></span><br><span class="line">        <span class="keyword">if</span> res == <span class="string">'-'</span> <span class="keyword">or</span> res==<span class="string">''</span> <span class="keyword">or</span> res==<span class="string">'+'</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            res = int(res)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> res&gt;<span class="number">2</span>**<span class="number">31</span><span class="number">-1</span>:               <span class="comment"># 特殊情况处理</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">2</span>**<span class="number">31</span><span class="number">-1</span></span><br><span class="line">        <span class="keyword">if</span> res&lt;<span class="number">-2</span>**<span class="number">31</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-2</span>**<span class="number">31</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wechat.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -210,16 +256,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/28/datastructure-linkedlist/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+  <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+  <p>扫一扫，分享到微信</p>
+  <div class="wx-qrcode">
+    <img src="http://qr.liantu.com/api.php?text=http://sweets.ml/2019/03/08/datasource-string/" alt="微信分享二维码">
+  </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/06/datastructure-hash/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据结构之哈希 ! important</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -239,737 +344,44 @@
 
 
 
-
-
-
-  
-    <article id="post-leetcode-11" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/28/leetcode-11/">leetcode-11 Container With Most Water 盛最多水的容器</a>
-    </h1>
   
 
-        
-        <a href="/2019/02/28/leetcode-11/" class="archive-article-date">
-  	<time datetime="2019-02-28T02:17:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>Given <em>n</em> non-negative integers <em>a1</em>, <em>a2</em>, …, <em>an</em> , where each represents a point at coordinate (<em>i</em>, <em>ai</em>). <em>n</em> vertical lines are drawn such that the two endpoints of line <em>i</em> is at (<em>i</em>, <em>ai</em>) and (<em>i</em>, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.</p>
-<p><strong>Note:</strong> You may not slant the container and <em>n</em>is at least 2.</p>
-        
-          <a class="article-more-a" href="/2019/02/28/leetcode-11/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/28/leetcode-11/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
   
-    <article id="post-leetcode-26" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/28/leetcode-26/">leetcode-26 Remove Duplicates from Sorted Array 删除排序数组中的重复项</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/28/leetcode-26/" class="archive-article-date">
-  	<time datetime="2019-02-28T01:52:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>Given a sorted array <em>nums</em>, remove the duplicates <a href="https://en.wikipedia.org/wiki/In-place_algorithm" target="_blank" rel="noopener"><strong>in-place</strong></a> such that each element appear only <em>once</em> and return the new length.</p>
-<p>Do not allocate extra space for another array, you must do this by <strong>modifying the input array in-place</strong> with O(1) extra memory.</p>
-        
-          <a class="article-more-a" href="/2019/02/28/leetcode-26/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/28/leetcode-26/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-leetcode-20" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/27/leetcode-20/">leetcode-20 Valid Parentheses 有效的括号</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/27/leetcode-20/" class="archive-article-date">
-  	<time datetime="2019-02-27T01:14:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Given a string containing just the characters <code>&#39;(&#39;</code>, <code>&#39;)&#39;</code>, <code>&#39;{&#39;</code>, <code>&#39;}&#39;</code>, <code>&#39;[&#39;</code> and <code>&#39;]&#39;</code>, determine if the input string is valid.</p>
-<p>An input string is valid if:</p>
-<ol>
-<li>Open brackets must be closed by the same type of brackets.</li>
-<li>Open brackets must be closed in the correct order.</li>
-</ol>
-<p>Note that an empty string is also considered valid.</p>
-        
-          <a class="article-more-a" href="/2019/02/27/leetcode-20/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/27/leetcode-20/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-my-first-boxing" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/23/my-first-boxing/">血腥中的魅力</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/23/my-first-boxing/" class="archive-article-date">
-  	<time datetime="2019-01-23T07:22:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/essay/%E6%8B%B3%E5%87%BB%E6%AF%94%E8%B5%9B.jpg" alt=""></p>
-        
-          <a class="article-more-a" href="/2019/01/23/my-first-boxing/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/23/my-first-boxing/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-understanding-jvm" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/21/understanding-jvm/">《深入理解java虚拟机》读书笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/21/understanding-jvm/" class="archive-article-date">
-  	<time datetime="2019-01-21T01:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>世界上并没有完美的程序，但我们并不因此而沮丧，因为写程序本来就是一个不断追求完美的过程。</p>
-<p>-《深入理解java虚拟机》</p>
-</blockquote>
-<p>准备春天的实习面试，给自己列了几本书单，希望能扎实的看完这几本书，找到一个好offer呀</p>
-<p>这本书主要讲的是jvm底层的机制和实现，也是面试的时候最先容易问到的问题。如果一个开发人员不了解虚拟机一些技术特性的运行原理，就无法写出最适合虚拟机运行和自优化的代码。根据文章的目录从以下几个标题进行讲解</p>
-<ul>
-<li>走进java</li>
-<li>内存管理机制</li>
-<li>虚拟机执行子系统</li>
-<li>程序编译与代码优化</li>
-<li>高效并发</li>
-</ul>
-        
-          <a class="article-more-a" href="/2019/01/21/understanding-jvm/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">JAVA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/21/understanding-jvm/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-ios-mvvm" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/18/ios-mvvm/">ios架构学习笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/18/ios-mvvm/" class="archive-article-date">
-  	<time datetime="2019-01-18T08:11:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ios中的架构设计"><a href="#ios中的架构设计" class="headerlink" title="ios中的架构设计"></a>ios中的架构设计</h1><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在 iOS 客户端开发中，MVC 作为官方推荐的主流架构，不但 SDK 已经为我们实现好了 UIView、UIViewController 等相关的组件，更是有大量的文档和范例供我们参考学习，可以说是一种非常通用而成熟的架构设计，但 MVC 也有他的坏处。由于 MVC 的概念过于简单朴素，已经越来越难以适应如今客户端的需求，大量的代码逻辑在 MVC 中并没有定义得很清楚究竟应该放在什么地方，导致他们很容易就会堆积在 Controller 里：</p>
-<ul>
-<li>初始化界面；</li>
-<li>请求网络数据或响应用户操作；</li>
-<li>根据数据或操作更新界面。</li>
-</ul>
-<p>成为了人们所说的 Massive View Controller。</p>
-        
-          <a class="article-more-a" href="/2019/01/18/ios-mvvm/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ios</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/18/ios-mvvm/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-scrum" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/07/scrum/">scrum要素读书笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/07/scrum/" class="archive-article-date">
-  	<time datetime="2019-01-07T07:18:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="如何做好scrum实践"><a href="#如何做好scrum实践" class="headerlink" title="如何做好scrum实践"></a>如何做好scrum实践</h1><p>《scrum要素》这本书用轻松易懂的语言讲解了scrum的一些方法和概念，《2017 Scrum Guide》是scrum的官方指南，包含了scrum的定义，规则。</p>
-<p>读完这两本书，对scrum和敏捷的方法有了整体上的认识，也对scrum实践方法有了全面的了解。</p>
-<p>对于敏捷来说，它的核心思想就是迅速交付商业价值（可工作的软件），敏捷方法通过及早且频繁地交付产品，减少了繁琐的文档，这样缩短了开发的周期，通过快速地迭代保证了产品带来的价值立即可见而且可以不断累积。</p>
-<p>那Scrum和敏捷相比又是什么呢？</p>
-        
-          <a class="article-more-a" href="/2019/01/07/scrum/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">软件工程管理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/07/scrum/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-android-bug" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/02/android-bug/">记一次坑爹的安卓调试经历&gt;.&lt;</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/02/android-bug/" class="archive-article-date">
-  	<time datetime="2019-01-02T09:04:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="弹出键盘的时候Toolbar被拉伸或者移出屏幕的问题"><a href="#弹出键盘的时候Toolbar被拉伸或者移出屏幕的问题" class="headerlink" title="弹出键盘的时候Toolbar被拉伸或者移出屏幕的问题"></a>弹出键盘的时候Toolbar被拉伸或者移出屏幕的问题</h1><p>今天遇到了一个问题，如下图所示：</p>
-        
-          <a class="article-more-a" href="/2019/01/02/android-bug/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/02/android-bug/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-bytedance-test" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/26/bytedance-test/">字节跳动面试题解</a>
-    </h1>
-  
-
-        
-        <a href="/2018/12/26/bytedance-test/" class="archive-article-date">
-  	<time datetime="2018-12-26T03:39:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="牛客网刷题"><a href="#牛客网刷题" class="headerlink" title="牛客网刷题"></a>牛客网刷题</h1><h3 id="题目一"><a href="#题目一" class="headerlink" title="题目一"></a>题目一</h3><p>P为给定的二维平面整数点集。定义 P 中某点x，如果x满足 P 中任意点都不在 x 的右上方区域内（横纵坐标都大于x），则称其为“最大的”。求出所有“最大的”点的集合。（所有点的横坐标和纵坐标都不重复, 坐标轴范围在[0, 1e9) 内）</p>
-<p>如下图：实心点为满足条件的点的集合。请实现代码找到集合 P 中的所有 ”最大“ 点的集合并输出。</p>
-<p><img src="https://uploadfiles.nowcoder.com/images/20170817/300557_1502940399706_1329AFEA3FC7961DEA219781A71B3B5B" alt="img"></p>
-        
-          <a class="article-more-a" href="/2018/12/26/bytedance-test/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/26/bytedance-test/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "GqKhi2RTAOP8F5e9aHUVGGaj-gzGzoHsz",
+            app_key: "CPSvvJWN1tjo5gAEqSajDqiO",
+            placeholder: "ヾﾉ≧∀≦)o感谢评论呀",
+            avatar:"mp"
+        });
+    }
+</script>
+  </section>
 
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
-    </nav>
+
   
+
+  
+
+  
+
+
 
 
           </div>
@@ -991,8 +403,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
