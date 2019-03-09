@@ -160,47 +160,31 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-datasource-string" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-datastructure-tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/08/datasource-string/">数据结构之字符串</a>
+      <a class="article-title" href="/2019/03/09/datastructure-tree/">数据结构之树</a>
     </h1>
   
 
         
-        <a href="/2019/03/08/datasource-string/" class="archive-article-date">
-  	<time datetime="2019-03-08T06:16:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-08</time>
+        <a href="/2019/03/09/datastructure-tree/" class="archive-article-date">
+  	<time datetime="2019-03-09T03:32:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><h2 id="实现一个字符集，只包含-a～z-这-26-个英文字母的-Trie-树"><a href="#实现一个字符集，只包含-a～z-这-26-个英文字母的-Trie-树" class="headerlink" title="实现一个字符集，只包含 a～z 这 26 个英文字母的 Trie 树"></a>实现一个字符集，只包含 a～z 这 26 个英文字母的 Trie 树</h2><p>Trie字典树主要用于存储字符串，<strong>Trie</strong> 的每个 <strong>Node</strong> 保存一个字符。用链表来描述的话，就是一个字符串就是一个链表。每个Node都保存了它的所有子节点。是一种哈希树的变种。典型应用是用于统计和排序大量的字符串（但不仅限于字符串），所以经常被搜索引擎系统用于文本词频统计。它的优点是：最大限度地减少无谓的字符串比较，查询效率比哈希表高。Trie树有一些特性：<br>1）根节点不包含字符，除根节点外每一个节点都只包含一个字符。<br>2）从根节点到某一节点，路径上经过的字符连接起来，为该节点对应的字符串。<br>3）每个节点的所有子节点包含的字符都不相同。<br>4）如果字符的种数为n，则每个结点的出度为n，这也是空间换时间的体现，浪费了很多的空间。<br>5）插入查找的复杂度为O(n)，n为字符串长度。<br>基本思想（以字母树为例）：<br>1、插入过程<br>对于一个单词，从根开始，沿着单词的各个字母所对应的树中的节点分支向下走，直到单词遍历完，将最后的节点标记为红色，表示该单词已插入Trie树。<br>2、查询过程<br>同样的，从根开始按照单词的字母顺序向下遍历trie树，一旦发现某个节点标记不存在或者单词遍历完成而最后的节点未标记为红色，则表示该单词不存在，若最后的节点标记为红色，表示该单词存在。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.root = TrieNode()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, word)</span>:</span></span><br><span class="line">        node = self.root</span><br><span class="line">        <span class="keyword">for</span> chars <span class="keyword">in</span> word:</span><br><span class="line">            child = node.data.get(chars)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> child :</span><br><span class="line">                node.data[chars] = TrieNode()</span><br><span class="line">            node = node.data[chars]</span><br><span class="line">        node.is_word = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, word)</span>:</span></span><br><span class="line">        node = self.root</span><br><span class="line">        <span class="keyword">for</span> chars <span class="keyword">in</span> word:</span><br><span class="line">            node = node.data.get(chars)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> node:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">return</span> node.is_word    <span class="comment"># 判断单词是否是完整的存在在trie树中</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">startsWith</span><span class="params">(self, prefix)</span>:</span></span><br><span class="line">        node = self.root</span><br><span class="line">        <span class="keyword">for</span> chars <span class="keyword">in</span> prefix:</span><br><span class="line">            node = node.data.get(chars)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> node:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_start</span><span class="params">(self, prefix)</span>:</span></span><br><span class="line">        word_list = []</span><br><span class="line">        <span class="keyword">if</span> pre_node.is_word:</span><br><span class="line">            word_list.append(pre)</span><br><span class="line">            <span class="keyword">for</span> x <span class="keyword">in</span> pre_node.data.keys():</span><br><span class="line">                word_list.extend(get_key(pre + str(x), pre_node.data.get(x)))</span><br><span class="line">       	<span class="keyword">return</span> word_list</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get_key</span><span class="params">(pre, pre_node)</span>:</span></span><br><span class="line">		words = []</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.startsWith(prefix):</span><br><span class="line">            <span class="keyword">return</span>  words</span><br><span class="line">        <span class="keyword">if</span> self.search(prefix):</span><br><span class="line">            words.append(prefix)</span><br><span class="line">            <span class="keyword">return</span> words</span><br><span class="line">        node = self.root</span><br><span class="line">        <span class="keyword">for</span> chars <span class="keyword">in</span> prefix:</span><br><span class="line">            node = node.data.get(chars)</span><br><span class="line">        <span class="keyword">return</span> get_key(prefix, node)</span><br></pre></td></tr></table></figure>
-<p>关于trie一个好玩的问题<a href="https://www.zhihu.com/question/27168319" target="_blank" rel="noopener">https://www.zhihu.com/question/27168319</a></p>
-<h2 id="实现字符串匹配算法"><a href="#实现字符串匹配算法" class="headerlink" title="实现字符串匹配算法"></a>实现字符串匹配算法</h2><p><strong>字符串回溯匹配(朴素算法)</strong></p>
-<p>算法基本思想：<br>将搜索词整个后移一位，再从头逐个比较。这样做虽然可行，但是效率很差，因为你要把”搜索位置”移到已经比较过的位置，重比一遍。</p>
-<p>最坏情况是每趟比较都在最后出现不等，最多比较n－m＋1 趟，总比较次数为m<em>(n－m＋1)，所以算法时间复杂性为O(m</em>n)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nmatching</span><span class="params">(t, p)</span>:</span></span><br><span class="line">    i, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    n, m = len(t), len(p)</span><br><span class="line">    <span class="keyword">while</span> i &lt; n <span class="keyword">and</span> j &lt; m:</span><br><span class="line">        <span class="keyword">if</span> t[i] == p[j]:</span><br><span class="line">            i, j = i+<span class="number">1</span>, j+<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            i, j = i-j+<span class="number">1</span>, <span class="number">0</span>        <span class="comment">#i-j+1是关键，遇字符不等时将模式串t右移一个字符</span></span><br><span class="line">    <span class="keyword">if</span> j == m:                     <span class="comment">#找到一个匹配，返回索引值</span></span><br><span class="line">        <span class="keyword">return</span> i-j</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>                       <span class="comment">#未找到，返回-1</span></span><br></pre></td></tr></table></figure>
-<p><strong>KMP算法</strong><br>当字符不匹配时，你其实知道前面的字符是什么。KMP算法的想法是设法利用这个已知信息，不要把字符串t中的”搜索位置”移回已经比较过的位置，继续把搜索位置向后移。匹配中只做不得不做的字符比较，字符串t搜索位置i不回溯。可以针对搜索词，算出一张《部分匹配表》（Partial Match Table）</p>
-<p>KMP算法流程：<br>假设当前字符串t匹配到 i 位置，模式串P匹配到 j 位置.</p>
-<p>if j = -1，或者当前字符匹配成功（即t[i] == p[j]），则i，j= i+1, j+1，继续匹配下一个字符；<br>if j != -1，且当前字符匹配失败（即t[i] != p[j]），则 i 不变，j = next[j]。此举意味着失配时，模式串P相对于字符串S向右移动了j - next [j] 位。</p>
-<p>上面两个if判断在字符串没有搜索结束前，两个条件必定满足一个，两个条件互为否命题。<br>当匹配失败时，模式串向右移动的位数为：失配字符所在位置 - 失配字符对应的next 值，即移动的实际位数为：j - next[j]，且此值大于等于1。</p>
-<p>pnext 数组各值含义<br>pnext 数组各值含义：代表当前字符之前的字符串中，有多大长度的相同前缀后缀。例如next [j] = k，代表j 之前的字符串中有最大长度为k 的相同前缀后缀。（p0p1……pk-1 = pj-kpj-k+1……pj-1）。即：模式串向右移动的位数为：已匹配字符数 - 失配字符的上一位字符所对应的最大长度值<br>某个字符失配时，该字符对应的next 值会告诉你下一步匹配中，模式串应该跳到哪个位置（跳到next [j] 的位置）。<br>如果next [j] 等于0或-1，则跳到模式串的开头字符，若next [j] = k 且 k &gt; 0，代表下次匹配跳到j 之前的某个字符，而不是跳到开头，且具体跳过了k 个字符。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">matchingKMP</span><span class="params">(t,p,pnext)</span>:</span>     <span class="comment">#需要传入一个部分匹配表pnext</span></span><br><span class="line">    i, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    n, m = len(t), len(p)</span><br><span class="line">    <span class="keyword">while</span> i &lt; n <span class="keyword">and</span> j &lt; m:</span><br><span class="line">        <span class="keyword">if</span> j == <span class="number">-1</span> <span class="keyword">or</span> t[i] == p[j]: <span class="comment">#如果j = -1，或者当前字符匹配成功（即S[i] == P[j]），都令i+1，j+1</span></span><br><span class="line">            i, j = i+<span class="number">1</span>, j+<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:                       <span class="comment">#如果j != -1，且当前字符匹配失败（即S[i] != P[j]），则令 i 不变，j = next[j] # next[j]即为j所对应的next值</span></span><br><span class="line">            j = pnext[j]</span><br><span class="line">        <span class="keyword">if</span> j == m:                  <span class="comment"># 找到匹配，返回索引值</span></span><br><span class="line">            <span class="keyword">return</span> i - j</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>                       <span class="comment"># 无法匹配，返回-1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">genPNext0</span><span class="params">(p)</span>:</span></span><br><span class="line">    j, k, m = <span class="number">0</span>, <span class="number">-1</span>, len(p)</span><br><span class="line">    pnext = [<span class="number">-1</span>]*m</span><br><span class="line">    <span class="keyword">while</span> j &lt; m<span class="number">-1</span>:                  <span class="comment">#生成pnext</span></span><br><span class="line">        <span class="keyword">while</span> k &gt;= <span class="number">0</span> <span class="keyword">and</span> p[j] != p[k]:</span><br><span class="line">            k = pnext[k]            </span><br><span class="line">        j, k = j+<span class="number">1</span>, k+<span class="number">1</span></span><br><span class="line">        pnext[j] = k                <span class="comment">#考虑前面</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> pnext</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成pnext表，作用：当模式串中的某个字符跟文本串中的某个字符匹配失配时，模式串下一步应该跳到哪个位置</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">genPNext</span><span class="params">(p)</span>:</span>                    </span><br><span class="line">    j, k, m = <span class="number">0</span>, <span class="number">-1</span>, len(p)</span><br><span class="line">    pnext = [<span class="number">-1</span>]*m</span><br><span class="line">    <span class="keyword">while</span> j &lt; m<span class="number">-1</span>:                  <span class="comment">#生成pnext</span></span><br><span class="line">        <span class="keyword">while</span> k &gt;= <span class="number">0</span> <span class="keyword">and</span> p[j] != p[k]:</span><br><span class="line">            k = pnext[k]            <span class="comment">#设k = pnext[k]</span></span><br><span class="line">        j, k = j+<span class="number">1</span>, k+<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> p[j] == p[k]:            <span class="comment">#递推过程</span></span><br><span class="line">            pnext[j] = pnext[k]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            pnext[j] = k            </span><br><span class="line">            <span class="comment">#next [j] = k 且 k &gt; 0，表示下次匹配跳到j 之前的某个字符，而不是跳到开头，且具体跳过了k 个字符</span></span><br><span class="line">    <span class="keyword">return</span> pnext</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    t = <span class="string">'bbc abcdab abcdabdabde'</span></span><br><span class="line">    p = <span class="string">'abcdabdab'</span></span><br><span class="line">    print(<span class="string">'------------------------------------'</span>)</span><br><span class="line">    print(matchingKMP(t,p,genPNext(p)))</span><br></pre></td></tr></table></figure>
-<h2 id="LeetCode-练习题"><a href="#LeetCode-练习题" class="headerlink" title="LeetCode 练习题"></a>LeetCode 练习题</h2><p><strong>Reverse String （反转字符串）</strong><br>英文版：<a href="https://leetcode.com/problems/reverse-string/" target="_blank" rel="noopener">Loading…</a><br>中文版：<a href="https://leetcode-cn.com/problems/reverse-string/" target="_blank" rel="noopener">Loading…</a></p>
-<p>解题见我的<a href="https://sweets.ml/2019/03/02/leetcode-344/" target="_blank" rel="noopener">另一篇博客</a></p>
-<p><strong>Reverse Words in a String（翻转字符串里的单词）</strong><br>英文版：<a href="https://leetcode.com/problems/reverse-words-in-a-string/" target="_blank" rel="noopener">Loading…</a><br>中文版：<a href="https://leetcode-cn.com/problems/reverse-words-in-a-string/" target="_blank" rel="noopener">Loading…</a></p>
-<p>解题见我的<a href="https://sweets.ml/2019/03/03/leetcode-557/" target="_blank" rel="noopener">另一篇博客</a></p>
-<p><strong>String to Integer (atoi)（字符串转换整数 (atoi)）</strong><br>英文版：<a href="https://leetcode.com/problems/string-to-integer-atoi/" target="_blank" rel="noopener">Loading…</a><br>中文版：<a href="https://leetcode-cn.com/problems/string-to-integer-atoi/" target="_blank" rel="noopener">Loading…</a></p>
-<p>第一次超出时间限制了，发现是因为while循环中忘记对i进行++操作了</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myAtoi</span><span class="params">(self, str)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type str: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        res = []</span><br><span class="line">        flag = <span class="keyword">True</span>          <span class="comment"># 标记，默认字符串第一个非空格字符为有效整数或'-'或‘+’</span></span><br><span class="line">        </span><br><span class="line">        numslist = [<span class="string">'0'</span>,<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'3'</span>,<span class="string">'4'</span>,<span class="string">'5'</span>,<span class="string">'6'</span>,<span class="string">'7'</span>,<span class="string">'8'</span>,<span class="string">'9'</span>] </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(str)):</span><br><span class="line">            <span class="keyword">if</span> str[i] ==<span class="string">' '</span> <span class="keyword">and</span> flag:  </span><br><span class="line">                <span class="comment"># 如果均为空格字符，且无非空字符出现继续</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">                </span><br><span class="line">            <span class="keyword">if</span> str[i] == <span class="string">'+'</span> <span class="keyword">and</span> flag: </span><br><span class="line">                <span class="comment"># 如果“+”字符第一次出现，则添加到列表中，标记修改为False并继续</span></span><br><span class="line">                res.append(str[i])</span><br><span class="line">                flag = <span class="keyword">False</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">                </span><br><span class="line">            <span class="keyword">if</span> str[i] == <span class="string">'-'</span> <span class="keyword">and</span> flag: </span><br><span class="line">                <span class="comment"># 如果“-”字符第一次出现，则添加到列表中，标记修改为False并继续</span></span><br><span class="line">                res.append(str[i])</span><br><span class="line">                flag = <span class="keyword">False</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">                </span><br><span class="line">            <span class="keyword">if</span> str[i] <span class="keyword">not</span> <span class="keyword">in</span> numslist: <span class="comment"># 除过上述情况，如果字符不为数字，则直接退出迭代</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                res.append(str[i])     <span class="comment"># 反之有数字出现,添加到列表中，并修改标记为False</span></span><br><span class="line">                flag = <span class="keyword">False</span></span><br><span class="line">                </span><br><span class="line">        res = <span class="string">''</span>.join(res)             <span class="comment"># 拼接字符串 </span></span><br><span class="line">        <span class="keyword">if</span> res == <span class="string">'-'</span> <span class="keyword">or</span> res==<span class="string">''</span> <span class="keyword">or</span> res==<span class="string">'+'</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            res = int(res)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> res&gt;<span class="number">2</span>**<span class="number">31</span><span class="number">-1</span>:               <span class="comment"># 特殊情况处理</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">2</span>**<span class="number">31</span><span class="number">-1</span></span><br><span class="line">        <span class="keyword">if</span> res&lt;<span class="number">-2</span>**<span class="number">31</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-2</span>**<span class="number">31</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
+        <h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><p>二叉树是每个节点最多有两个子树的树结构。通常子树被称作“左子树”和“右子树”。二叉树常被用于实现二叉查找树和二叉堆。</p>
+<p>二叉树的每个结点至多只有二棵子树(不存在度大于2的结点)，二叉树的子树有左右之分，次序不能颠倒。</p>
+        
+          <a class="article-more-a" href="/2019/03/09/datastructure-tree/#more">more >></a>
+        
       
 
       
@@ -223,7 +207,85 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/08/datasource-string/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/09/datastructure-tree/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
+    <article id="post-datastructure-string" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/08/datastructure-string/">数据结构之字符串</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/08/datastructure-string/" class="archive-article-date">
+  	<time datetime="2019-03-08T06:16:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><h2 id="实现一个字符集，只包含-a～z-这-26-个英文字母的-Trie-树"><a href="#实现一个字符集，只包含-a～z-这-26-个英文字母的-Trie-树" class="headerlink" title="实现一个字符集，只包含 a～z 这 26 个英文字母的 Trie 树"></a>实现一个字符集，只包含 a～z 这 26 个英文字母的 Trie 树</h2><p>Trie字典树主要用于存储字符串，<strong>Trie</strong> 的每个 <strong>Node</strong> 保存一个字符。用链表来描述的话，就是一个字符串就是一个链表。每个Node都保存了它的所有子节点。是一种哈希树的变种。典型应用是用于统计和排序大量的字符串（但不仅限于字符串），所以经常被搜索引擎系统用于文本词频统计。它的优点是：最大限度地减少无谓的字符串比较，查询效率比哈希表高。Trie树有一些特性：</p>
+        
+          <a class="article-more-a" href="/2019/03/08/datastructure-string/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Data Structure</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/08/datastructure-string/">展开全文 >></a>
         </p>
       
 
@@ -277,107 +339,9 @@
       
         <h3 id="散列表（哈希表）"><a href="#散列表（哈希表）" class="headerlink" title="散列表（哈希表）"></a>散列表（哈希表）</h3><p><a href="https://baike.baidu.com/item/%E6%95%A3%E5%88%97%E8%A1%A8/10027933" target="_blank" rel="noopener">散列表</a>（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的<a href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/1450" target="_blank" rel="noopener">数据结构</a>。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做<a href="https://baike.baidu.com/item/%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0/2366288" target="_blank" rel="noopener">散列函数</a>，存放记录的<a href="https://baike.baidu.com/item/%E6%95%B0%E7%BB%84/3794097" target="_blank" rel="noopener">数组</a>叫做<a href="https://baike.baidu.com/item/%E6%95%A3%E5%88%97%E8%A1%A8/10027933" target="_blank" rel="noopener">散列表</a>。</p>
 <p>给定表M，存在函数f(key)，对任意给定的关键字值key，代入函数后若能得到包含该关键字的记录在表中的地址，则称表M为哈希(Hash）表，函数f(key)为哈希(Hash) 函数。</p>
-<p><strong>处理冲突</strong></p>
-<ol>
-<li><p><a href="https://baike.baidu.com/item/%E5%BC%80%E6%94%BE%E5%AF%BB%E5%9D%80%E6%B3%95" target="_blank" rel="noopener">开放寻址法</a>：Hi=(H(key) + di) MOD m,i=1,2，…，k(k&lt;=m-1），其中H(key）为<a href="https://baike.baidu.com/item/%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">散列函数</a>，m为<a href="https://baike.baidu.com/item/%E6%95%A3%E5%88%97%E8%A1%A8" target="_blank" rel="noopener">散列表</a>长，di为增量序列，可有下列三种取法：</p>
-<p>1.1. di=1,2,3，…，m-1，称线性探测再散列；</p>
-<p>1.2. di=1^2,-1^2,2^2,-2^2，⑶^2，…，±（k)^2,(k&lt;=m/2）称二次探测再散列；</p>
-<p>1.3. di=<a href="https://baike.baidu.com/item/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0" target="_blank" rel="noopener">伪随机数</a>序列，称伪随机探测再散列。</p>
-</li>
-<li><p>再<a href="https://baike.baidu.com/item/%E6%95%A3%E5%88%97%E6%B3%95" target="_blank" rel="noopener">散列法</a>：Hi=RHi(key),i=1,2，…，k RHi均是不同的<a href="https://baike.baidu.com/item/%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">散列函数</a>，即在同义词产生地址冲突时计算另一个散列函数地址，直到冲突不再发生，这种方法不易产生“聚集”，但增加了计算时间。</p>
-</li>
-<li><p>链地址法（拉链法）</p>
-</li>
-<li><p>建立一个公共溢出区？？？？</p>
-<p>其基本思想是：所有关键字和基本表中关键字为相同哈希值的记录，不管他们由哈希函数得到的哈希地址是什么，一旦发生冲突，都填入溢出表。</p>
-</li>
-</ol>
-<p><strong>著名的hash算法</strong></p>
-<p>，MD5 和 SHA-1 可以说是目前应用最广泛的Hash算法，而它们都是以 MD4 为基础设计的。那么他们都是什么意思呢?</p>
-<p>这里简单说一下：</p>
-<p><strong>⑴ MD4</strong></p>
-<p>MD4(RFC 1320）是 MIT 的 Ronald L. Rivest 在 1990 年设计的，MD 是 Message Digest 的缩写。它适用在32位<a href="https://baike.baidu.com/item/%E5%AD%97%E9%95%BF" target="_blank" rel="noopener">字长</a>的处理器上用高速软件实现–它是基于 32 <a href="https://baike.baidu.com/item/%E4%BD%8D%E6%93%8D%E4%BD%9C" target="_blank" rel="noopener">位操作</a>数的位操作来实现的。</p>
-<p><strong>⑵ MD5</strong></p>
-<p>MD5(RFC 1321）是 Rivest 于1991年对MD4的改进版本。它对输入仍以512位分组，其输出是4个32位字的级联，与 MD4 相同。MD5比MD4来得复杂，并且速度较之要慢一点，但更安全，在抗分析和抗差分方面表现更好</p>
-<p><strong>⑶ SHA-1 及其他</strong></p>
-<p>SHA1是由NIST NSA设计为同DSA一起使用的，它对长度小于264的输入，产生长度为160bit的散列值，因此抗穷举（brute-force）性更好。SHA-1 设计时基于和MD4相同原理，并且模仿了该算法。</p>
-<p><strong>应用</strong></p>
-<p><strong>⑴</strong><a href="https://baike.baidu.com/item/%E6%96%87%E4%BB%B6%E6%A0%A1%E9%AA%8C" target="_blank" rel="noopener">文件校验</a></p>
-<p>我们比较熟悉的校验算法有<a href="https://baike.baidu.com/item/%E5%A5%87%E5%81%B6%E6%A0%A1%E9%AA%8C" target="_blank" rel="noopener">奇偶校验</a>和CRC校验，这2种校验并没有抗<a href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9" target="_blank" rel="noopener">数据篡改</a>的能力，它们一定程度上能检测出数据传输中的信道误码，但却不能防止对数据的恶意破坏。</p>
-<p>MD5 Hash算法的”数字指纹”特性，使它成为目前应用最广泛的一种文件完整性<a href="https://baike.baidu.com/item/%E6%A0%A1%E9%AA%8C%E5%92%8C" target="_blank" rel="noopener">校验和</a>（Checksum）算法，不少Unix系统有提供计算md5 checksum的命令。</p>
-<p><strong>⑵</strong><a href="https://baike.baidu.com/item/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D" target="_blank" rel="noopener">数字签名</a></p>
-<p>Hash 算法也是现代密码体系中的一个重要组成部分。由于<a href="https://baike.baidu.com/item/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">非对称算法</a>的运算速度较慢，所以在<a href="https://baike.baidu.com/item/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D" target="_blank" rel="noopener">数字签名</a>协议中，<a href="https://baike.baidu.com/item/%E5%8D%95%E5%90%91%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">单向散列函数</a>扮演了一个重要的角色。对 Hash 值，又称”数字摘要”进行数字签名，在统计上可以认为与对文件本身进行数字签名是等效的。而且这样的协议还有其他的优点。</p>
-<p><strong>⑶ 鉴权协议</strong></p>
-<p>如下的鉴权协议又被称作挑战–认证模式：在传输信道是可被侦听，但不可被篡改的情况下，这是一种简单而安全的方法。</p>
-<h2 id="Java-实现"><a href="#Java-实现" class="headerlink" title="Java 实现"></a>Java 实现</h2><p><strong>Hash map &amp; hash table</strong></p>
-<p>HashMap是Hashtable的轻量级实现（非线程安全的实现），他们都完成了Map接口，主要区别在于HashMap允许空（null）键值（key）,由于非线程安全，效率上可能高于Hashtable。HashMap允许将null作为一个entry的key或者value，而Hashtable不允许。HashMap把Hashtable的contains方法去掉了，改成containsvalue和containsKey。因为contains方法容易让人引起误解。 Hashtable继承自Dictionary类，而HashMap是Java1.2引进的Map interface的一个实现。最大的不同是，Hashtable的方法是Synchronize的，而HashMap不是，在多个线程访问Hashtable时，不需要自己为它的方法实现同步，而HashMap 就必须为之提供外同步(Collections.synchronizedMap)。 Hashtable和HashMap采用的hash/rehash<a href="http://lib.csdn.net/base/datastructure" target="_blank" rel="noopener">算法</a>都大概一样，所以性能不会有很大的差异。</p>
-<p><strong>Hashmap 存储结构</strong></p>
-<p>  HashMap的使用那么简单，那么问题来了，它是怎么存储的，他的存储结构是怎样的，很多程序员都不知道，其实当你put和get的时候，稍稍往前一步，你看到就是它的真面目。其实简单的说HashMap的存储结构是由数组和链表共同完成的。如图：</p>
-<p><img src="https://raw.githubusercontent.com/sweetysweets/BlogResource/master/blog/datasource-hash-1.png" alt=""> </p>
-<p>  从上图可以看出HashMap是Y轴方向是数组，X轴方向就是链表的存储方式。大家都知道数组的存储方式在内存的地址是连续的，大小固定，一旦分配不能被其他引用占用。它的特点是查询快，时间复杂度是O(1)，插入和删除的操作比较慢，时间复杂度是O(n)，链表的存储方式是非连续的，大小不固定，特点与数组相反，插入和删除快，查询速度慢。HashMap可以说是一种折中的方案吧。</p>
-<p><strong>HashMap基本原理</strong></p>
-<p> 1、首先判断Key是否为Null，如果为null，直接查找Enrty[0]，如果不是Null，先计算Key的HashCode，然后经过二次Hash。得到Hash值，这里的Hash特征值是一个int值。</p>
-<p> 2、根据Hash值，要找到对应的数组，所以对Entry[]的长度length求余，得到的就是Entry数组的index。</p>
-<p> 3、找到对应的数组，就是找到了所在的链表，然后按照链表的操作对Value进行插入、删除和查询操作。</p>
-<p>HashMap的hash计算时先计算hashCode(),然后进行二次hash。代码如下： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 计算二次Hash    </span><br><span class="line">int hash = hash(key.hashCode());</span><br><span class="line"></span><br><span class="line">// 通过Hash找数组索引</span><br><span class="line">int i = indexFor(hash, table.length);</span><br></pre></td></tr></table></figure>
-<p><strong>为什么二次索引</strong>？</p>
-<p>在hash找数组索引时，是按照<code>return h &amp; (length-1);</code>来找，这样会导致如果length很小，比如16（二进制是00011111），做按位与操作的时候高位不参与计算（因为都是0）这样导致的结果就是只要是低位是一样的，高位无论是什么，最后结果是一样的，如果这样依赖，hash碰撞始终在一个数组上，导致这个数组开始的链表无限长，那么在查询的时候就速度很慢。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">  static int hash(int h) &#123;</span><br><span class="line">        // This function ensures that hashCodes that differ only by</span><br><span class="line">        // constant multiples at each bit position have a bounded</span><br><span class="line">        // number of collisions (approximately 8 at default load factor).</span><br><span class="line">        h ^= (h &gt;&gt;&gt; 20) ^ (h &gt;&gt;&gt; 12);      </span><br><span class="line">        return h ^ (h &gt;&gt;&gt; 7) ^ (h &gt;&gt;&gt; 4);</span><br><span class="line">        h ^= (h &gt;&gt;&gt; 20) ^ (h &gt;&gt;&gt; 12);</span><br><span class="line">        意味着h=h的前12位不变+中间的8位位中间的8位和前8位异或值+后12位为后12位和前间12位和9-20位的异或值（+不是加法是连接，一共32位）</span><br><span class="line">h ^ (h &gt;&gt;&gt; 7) ^ (h &gt;&gt;&gt; 4); 之后再用类似的方式</span><br><span class="line">新h=前4位不变+前3位和5-7位异或值+前25位和后25位和4-28位的异或值</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>为了解决这个问题，HashMap在做indexFor操作前，需要调用hash方法，使hash值的位值在高低位上尽量分布均匀.</p>
-<p>还是按前面的key，经过Object的hash方法后，分别为32，64来进行运算：<br>32调用hash运算过程如下：<br>   原始h为32的二进制:<br>        100000<br>        h&gt;&gt;&gt;20:<br>        000000<br>    h&gt;&gt;&gt;12:<br>        000000</p>
-<p>接着运算 h^(h&gt;&gt;&gt;20)^(h&gt;&gt;&gt;12):<br>    结果：    100000</p>
-<p>然后运算: h^(h&gt;&gt;&gt;7)^(h&gt;&gt;&gt;4),<br>过程如下：<br>    h&gt;&gt;&gt;7:    000000<br>    h&gt;&gt;&gt;4:    000010<br>最后运算: h^(h&gt;&gt;&gt;7)^(h&gt;&gt;&gt;4)，<br>    结果：    100010，即十进制34</p>
-<pre><code>调用indexFor方法：
-    100010 &amp; 1111 =&gt; 2，即存放在Entry数组下标2的位置上
-</code></pre><hr>
-<p>64的运算结果为：1000100，十进制值为68<br>    调用indexfor方法：<br>        1000100 &amp; 1111 =&gt; 4，即存放在Entry数组下标4的位置上</p>
-<p>可以看到经过hash方法后，再调用indexFor方法，这样可以减少冲突。</p>
-<p><strong>put 原理</strong></p>
-<p>  (1) 首先判断key是否为null，如果是null，就单独调用putForNullKey(value)处理。默认就存储到table[0]开头的链表了。然后遍历table[0]的链表的每个节点Entry，如果发现其中存在节点Entry的key为null，就替换新的value，然后返回旧的value，如果没发现key等于null的节点Entry，就增加新的节点。</p>
-<p> (2) 计算key的hashcode，再用计算的结果二次hash，通过indexFor(hash, table.length);找到Entry数组的索引i。</p>
-<p>  (3) 然后遍历以table[i]为头节点的链表，如果发现有节点的hash，key都相同的节点时，就替换为新的value，然后返回旧的value。</p>
-<p>  (4) modCount是干嘛的啊? 让我来为你解答。众所周知，HashMap不是线程安全的，但在某些容错能力较好的应用中，如果你不想仅仅因为1%的可能性而去承受hashTable的同步开销，HashMap使用了Fail-Fast机制来处理这个问题，你会发现modCount在源码中是这样声明的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transient volatile int modCount;</span><br></pre></td></tr></table></figure>
-<p>volatile关键字声明了modCount，代表了多线程环境下访问modCount，根据JVM规范，只要modCount改变了，其他线程将读到最新的值。其实在Hashmap中modCount只是在迭代的时候起到关键作用。</p>
-<p>使用Iterator开始迭代时，会将modCount的赋值给expectedModCount，在迭代过程中，通过每次比较两者是否相等来判断HashMap是否在内部或被其它线程修改，如果modCount和expectedModCount值不一样，证明有其他线程在修改HashMap的结构，会抛出异常。</p>
-<p>所以HashMap的put、remove等操作都有modCount++的计算。</p>
-<p>  (5)  如果没有找到key的hash相同的节点，就增加新的节点addEntry(),这里增加节点的时候取巧了，每个新添加的节点都增加到头节点，然后新的头节点的next指向旧的老节点。</p>
-<p>(6) 如果HashMap大小超过临界值，就要重新设置大小，扩容，见第9节内容。</p>
-<p><strong>get</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public V get(Object key) &#123;</span><br><span class="line">        if (key == null)</span><br><span class="line">            return getForNullKey();</span><br><span class="line">        int hash = hash(key.hashCode());</span><br><span class="line">        for (Entry&lt;K,V&gt; e = table[indexFor(hash, table.length)];</span><br><span class="line">             e != null;</span><br><span class="line">             e = e.next) &#123;</span><br><span class="line">            Object k;</span><br><span class="line">            if (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k)))</span><br><span class="line">                return e.value;</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>别看这段代码，它带来的问题是巨大的，千万记住,HashMap是非线程安全的，所以这里的循环会导致死循环的。为什么呢?当你查找一个key的hash存在的时候，进入了循环，恰恰这个时候，另外一个线程将这个Entry删除了，那么你就一直因为找不到Entry而出现死循环，最后导致的结果就是代码效率很低，CPU特别高。一定记住。</p>
-<p><strong>总结</strong>：</p>
-<p>　<strong>HashMap</strong>中键值 <strong>允许为空</strong> 并且是<strong>非同步</strong>的</p>
-<p>　<strong>Hashtable</strong>中键值 <strong>不允许为空</strong> 是<strong>同步</strong>的</p>
-<p>　<strong>继承不同，但都实现了Map接口</strong></p>
-<h2 id="Python-实现"><a href="#Python-实现" class="headerlink" title="Python 实现"></a>Python 实现</h2><p><strong>dict底层实现</strong></p>
-<p>dict采用了哈希表，最低能在 O(1)时间内完成搜索。同样的java的HashMap也是采用了哈希表实现，不同是dict在发生哈希冲突的时候采用了开放寻址法，而HashMap采用了链接法。</p>
-<p>产生哈希冲突时, python 会通过一个二次探测函数 f, 计算下一个候选位置,当下一个位置可用，则将数据插入该位置,如果不可用则再次调用探测函数 f,获得下一个候选位置，因此经过不断探测,总会找到一个可用的位置</p>
-<p><strong>开放寻址法</strong></p>
-<p>优点</p>
-<p>1、记录更容易进行序列化（serialize）操作 </p>
-<p>2、如果记录总数可以预知，可以创建完美哈希函数，此时处理数据的效率是非常高的</p>
-<p>缺点</p>
-<p>1、存储记录的数目不能超过桶数组的长度，如果超过就需要扩容，而扩容会导致某次操作的时间成本飙升，这在实时或者交互式应用中可能会是一个严重的缺陷 </p>
-<p>2、使用探测序列，有可能其计算的时间成本过高，导致哈希表的处理性能降低 </p>
-<p>3、由于记录是存放在桶数组中的，而桶数组必然存在空槽，所以当记录本身尺寸（size）很大并且记录总数规模很大时，空槽占用的空间会导致明显的内存浪费 </p>
-<p>4、删除记录时，比较麻烦。比如需要删除记录a，记录b是在a之后插入桶数组的，但是和记录a有冲突，是通过探测序列再次跳转找到的地址，所以如果直接删除a，a的位置变为空槽，而空槽是查询记录失败的终止条件，这样会导致记录b在a的位置重新插入数据前不可见，所以不能直接删除a，而是设置删除标记。这就需要额外的空间和操作</p>
-<p><strong>set底层实现</strong></p>
-<p>set的去重是通过两个函数<strong>hash</strong>和<strong>eq</strong>结合实现的。<br>1、当两个变量的哈希值不相同时，就认为这两个变量是不同的<br>2、当两个变量哈希值一样时，调用<strong>eq</strong>方法，当返回值为True时认为这两个变量是同一个，应该去除一个。返回FALSE时，不去重　　<br>所以，如果想要将对象用set去重，需要重写<strong>eq</strong>和<strong>hash</strong>两个方法。 </p>
-<h2 id="实现一个基于链表法解决冲突问题的散列表"><a href="#实现一个基于链表法解决冲突问题的散列表" class="headerlink" title="实现一个基于链表法解决冲突问题的散列表"></a>实现一个基于链表法解决冲突问题的散列表</h2><h2 id="实现一个-LRU-缓存淘汰算法"><a href="#实现一个-LRU-缓存淘汰算法" class="headerlink" title="实现一个 LRU 缓存淘汰算法"></a>实现一个 LRU 缓存淘汰算法</h2><p>LRU(Least Recently Used)，直译为“最近最少使用”，其实称“最久未被使用”更为恰当。这是一个非常重要的算法，在学操作系统的时候第一次遇见，在做leetcode的时候再次遇见，知道是用于做缓存的页面置换。但是LRU不仅仅用于这一个用途，凡是有数据更新策略的应用，LRU都可以是候选算法。比如redis、memcached、oracle等缓存和数据库、或在其它应用场景方面也有类似的需求。总之要达到的目的是：保持新鲜，剔除陈旧，减少交换。 </p>
-<p>lru缓存的主要操作有两个，一个是get，获取数据是否在cache中，如果在，则把该数据放到缓存最前面；另一个的主要操作是set，在缓存中存放某个值，并且存放到最前面，如果缓存中有这个值，则更新，如果缓存满了，则删除缓存中最后面的值。总之，缓存中最前面的值是最近被使用过的，缓存有大小限制，超出要删除最久未被使用的值。要求所有操作时间复杂度均为o(1)。 </p>
-<p>直觉看上去，数据从近到远以此排列，这是一个线性结构，列表（顺序线性表/数组），链表，队列，栈？<br>　　先考虑目的要求，要求最近使用的在最前，最久未使用的在最后，队列是FIFO的结构，栈是FILO的结构，都不符合要求。<br>　　再考虑数据更新，要求o(1)复杂度下，把数据更新到最前面。列表被排除，无法满足要求。只有链式结构才可以在o(1)下完成更新。<br>　　最后考虑数据查找，链式结构下，数据查找复杂度为o(n)，又不能满足o(1)的复杂度。看来必须依赖其它数据结构的辅助。<br>　　用列表完成o(1)的更新，不可能啊，想想看，将数组中一个位置的数挪到最前面，那这个位置之前的数据都要后移一位，怎样都不能实现o(1)的开销。那就考虑链式结构下如果实现o(1)的查找吧。通常情况下，查找链表中一个位置上的值，需要从头结点开始，依次后移查找。如果有尾结点也一样依次向前移动，时间复杂度为o(n)。那么我们能不能将每个结点的位置记下来，直接去存放结点的那个位置查找呢？哈希表派上了用场。哈希表存放结点位置的对应关系，能够满足o(1)下的数据查找，同时链表能够实现o(1)的数据更新，符合预想的要求。<br>　　总结：在Cache结构中，需要一个hash table，用于存放位置关系，需要一个链表，用于更新数据，链表我们使用双向链表。大体结构为： 
-　　</p>
-<h2 id="leetcode-两数之和-1"><a href="#leetcode-两数之和-1" class="headerlink" title="leetcode 两数之和(1)"></a>leetcode 两数之和(1)</h2><p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。<br>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。<br>示例：<br>给定 nums = [2, 7, 11, 15], target = 9<br>因为 nums[0] + nums[1] = 2 + 7 = 9<br>所以返回 [0, 1]</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#把key值映射到哈希表中一个位置来访问，时间复杂度是O(N)。</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        nums_hash = &#123;&#125; </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            dif = target - nums[i]</span><br><span class="line">            <span class="keyword">if</span> dif <span class="keyword">in</span> nums_hash: </span><br><span class="line">                <span class="keyword">return</span> [nums_hash[dif], i]</span><br><span class="line">            nums_hash[nums[i]] = i</span><br><span class="line">        <span class="keyword">return</span> []</span><br></pre></td></tr></table></figure>
-<h2 id="Happy-Number-202"><a href="#Happy-Number-202" class="headerlink" title="Happy  Number(202)"></a>Happy  Number(202)</h2><p>编写一个算法来判断一个数是不是“快乐数”。<br>一个“快乐数”定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和，然后重复这个过程直到这个数变为 1，也可能是无限循环但始终变不到 1。如果可以变为 1，那么这个数就是快乐数。</p>
-<p>map返回list求和。sums = sum(map(lambda x:x**2,map(int,str(n)))) # lambda是一个匿名函数，外层map(a,b,b2,…)是一个模型，a是一个函数，b，b2…是可迭代对象，map本身就是可迭代对象。内层map(int,str(n))的意思是，将一个数转为字符串后，就变成了一个map迭代对象。即理解为，假设输入为19,此时为一个list=[1,9]。外层的map(labda函数…,map()),做的工作就是list=[1平方,9平方]，然后在sum(list)最后1平方+9平方得到82。</p>
-<p>之后寻找快乐数，sums == 1 即True。另外无限循环，每次sums都存在hash字典里，所以只要后面有sums重复在字典里，即False。然后不断迭代。(hash即dict使用)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.hash_dict = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isHappy</span><span class="params">(self, n)</span>:</span></span><br><span class="line">      	sums = sum(map(<span class="keyword">lambda</span> x:x**<span class="number">2</span>,map(int,str(n))))	<span class="comment">#实现一个数round拆分平方求和</span></span><br><span class="line">        <span class="keyword">if</span> sums == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">        <span class="keyword">if</span> sums <span class="keyword">in</span> self.hash_dict:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.hash_dict[sums] = <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> self.isHappy(sums)</span><br></pre></td></tr></table></figure>
-<h2 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h2><p><a href="https://www.cnblogs.com/wuhuangdi/p/4175991.html" target="_blank" rel="noopener">这篇写的是真好啊,下次再看的时候一定要再翻一遍啊啊！</a></p>
-<p><a href="https://blog.csdn.net/zhaozhenzuo/article/details/35207485" target="_blank" rel="noopener">hash性能优化</a></p>
-
+        
+          <a class="article-more-a" href="/2019/03/06/datastructure-hash/#more">more >></a>
+        
       
 
       
@@ -453,37 +417,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p>排序真的是心头大病，年年学年年考年年忘233，老是搞得晕头转向的，希望这次能记长久一点……</p>
-<p><strong>归并排序</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(self,seq, low, mid, height)</span>:</span></span><br><span class="line">        <span class="string">"""合并两个已排序好的列表，产生一个新的已排序好的列表"""</span></span><br><span class="line">        <span class="comment"># 通过low,mid height 将[low:mid) [mid:height)提取出来</span></span><br><span class="line">        left = seq[low:mid]</span><br><span class="line">        right = seq[mid:height]</span><br><span class="line">        print(<span class="string">'left:'</span>, left, <span class="string">'right:'</span>, right)</span><br><span class="line"></span><br><span class="line">        k = <span class="number">0</span>  <span class="comment"># left的下标</span></span><br><span class="line">        j = <span class="number">0</span>  <span class="comment"># right的下标</span></span><br><span class="line">        result = []  <span class="comment"># 保存本次排序好的内容</span></span><br><span class="line">        <span class="comment"># 将最小的元素依次添加到result数组中</span></span><br><span class="line">        <span class="keyword">while</span> k &lt; len(left) <span class="keyword">and</span> j &lt; len(right):</span><br><span class="line">            <span class="keyword">if</span> left[k] &lt;= right[j]:</span><br><span class="line">                result.append(left[k])</span><br><span class="line">                k += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                result.append(right[j])</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">        <span class="comment"># 将对比完后剩余的数组内容 添加到已排序好数组中</span></span><br><span class="line">        result += left[k:]</span><br><span class="line">        result += right[j:]</span><br><span class="line">        <span class="comment"># 将原始数组中[low:height)区间 替换为已经排序好的数组</span></span><br><span class="line">        seq[low:height] = result</span><br><span class="line">        <span class="comment"># print("seq:", seq)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge_sort</span><span class="params">(self,arr)</span>:</span></span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; len(arr):</span><br><span class="line">            low = <span class="number">0</span></span><br><span class="line">            <span class="comment"># print('子数组 长度 : ', i)</span></span><br><span class="line">            <span class="keyword">while</span> low &lt; len(arr):</span><br><span class="line">                mid = low + i</span><br><span class="line">                height = min(low + <span class="number">2</span> * i, len(arr))</span><br><span class="line">                <span class="keyword">if</span> mid &lt; height:</span><br><span class="line">                    <span class="comment"># print('low ', low, 'mid:', mid, 'height:', height)</span></span><br><span class="line">                    self.merge(arr, low, mid, height)</span><br><span class="line">                low += <span class="number">2</span> * i</span><br><span class="line">            i *= <span class="number">2</span></span><br></pre></td></tr></table></figure>
-<p><strong>快速排序</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.选取一个数字作为基准，可选取末位数字</span></span><br><span class="line"><span class="comment"># 2.将数列第一位开始，依次与此数字比较，如果小于此数，将小数交换到左边，最后达到小于基准数的在左边，大于基准数的在右边，分为两个数组</span></span><br><span class="line"><span class="comment"># 3.分别对两个数组重复上述步骤</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分治思想 递归调用</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(array)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(array) &lt; <span class="number">2</span>:  <span class="comment"># 基线条件（停止递归的条件）</span></span><br><span class="line">        <span class="keyword">return</span> array</span><br><span class="line">    <span class="keyword">else</span>:  <span class="comment"># 递归条件</span></span><br><span class="line">        baseValue = array[<span class="number">0</span>]  <span class="comment"># 选择基准值</span></span><br><span class="line">        <span class="comment"># 由所有小于基准值的元素组成的子数组</span></span><br><span class="line">        less = [m <span class="keyword">for</span> m <span class="keyword">in</span> array[<span class="number">1</span>:] <span class="keyword">if</span> m &lt; baseValue]</span><br><span class="line">        <span class="comment"># 包括基准在内的同时和基准相等的元素，在上一个版本的百科当中，并没有考虑相等元素</span></span><br><span class="line">        equal = [w <span class="keyword">for</span> w <span class="keyword">in</span> array <span class="keyword">if</span> w == baseValue]</span><br><span class="line">        <span class="comment"># 由所有大于基准值的元素组成的子数组</span></span><br><span class="line">        greater = [n <span class="keyword">for</span> n <span class="keyword">in</span> array[<span class="number">1</span>:] <span class="keyword">if</span> n &gt; baseValue]</span><br><span class="line">    <span class="keyword">return</span> quickSort(less) + equal + quickSort(greater)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 非递归</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partition</span><span class="params">(arr, low, high)</span>:</span>  <span class="comment">#分区操作，返回基准线下标</span></span><br><span class="line">    privot = arr[low]</span><br><span class="line">    <span class="keyword">while</span> low &lt; high:</span><br><span class="line">        <span class="keyword">while</span> low &lt; high <span class="keyword">and</span> arr[high] &gt;= privot:</span><br><span class="line">            high -= <span class="number">1</span></span><br><span class="line">            arr[low] = arr[high]</span><br><span class="line">            <span class="keyword">while</span> low &lt; high <span class="keyword">and</span> arr[low] &lt;= privot:</span><br><span class="line">                low += <span class="number">1</span></span><br><span class="line">                arr[high] = arr[low]</span><br><span class="line">                <span class="comment"># 此时start = end</span></span><br><span class="line">                arr[low] = privot</span><br><span class="line">                <span class="keyword">return</span> low</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(arr)</span>:</span></span><br><span class="line">    <span class="string">'''''模拟栈操作实现非递归的快速排序'''</span></span><br><span class="line">	<span class="keyword">if</span> len(arr) &lt; <span class="number">2</span>:</span><br><span class="line">		<span class="keyword">return</span> arr</span><br><span class="line">	stack = []</span><br><span class="line">	stack.append(len(arr) - <span class="number">1</span>)</span><br><span class="line">	stack.append(<span class="number">0</span>)</span><br><span class="line">	<span class="keyword">while</span> stack:</span><br><span class="line">		l = stack.pop()</span><br><span class="line">		r = stack.pop()</span><br><span class="line">		index = self.partition(arr, l, r)</span><br><span class="line">        <span class="keyword">if</span> l &lt; index - <span class="number">1</span>:</span><br><span class="line">            stack.append(index - <span class="number">1</span>)</span><br><span class="line">			stack.append(l)</span><br><span class="line">			<span class="keyword">if</span> r &gt; index + <span class="number">1</span>:</span><br><span class="line">				stack.append(r)</span><br><span class="line">                stack.append(index + <span class="number">1</span>)</span><br><span class="line">     <span class="keyword">return</span> arr</span><br></pre></td></tr></table></figure>
-<p><strong>插入排序</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 当前需要排序的元素(array[i])，跟已经排序好的最后一个元素比较(array[i-1])，如果满足条件继续执行后面的程序，否则循环到下一个要排序的元素。</span></span><br><span class="line"><span class="comment"># 缓存当前要排序的元素的值，以便找到正确的位置进行插入。</span></span><br><span class="line"><span class="comment"># 排序的元素跟已经排序号的元素比较，比它大的向后移动(升序)。</span></span><br><span class="line"><span class="comment"># 要排序的元素，插入到正确的位置。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert_sort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(nums)<span class="number">-1</span>):</span><br><span class="line">        tmp = nums[i]  <span class="comment"># current data waiting for sort</span></span><br><span class="line">        j = i<span class="number">-1</span></span><br><span class="line">        <span class="keyword">while</span> j&gt;=<span class="number">0</span> <span class="keyword">and</span> nums[j] &gt;tmp:</span><br><span class="line">            nums[j+<span class="number">1</span>] =nums[j] <span class="comment"># 把已经排序好的元素后移一位，留下需要插入的位置</span></span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line">        nums[j] = tmp</span><br></pre></td></tr></table></figure>
-<p><strong>冒泡排序</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 冒泡排序的思想: 每次比较两个相邻的元素, 如果他们的顺序错误就把他们交换位置</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)<span class="number">-1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(len(nums)<span class="number">-1</span>-i):</span><br><span class="line">        	<span class="keyword">if</span> nums[j] &gt; nums[j + <span class="number">1</span>]:</span><br><span class="line">                nums[j], nums[j + <span class="number">1</span>] = nums[j + <span class="number">1</span>], nums[j]</span><br></pre></td></tr></table></figure>
-<p><strong>选择排序</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 选择排序注意点(假设第一层循环变量为：i;第二层循环变量为：j)：</span></span><br><span class="line"><span class="comment"># [0,i-1]是已经排序好的元素。</span></span><br><span class="line"><span class="comment"># 定义一个变量，用来记录本次循环下找到的最小元素的下标。</span></span><br><span class="line"><span class="comment"># 第二层循环是从[i,length -1]中找到最小元素的下标，用来与i元素交换。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select_sort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)<span class="number">-1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i+<span class="number">1</span>,len(nums)<span class="number">-1</span>):</span><br><span class="line">            <span class="keyword">if</span> nums[i]&gt;nums[j]</span><br><span class="line">            	nums[i],nums[j] = nums[j],nums[i]</span><br></pre></td></tr></table></figure>
-<p><strong>堆排序</strong> 参见<a href="https://www.jianshu.com/p/d174f1862601" target="_blank" rel="noopener">https://www.jianshu.com/p/d174f1862601</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">swap_param</span><span class="params">(L, i, j)</span>:</span></span><br><span class="line">    L[i], L[j] = L[j], L[i]</span><br><span class="line">    <span class="keyword">return</span> L</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heap_adjust</span><span class="params">(L, start, end)</span>:</span></span><br><span class="line">    temp = L[start]</span><br><span class="line"></span><br><span class="line">    i = start</span><br><span class="line">    j = <span class="number">2</span> * i</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> j &lt;= end:</span><br><span class="line">        <span class="keyword">if</span> (j &lt; end) <span class="keyword">and</span> (L[j] &lt; L[j + <span class="number">1</span>]):</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> temp &lt; L[j]:</span><br><span class="line">            L[i] = L[j]</span><br><span class="line">            i = j</span><br><span class="line">            j = <span class="number">2</span> * i</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    L[i] = temp</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heap_sort</span><span class="params">(L)</span>:</span></span><br><span class="line">    L_length = len(L) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    first_sort_count = L_length / <span class="number">2</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(first_sort_count):</span><br><span class="line">        heap_adjust(L, first_sort_count - i, L_length)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(L_length - <span class="number">1</span>):</span><br><span class="line">        L = swap_param(L, <span class="number">1</span>, L_length - i)</span><br><span class="line">        heap_adjust(L, <span class="number">1</span>, L_length - i - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [L[i] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(L))]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    L = deque([<span class="number">50</span>, <span class="number">16</span>, <span class="number">30</span>, <span class="number">10</span>, <span class="number">60</span>,  <span class="number">90</span>,  <span class="number">2</span>, <span class="number">80</span>, <span class="number">70</span>])</span><br><span class="line">    L.appendleft(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">print</span> heap_sort(L)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-<p><strong>计数排序</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># 时间复杂度n^2 空间复杂度1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">count_sort</span><span class="params">(self,nums)</span>:</span></span><br><span class="line">        n = len(nums)</span><br><span class="line">        b = [<span class="keyword">None</span>] * n</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            p = <span class="number">0</span></span><br><span class="line">            q = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">                <span class="keyword">if</span> nums[j] &lt; nums[i]:</span><br><span class="line">                    p += <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> nums[j] == nums[i]:</span><br><span class="line">                    q += <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> range(p, p + q):  </span><br><span class="line">            <span class="comment">##说明这几个位置的值都相同，也可以只判断小的,,不可以，会有none</span></span><br><span class="line">                b[k] = nums[i]</span><br><span class="line">        <span class="keyword">return</span> b</span><br></pre></td></tr></table></figure>
-<h2 id="leetcode-返回滑动窗口最大值-队列"><a href="#leetcode-返回滑动窗口最大值-队列" class="headerlink" title="leetcode 返回滑动窗口最大值(队列)"></a>leetcode 返回滑动窗口最大值(队列)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxSlidingWindow</span><span class="params">(self, nums: List[int], k: int)</span> -&gt; List[int]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> nums:<span class="keyword">return</span> []</span><br><span class="line">        res,window = [],[]</span><br><span class="line">        <span class="keyword">for</span> i,x <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">            <span class="keyword">if</span> i &gt;= k <span class="keyword">and</span> window[<span class="number">0</span>] &lt;= i - k:</span><br><span class="line">                window.pop(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">while</span> window <span class="keyword">and</span> nums[window[<span class="number">-1</span>]] &lt;= x:</span><br><span class="line">                window.pop()</span><br><span class="line">            window.append(i)</span><br><span class="line">            <span class="keyword">if</span> i &gt;= k - <span class="number">1</span>:</span><br><span class="line">                res.append(nums[window[<span class="number">0</span>]])</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-<h2 id="O-n-时间复杂度内找到一组数据的第-K-大元素"><a href="#O-n-时间复杂度内找到一组数据的第-K-大元素" class="headerlink" title="O(n) 时间复杂度内找到一组数据的第 K 大元素"></a>O(n) 时间复杂度内找到一组数据的第 K 大元素</h2><p>TopK问题,即寻找最大的K个数,这个问题非常常见,比如从1千万搜索记录中找出最热门的10个关键词.</p>
-<p>方法一:先排序,然后截取前k个数.</p>
-<p>时间复杂度：O(n<em>logn)+O(k)=O(n</em>logn)。</p>
-<p>方法二:最小堆.</p>
-<p>维护容量为k的最小堆.根据最小堆性质,堆顶一定是最小的,如果小于堆顶,则直接pass,如果大于堆顶,则替换掉堆顶,并heapify整理堆,其中heapify的时间复杂度是logk.</p>
-<p>时间复杂度:O(k+(n-k)<em>logk)=O(n</em>logk)</p>
-<p>方法三:<br>quick select算法.其实就类似于快排.不同地方在于quick select每趟只需要往一个方向走.</p>
-<p>时间复杂度:O(n).</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">qselect</span><span class="params">(A,k)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(A)&lt;k:<span class="keyword">return</span> A</span><br><span class="line">    pivot = A[<span class="number">-1</span>]</span><br><span class="line">    right = [pivot] + [x <span class="keyword">for</span> x <span class="keyword">in</span> A[:<span class="number">-1</span>] <span class="keyword">if</span> x&gt;=pivot]</span><br><span class="line">    rlen = len(right)</span><br><span class="line">    <span class="keyword">if</span> rlen==k:</span><br><span class="line">        <span class="keyword">return</span> right</span><br><span class="line">    <span class="keyword">if</span> rlen&gt;k:</span><br><span class="line">        <span class="keyword">return</span> qselect(right, k)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        left = [x <span class="keyword">for</span> x <span class="keyword">in</span> A[:<span class="number">-1</span>] <span class="keyword">if</span> x&lt;pivot]</span><br><span class="line">        <span class="keyword">return</span> qselect(left, k-rlen) + right</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">    <span class="keyword">print</span> qselect([<span class="number">11</span>,<span class="number">8</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">7</span>,<span class="number">9</span>], i)</span><br></pre></td></tr></table></figure>
-<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><p><strong>二分查找 实现一个有序数组的二分查找算法</strong>  非递归</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binary_chop</span><span class="params">(alist, data)</span>:</span></span><br><span class="line">    n = len(alist)</span><br><span class="line">    first = <span class="number">0</span></span><br><span class="line">    last = n - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> first &lt;= last:</span><br><span class="line">        mid = (last + first) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> alist[mid] &gt; data:</span><br><span class="line">            last = mid - <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> alist[mid] &lt; data:</span><br><span class="line">            first = mid + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">False</span></span><br></pre></td></tr></table></figure>
-<p><strong>实现模糊二分查找算法（比如大于等于给定值的第一个元素）</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fuzzyHalfSearch</span><span class="params">(nums,num)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    <span class="keyword">if</span> num&gt;nums[<span class="number">-1</span>]:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> num &lt;= nums[<span class="number">0</span>]:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">elif</span> num == nums[<span class="number">-1</span>]:</span><br><span class="line">        <span class="keyword">return</span> len(nums)<span class="number">-1</span></span><br><span class="line">    </span><br><span class="line">    low = <span class="number">0</span></span><br><span class="line">    high = len(nums)<span class="number">-2</span></span><br><span class="line">    <span class="keyword">while</span> low &lt;= high:</span><br><span class="line">        medim = (high+low)/<span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> num&gt;nums[medim] <span class="keyword">and</span> num&lt;=nums[medim+<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">return</span> medim+<span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> num &gt; nums[medim+<span class="number">1</span>]:</span><br><span class="line">            low = medim+<span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> num &lt;= nums[medim]:</span><br><span class="line">            high = medim</span><br><span class="line">    <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
-<h2 id="Leetcode-Sqrt-x-（x-的平方根）"><a href="#Leetcode-Sqrt-x-（x-的平方根）" class="headerlink" title="Leetcode Sqrt(x) （x 的平方根）"></a>Leetcode Sqrt(x) （x 的平方根）</h2><p>英文版：<a href="https://leetcode.com/problems/sqrtx/" target="_blank" rel="noopener">Loading…</a><br>中文版：<a href="https://leetcode-cn.com/problems/sqrtx/" target="_blank" rel="noopener">Loading…</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://en.wikipedia.org/wiki/Integer_square_root#Using_only_integer_division</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mySqrt</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type x: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> x &lt;= <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> x</span><br><span class="line">        r = x</span><br><span class="line">        <span class="keyword">while</span> r &gt; x / r:</span><br><span class="line">            r = (r + x / r) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> int(r)</span><br></pre></td></tr></table></figure>
-
+        
+          <a class="article-more-a" href="/2019/03/06/datastructure-sort/#more">more >></a>
+        
       
 
       
@@ -1011,90 +947,6 @@
 
 
   
-    <article id="post-datastructure-array" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/28/datastructure-array/">数据结构之数组</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/28/datastructure-array/" class="archive-article-date">
-  	<time datetime="2019-02-28T09:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>数组是线性数据结构中的连续存储结构，它的特点是：</p>
-<ul>
-<li>元素类型是固定的</li>
-<li>长度是固定的</li>
-<li>通过角标查询、查询快</li>
-<li>增删慢</li>
-</ul>
-        
-          <a class="article-more-a" href="/2019/02/28/datastructure-array/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Data Structure</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/28/datastructure-array/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1189,15 +1041,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1205,15 +1053,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
+                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
+                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1229,11 +1081,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+                <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
              
               <li class="article-tag-list-item">

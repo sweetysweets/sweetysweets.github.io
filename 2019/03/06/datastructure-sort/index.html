@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>数据结构之排序 | 一只头秃程序猿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="排序排序真的是心头大病，年年学年年考年年忘233，老是搞得晕头转向的，希望这次能记长久一点…… 归并排序 12345678910111213141516171819202122232425262728293031323334353637383940class Solution:     def merge(self,seq, low, mid, height):        &quot;&quot;&quot;合并两个已排序">
+  <meta name="description" content="排序排序真的是心头大病，年年学年年考年年忘233，老是搞得晕头转向的，希望这次能记长久一点……">
 <meta name="keywords" content="Data Structure">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据结构之排序">
 <meta property="og:url" content="http://yoursite.com/2019/03/06/datastructure-sort/index.html">
 <meta property="og:site_name" content="一只头秃程序猿">
-<meta property="og:description" content="排序排序真的是心头大病，年年学年年考年年忘233，老是搞得晕头转向的，希望这次能记长久一点…… 归并排序 12345678910111213141516171819202122232425262728293031323334353637383940class Solution:     def merge(self,seq, low, mid, height):        &quot;&quot;&quot;合并两个已排序">
+<meta property="og:description" content="排序排序真的是心头大病，年年学年年考年年忘233，老是搞得晕头转向的，希望这次能记长久一点……">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-06T11:10:04.131Z">
+<meta property="og:updated_time" content="2019-03-09T06:00:53.347Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构之排序">
-<meta name="twitter:description" content="排序排序真的是心头大病，年年学年年考年年忘233，老是搞得晕头转向的，希望这次能记长久一点…… 归并排序 12345678910111213141516171819202122232425262728293031323334353637383940class Solution:     def merge(self,seq, low, mid, height):        &quot;&quot;&quot;合并两个已排序">
+<meta name="twitter:description" content="排序排序真的是心头大病，年年学年年考年年忘233，老是搞得晕头转向的，希望这次能记长久一点……">
   
     <link rel="alternative" href="/atom.xml" title="一只头秃程序猿" type="application/atom+xml">
   
@@ -184,6 +184,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p>排序真的是心头大病，年年学年年考年年忘233，老是搞得晕头转向的，希望这次能记长久一点……</p>
+<a id="more"></a>
 <p><strong>归并排序</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(self,seq, low, mid, height)</span>:</span></span><br><span class="line">        <span class="string">"""合并两个已排序好的列表，产生一个新的已排序好的列表"""</span></span><br><span class="line">        <span class="comment"># 通过low,mid height 将[low:mid) [mid:height)提取出来</span></span><br><span class="line">        left = seq[low:mid]</span><br><span class="line">        right = seq[mid:height]</span><br><span class="line">        print(<span class="string">'left:'</span>, left, <span class="string">'right:'</span>, right)</span><br><span class="line"></span><br><span class="line">        k = <span class="number">0</span>  <span class="comment"># left的下标</span></span><br><span class="line">        j = <span class="number">0</span>  <span class="comment"># right的下标</span></span><br><span class="line">        result = []  <span class="comment"># 保存本次排序好的内容</span></span><br><span class="line">        <span class="comment"># 将最小的元素依次添加到result数组中</span></span><br><span class="line">        <span class="keyword">while</span> k &lt; len(left) <span class="keyword">and</span> j &lt; len(right):</span><br><span class="line">            <span class="keyword">if</span> left[k] &lt;= right[j]:</span><br><span class="line">                result.append(left[k])</span><br><span class="line">                k += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                result.append(right[j])</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">        <span class="comment"># 将对比完后剩余的数组内容 添加到已排序好数组中</span></span><br><span class="line">        result += left[k:]</span><br><span class="line">        result += right[j:]</span><br><span class="line">        <span class="comment"># 将原始数组中[low:height)区间 替换为已经排序好的数组</span></span><br><span class="line">        seq[low:height] = result</span><br><span class="line">        <span class="comment"># print("seq:", seq)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge_sort</span><span class="params">(self,arr)</span>:</span></span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; len(arr):</span><br><span class="line">            low = <span class="number">0</span></span><br><span class="line">            <span class="comment"># print('子数组 长度 : ', i)</span></span><br><span class="line">            <span class="keyword">while</span> low &lt; len(arr):</span><br><span class="line">                mid = low + i</span><br><span class="line">                height = min(low + <span class="number">2</span> * i, len(arr))</span><br><span class="line">                <span class="keyword">if</span> mid &lt; height:</span><br><span class="line">                    <span class="comment"># print('low ', low, 'mid:', mid, 'height:', height)</span></span><br><span class="line">                    self.merge(arr, low, mid, height)</span><br><span class="line">                low += <span class="number">2</span> * i</span><br><span class="line">            i *= <span class="number">2</span></span><br></pre></td></tr></table></figure>
 <p><strong>快速排序</strong></p>
@@ -491,15 +492,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -507,15 +504,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
+                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
+                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -531,11 +532,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+                <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
              
               <li class="article-tag-list-item">
