@@ -160,6 +160,108 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-datastructure-graph" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/11/datastructure-graph/">数据结构之图</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/11/datastructure-graph/" class="archive-article-date">
+  	<time datetime="2019-03-11T15:51:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><p> <strong>图</strong>是一种多对多的<strong>数据结构</strong></p>
+<ul>
+<li>图的表示： <code>邻接表</code> 和 <code>邻接矩阵</code><ul>
+<li>这里可以分为 <code>有向图</code> 和<code>无向图</code><br><code>无向图是一种特殊的有向图</code></li>
+<li><code>有权图</code> 和 <code>无权图</code></li>
+</ul>
+</li>
+<li>图的遍历： <code>DFS</code> <code>BFS</code> 常见可以解决的问题有： <code>联通分量</code> <code>Flood Fill</code> <code>寻路</code> <code>走迷宫</code> <code>迷宫生成</code> <code>无权图的最短路径</code> <code>环的判断</code></li>
+<li>最小生成树问题（Minimum Spanning Tree） <code>Prim</code> <code>Kruskal</code></li>
+<li>最短路径问题(Shortest Path) <code>Dijkstra</code> <code>Bellman-Ford</code></li>
+<li>拓扑排序(Topological sorting)</li>
+</ul>
+<h2 id="图的应用"><a href="#图的应用" class="headerlink" title="图的应用"></a>图的应用</h2><ul>
+<li>计算机网络</li>
+<li>路径问题，寻找最优路径</li>
+<li>地图</li>
+<li>约束性满足问题</li>
+</ul>
+<h2 id="Java-中的-图实现"><a href="#Java-中的-图实现" class="headerlink" title="Java 中的 图实现"></a>Java 中的 图实现</h2><p>图不应该定义为数据结构。 图实际可以理解为模型。比如最短路径，最大流，最小生成树等等。</p>
+<p>图的表示和存储才是 数据结构，实际上，数组 和 邻接表就可以构图，而且图算法的应用实际是不广的。 大部分程序员一辈子都用不上图算法，于是 JDK 就没有 图都支持了。 </p>
+<p>但是 C++ 有标准 GraphLib 库可以使用。</p>
+<p>Java 版本也有开源图算法，好像没有像 GraphLib 那么强悍。</p>
+<h2 id="Python中的图实现"><a href="#Python中的图实现" class="headerlink" title="Python中的图实现"></a>Python中的图实现</h2><h2 id="实现有向图-无向图-有权图-无权图的邻接矩阵和邻接表表示方法"><a href="#实现有向图-无向图-有权图-无权图的邻接矩阵和邻接表表示方法" class="headerlink" title="实现有向图 无向图 有权图 无权图的邻接矩阵和邻接表表示方法"></a>实现有向图 无向图 有权图 无权图的邻接矩阵和邻接表表示方法</h2><h2 id="实现图的深度优先搜索和广度优先搜索"><a href="#实现图的深度优先搜索和广度优先搜索" class="headerlink" title="实现图的深度优先搜索和广度优先搜索"></a>实现图的深度优先搜索和广度优先搜索</h2><h2 id="实现-Dijkstra-算法、A-算法"><a href="#实现-Dijkstra-算法、A-算法" class="headerlink" title="实现 Dijkstra 算法、A*算法"></a>实现 Dijkstra 算法、A*算法</h2><h2 id="实现拓扑排序的Kahn算法、DFS算法"><a href="#实现拓扑排序的Kahn算法、DFS算法" class="headerlink" title="实现拓扑排序的Kahn算法、DFS算法"></a>实现拓扑排序的Kahn算法、DFS算法</h2><h2 id="leetcode-练习"><a href="#leetcode-练习" class="headerlink" title="leetcode 练习"></a>leetcode 练习</h2><h2 id="回溯法"><a href="#回溯法" class="headerlink" title="回溯法"></a>回溯法</h2><p>回溯法(探索与回溯法)是一种选优搜索法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。</p>
+<p>深度优先算法：</p>
+<p>（1）访问初始顶点v并标记顶点v已访问。<br>（2）查找顶点v的第一个邻接顶点w。<br>（3）若顶点v的邻接顶点w存在，则继续执行；否则回溯到v，再找v的另外一个未访问过的邻接点。<br>（4）若顶点w尚未被访问，则访问顶点w并标记顶点w为已访问。<br>（5）继续查找顶点w的下一个邻接顶点wi，如果v取值wi转到步骤（3）。直到连通图中所有顶点全部访问过为止。</p>
+<p>广度优先算法：</p>
+<p>（1）顶点v入队列。<br>（2）当队列非空时则继续执行，否则算法结束。<br>（3）出队列取得队头顶点v；访问顶点v并标记顶点v已被访问。<br>（4）查找顶点v的第一个邻接顶点col。<br>（5）若v的邻接顶点col未被访问过的，则col入队列。<br>（6）继续查找顶点v的另一个新的邻接顶点col，转到步骤（5）。直到顶点v的所有未被访问过的邻接点处理完。转到步骤（2）。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Data Structure</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/11/datastructure-graph/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
     <article id="post-datastructure-tree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -867,89 +969,9 @@
 
 
   
-    <article id="post-leetcode-344" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/02/leetcode-344/">leetcode-344 Reverse String 反转字符串</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/02/leetcode-344/" class="archive-article-date">
-  	<time datetime="2019-03-02T01:24:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>Write a function that reverses a string. The input string is given as an array of characters <code>char[]</code>.</p>
-<p>Do not allocate extra space for another array, you must do this by <strong>modifying the input array in-place</strong> with O(1) extra memory.</p>
-<p>You may assume all the characters consist of <a href="https://en.wikipedia.org/wiki/ASCII#Printable_characters" target="_blank" rel="noopener">printable ascii characters</a>.</p>
-        
-          <a class="article-more-a" href="/2019/03/02/leetcode-344/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/02/leetcode-344/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1041,15 +1063,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">软件工程管理</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1061,11 +1079,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
+                <a href="javascript:void(0)" class="js-tag color2">软件工程管理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1074,6 +1088,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
               </li>
              
               <li class="article-tag-list-item">
