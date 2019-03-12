@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="一只头秃程序猿">
 <meta property="og:description" content="图 图是一种多对多的数据结构  图的表示： 邻接表 和 邻接矩阵 这里可以分为 有向图 和无向图无向图是一种特殊的有向图 有权图 和 无权图   图的遍历： DFS BFS 常见可以解决的问题有： 联通分量 Flood Fill 寻路 走迷宫 迷宫生成 无权图的最短路径 环的判断 最小生成树问题（Minimum Spanning Tree） Prim Kruskal 最短路径问题(Shortest">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-12T03:14:44.474Z">
+<meta property="og:updated_time" content="2019-03-12T03:50:59.790Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构之图">
 <meta name="twitter:description" content="图 图是一种多对多的数据结构  图的表示： 邻接表 和 邻接矩阵 这里可以分为 有向图 和无向图无向图是一种特殊的有向图 有权图 和 无权图   图的遍历： DFS BFS 常见可以解决的问题有： 联通分量 Flood Fill 寻路 走迷宫 迷宫生成 无权图的最短路径 环的判断 最小生成树问题（Minimum Spanning Tree） Prim Kruskal 最短路径问题(Shortest">
@@ -195,6 +195,7 @@
 <li>最短路径问题(Shortest Path) <code>Dijkstra</code> <code>Bellman-Ford</code></li>
 <li>拓扑排序(Topological sorting)</li>
 </ul>
+<a id="more"></a>
 <h2 id="图的应用"><a href="#图的应用" class="headerlink" title="图的应用"></a>图的应用</h2><ul>
 <li>计算机网络</li>
 <li>路径问题，寻找最优路径</li>
@@ -205,7 +206,8 @@
 <p>图的表示和存储才是 数据结构，实际上，数组 和 邻接表就可以构图，而且图算法的应用实际是不广的。 大部分程序员一辈子都用不上图算法，于是 JDK 就没有 图都支持了。 </p>
 <p>但是 C++ 有标准 GraphLib 库可以使用。</p>
 <p>Java 版本也有开源图算法，好像没有像 GraphLib 那么强悍。</p>
-<h2 id="Python中的图实现"><a href="#Python中的图实现" class="headerlink" title="Python中的图实现"></a>Python中的图实现</h2><h2 id="实现有向图-无向图-有权图-无权图的邻接矩阵和邻接表表示方法"><a href="#实现有向图-无向图-有权图-无权图的邻接矩阵和邻接表表示方法" class="headerlink" title="实现有向图 无向图 有权图 无权图的邻接矩阵和邻接表表示方法"></a>实现有向图 无向图 有权图 无权图的邻接矩阵和邻接表表示方法</h2><h2 id="实现图的深度优先搜索和广度优先搜索"><a href="#实现图的深度优先搜索和广度优先搜索" class="headerlink" title="实现图的深度优先搜索和广度优先搜索"></a>实现图的深度优先搜索和广度优先搜索</h2><h2 id="实现-Dijkstra-算法、A-算法"><a href="#实现-Dijkstra-算法、A-算法" class="headerlink" title="实现 Dijkstra 算法、A*算法"></a>实现 Dijkstra 算法、A*算法</h2><h2 id="实现拓扑排序的Kahn算法、DFS算法"><a href="#实现拓扑排序的Kahn算法、DFS算法" class="headerlink" title="实现拓扑排序的Kahn算法、DFS算法"></a>实现拓扑排序的Kahn算法、DFS算法</h2><h2 id="leetcode-练习"><a href="#leetcode-练习" class="headerlink" title="leetcode 练习"></a>leetcode 练习</h2><h2 id="回溯法"><a href="#回溯法" class="headerlink" title="回溯法"></a>回溯法</h2><p>回溯法(探索与回溯法)是一种选优搜索法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。</p>
+<h2 id="Python中的图实现"><a href="#Python中的图实现" class="headerlink" title="Python中的图实现"></a>Python中的图实现</h2><h2 id="实现有向图-无向图-有权图-无权图的邻接矩阵和邻接表表示方法"><a href="#实现有向图-无向图-有权图-无权图的邻接矩阵和邻接表表示方法" class="headerlink" title="实现有向图 无向图 有权图 无权图的邻接矩阵和邻接表表示方法"></a>实现有向图 无向图 有权图 无权图的邻接矩阵和邻接表表示方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">class Graph(object):</span><br><span class="line">    def __init__(self,v,graph=None):</span><br><span class="line">        if graph :</span><br><span class="line">            self.graph = graph</span><br><span class="line">        else:</span><br><span class="line">            self.graph = [[0 for i in range(v)] for j in range(v)]</span><br><span class="line">        self.v = v</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    def add_edge(self,begin,end,weight):</span><br><span class="line">        if begin&gt;self.v-1 or end &lt; 0:</span><br><span class="line">            print(&quot;edge error&quot;)</span><br><span class="line">            return</span><br><span class="line">        self.graph[begin][end] = weight</span><br><span class="line"></span><br><span class="line">    def show_graph_matrix(self):</span><br><span class="line"></span><br><span class="line">        for i in range(self.v):</span><br><span class="line">            for j in range(self.v):</span><br><span class="line">                print(self.graph[i][j],end=&quot; &quot;)</span><br><span class="line">            print()</span><br><span class="line"></span><br><span class="line">    def dfs_recursive(self,now,visited,result):  # 深度优先搜索</span><br><span class="line">        visited[now] = True</span><br><span class="line">        result.append(now)</span><br><span class="line">        for i in range(self.v):</span><br><span class="line">            if self.graph[now][i] != 0 and not visited[i]:</span><br><span class="line">                self.dfs_recursive(i,visited,result)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def dfs(self,start):</span><br><span class="line">        visited = [False for i in range(self.v)]</span><br><span class="line">        result = []</span><br><span class="line">        self.dfs_recursive(start, visited, result)</span><br><span class="line">        # for i in range(self.v):</span><br><span class="line">        #     if not visited[i]:</span><br><span class="line">        #         self.dfs_recursive(i,visited,result)</span><br><span class="line">        return result</span><br><span class="line"></span><br><span class="line">    # 初始化栈</span><br><span class="line">    # 输出起始顶点，起始顶点改为“已访问”标志，将起始顶点进栈</span><br><span class="line">    # 重复以下操作直至栈空：</span><br><span class="line">    # 去栈顶元素顶点，找到未被访问的邻接结点W</span><br><span class="line">    # 输出W，W改为“已访问”，将W进栈</span><br><span class="line">    # 否则当前顶点退栈</span><br><span class="line"></span><br><span class="line">    def dfs_by_stack(self,start):</span><br><span class="line">        stack = [start]</span><br><span class="line">        result = []</span><br><span class="line">        while stack:</span><br><span class="line">            now = stack.pop()</span><br><span class="line">            result.append(now)</span><br><span class="line">            for i in range(self.v):</span><br><span class="line">                if self.graph[now][i]!= 0:</span><br><span class="line">                    stack.append(self.graph[now][i])</span><br><span class="line">        return  result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    matrix=[[0,0,1,1,1],[0,0,1,0,1],[1,1,0,0,1],[1,0,0,0,0],[1,1,1,0,0]]</span><br><span class="line">    graph = Graph(5,matrix)</span><br><span class="line"></span><br><span class="line">    # graph.add_edge(0,1,1)</span><br><span class="line">    #</span><br><span class="line">    # graph.add_edge(0, 1, 1)</span><br><span class="line">    # graph.add_edge(0, 2, 1)</span><br><span class="line">    # graph.add_edge(2, 3, 1)</span><br><span class="line">    # graph.add_edge(3, 1, 1)</span><br><span class="line">    graph.show_graph_matrix()</span><br><span class="line">    print(graph.dfs(0))</span><br><span class="line">    print(graph.dfs_by_stack(0))</span><br></pre></td></tr></table></figure>
+<h2 id="实现图的深度优先搜索和广度优先搜索"><a href="#实现图的深度优先搜索和广度优先搜索" class="headerlink" title="实现图的深度优先搜索和广度优先搜索"></a>实现图的深度优先搜索和广度优先搜索</h2><h2 id="实现-Dijkstra-算法、A-算法"><a href="#实现-Dijkstra-算法、A-算法" class="headerlink" title="实现 Dijkstra 算法、A*算法"></a>实现 Dijkstra 算法、A*算法</h2><h2 id="实现拓扑排序的Kahn算法、DFS算法"><a href="#实现拓扑排序的Kahn算法、DFS算法" class="headerlink" title="实现拓扑排序的Kahn算法、DFS算法"></a>实现拓扑排序的Kahn算法、DFS算法</h2><h2 id="leetcode-练习"><a href="#leetcode-练习" class="headerlink" title="leetcode 练习"></a>leetcode 练习</h2><h2 id="回溯法"><a href="#回溯法" class="headerlink" title="回溯法"></a>回溯法</h2><p>回溯法(探索与回溯法)是一种选优搜索法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为“回溯点”。</p>
 <p>深度优先算法：</p>
 <p>（1）访问初始顶点v并标记顶点v已访问。<br>（2）查找顶点v的第一个邻接顶点w。<br>（3）若顶点v的邻接顶点w存在，则继续执行；否则回溯到v，再找v的另外一个未访问过的邻接点。<br>（4）若顶点w尚未被访问，则访问顶点w并标记顶点w为已访问。<br>（5）继续查找顶点w的下一个邻接顶点wi，如果v取值wi转到步骤（3）。直到连通图中所有顶点全部访问过为止。</p>
 <p>广度优先算法：</p>
@@ -478,11 +480,15 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">软件工程管理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -494,7 +500,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">软件工程管理</a>
+                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,23 +516,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+                <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">
