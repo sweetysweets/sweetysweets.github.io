@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="一只头秃程序猿">
 <meta property="og:description" content="排序排序真的是心头大病，年年学年年考年年忘233，老是搞得晕头转向的，希望这次能记长久一点……">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-09T06:00:53.347Z">
+<meta property="og:updated_time" content="2019-03-14T09:07:35.692Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构之排序">
 <meta name="twitter:description" content="排序排序真的是心头大病，年年学年年考年年忘233，老是搞得晕头转向的，希望这次能记长久一点……">
@@ -209,7 +209,7 @@
 <p>方法三:<br>quick select算法.其实就类似于快排.不同地方在于quick select每趟只需要往一个方向走.</p>
 <p>时间复杂度:O(n).</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">qselect</span><span class="params">(A,k)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(A)&lt;k:<span class="keyword">return</span> A</span><br><span class="line">    pivot = A[<span class="number">-1</span>]</span><br><span class="line">    right = [pivot] + [x <span class="keyword">for</span> x <span class="keyword">in</span> A[:<span class="number">-1</span>] <span class="keyword">if</span> x&gt;=pivot]</span><br><span class="line">    rlen = len(right)</span><br><span class="line">    <span class="keyword">if</span> rlen==k:</span><br><span class="line">        <span class="keyword">return</span> right</span><br><span class="line">    <span class="keyword">if</span> rlen&gt;k:</span><br><span class="line">        <span class="keyword">return</span> qselect(right, k)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        left = [x <span class="keyword">for</span> x <span class="keyword">in</span> A[:<span class="number">-1</span>] <span class="keyword">if</span> x&lt;pivot]</span><br><span class="line">        <span class="keyword">return</span> qselect(left, k-rlen) + right</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">    <span class="keyword">print</span> qselect([<span class="number">11</span>,<span class="number">8</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">7</span>,<span class="number">9</span>], i)</span><br></pre></td></tr></table></figure>
-<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><p><strong>二分查找 实现一个有序数组的二分查找算法</strong>  非递归</p>
+<h2 id="海量数据之topk"><a href="#海量数据之topk" class="headerlink" title="海量数据之topk"></a>海量数据之topk</h2><h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><p><strong>二分查找 实现一个有序数组的二分查找算法</strong>  非递归</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binary_chop</span><span class="params">(alist, data)</span>:</span></span><br><span class="line">    n = len(alist)</span><br><span class="line">    first = <span class="number">0</span></span><br><span class="line">    last = n - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> first &lt;= last:</span><br><span class="line">        mid = (last + first) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> alist[mid] &gt; data:</span><br><span class="line">            last = mid - <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> alist[mid] &lt; data:</span><br><span class="line">            first = mid + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">False</span></span><br></pre></td></tr></table></figure>
 <p><strong>实现模糊二分查找算法（比如大于等于给定值的第一个元素）</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fuzzyHalfSearch</span><span class="params">(nums,num)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    <span class="keyword">if</span> num&gt;nums[<span class="number">-1</span>]:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> num &lt;= nums[<span class="number">0</span>]:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">elif</span> num == nums[<span class="number">-1</span>]:</span><br><span class="line">        <span class="keyword">return</span> len(nums)<span class="number">-1</span></span><br><span class="line">    </span><br><span class="line">    low = <span class="number">0</span></span><br><span class="line">    high = len(nums)<span class="number">-2</span></span><br><span class="line">    <span class="keyword">while</span> low &lt;= high:</span><br><span class="line">        medim = (high+low)/<span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> num&gt;nums[medim] <span class="keyword">and</span> num&lt;=nums[medim+<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">return</span> medim+<span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> num &gt; nums[medim+<span class="number">1</span>]:</span><br><span class="line">            low = medim+<span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> num &lt;= nums[medim]:</span><br><span class="line">            high = medim</span><br><span class="line">    <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
@@ -367,7 +367,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#排序"><span class="toc-number">1.</span> <span class="toc-text">排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#leetcode-返回滑动窗口最大值-队列"><span class="toc-number">2.</span> <span class="toc-text">leetcode 返回滑动窗口最大值(队列)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#O-n-时间复杂度内找到一组数据的第-K-大元素"><span class="toc-number">3.</span> <span class="toc-text">O(n) 时间复杂度内找到一组数据的第 K 大元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查找"><span class="toc-number">4.</span> <span class="toc-text">查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Leetcode-Sqrt-x-（x-的平方根）"><span class="toc-number">5.</span> <span class="toc-text">Leetcode Sqrt(x) （x 的平方根）</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#排序"><span class="toc-number">1.</span> <span class="toc-text">排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#leetcode-返回滑动窗口最大值-队列"><span class="toc-number">2.</span> <span class="toc-text">leetcode 返回滑动窗口最大值(队列)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#O-n-时间复杂度内找到一组数据的第-K-大元素"><span class="toc-number">3.</span> <span class="toc-text">O(n) 时间复杂度内找到一组数据的第 K 大元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#海量数据之topk"><span class="toc-number">4.</span> <span class="toc-text">海量数据之topk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查找"><span class="toc-number">5.</span> <span class="toc-text">查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Leetcode-Sqrt-x-（x-的平方根）"><span class="toc-number">6.</span> <span class="toc-text">Leetcode Sqrt(x) （x 的平方根）</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -505,15 +505,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">android</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
+                <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,6 +518,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,11 +545,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+                <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -6,15 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018 | 一只头秃程序猿</title>
+  <title>数据结构之算法思想 | 一只头秃程序猿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="一只头秃程序猿">
-<meta property="og:url" content="http://yoursite.com/archives/2018/page/2/index.html">
+  <meta name="description" content="几种算法思想递归思考以下几个问题：  边界条件 递归前进段    （子问题的递推公式） 递归返回段    （最小子问题，即在程序的边界）  通过LeetCode上【70. 爬楼梯】学习 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？">
+<meta name="keywords" content="Data Structure">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构之算法思想">
+<meta property="og:url" content="http://yoursite.com/2019/03/14/datastructure-algrithm/index.html">
 <meta property="og:site_name" content="一只头秃程序猿">
+<meta property="og:description" content="几种算法思想递归思考以下几个问题：  边界条件 递归前进段    （子问题的递推公式） 递归返回段    （最小子问题，即在程序的边界）  通过LeetCode上【70. 爬楼梯】学习 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/10987373-90ccb49867f06a28?imageMogr2/auto-orient/"两个个皇后的封锁范围"">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/10987373-eccf38a9e988ed9c?imageMogr2/auto-orient/"一个皇后的封锁范围"">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/10987373-433bd25fe98113ab?imageMogr2/auto-orient/"给2号皇后换个位置"">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/10987373-68a42d15b8ddd569?imageMogr2/auto-orient/"回溯重新安排1号皇后"">
+<meta property="og:updated_time" content="2019-03-14T06:55:41.379Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一只头秃程序猿">
+<meta name="twitter:title" content="数据结构之算法思想">
+<meta name="twitter:description" content="几种算法思想递归思考以下几个问题：  边界条件 递归前进段    （子问题的递推公式） 递归返回段    （最小子问题，即在程序的边界）  通过LeetCode上【70. 爬楼梯】学习 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/10987373-90ccb49867f06a28?imageMogr2/auto-orient/"两个个皇后的封锁范围"">
   
     <link rel="alternative" href="/atom.xml" title="一只头秃程序猿" type="application/atom+xml">
   
@@ -158,381 +168,262 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-datastructure-algrithm" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构之算法思想
+    </h1>
+  
+
+        
+        <a href="/2019/03/14/datastructure-algrithm/" class="archive-article-date">
+  	<time datetime="2019-03-14T02:45:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-14</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="几种算法思想"><a href="#几种算法思想" class="headerlink" title="几种算法思想"></a>几种算法思想</h1><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>思考以下几个问题：</p>
+<ul>
+<li>边界条件</li>
+<li>递归前进段    （子问题的递推公式）</li>
+<li>递归返回段    （最小子问题，即在程序的边界）</li>
+</ul>
+<p><strong>通过LeetCode上【70. 爬楼梯】学习</strong></p>
+<p>假设你正在爬楼梯。需要 n 阶你才能到达楼顶。<br>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？<br><a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> lru_cache</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line"><span class="meta">    @lru_cache(10**8)   # 抖机灵，设置缓存不会栈溢出</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">climbStairs</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> n == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> self.climbStairs(n - <span class="number">1</span>) + self.climbStairs(n - <span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
+<p>f(2)=f(1)+f(0)<br>f(3)=f(2)+f(1)<br>f(4)=f(3)+f(2)<br>…….<br>f(n)=f(n-2)+f(n-1)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 动态规划的简单写法 ，因为这个题目正好是n-1+n-2，可以这样写，如果n-3+n-5，最好用数组</span></span><br><span class="line">		a = b = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            a, b = b, a + b</span><br><span class="line">        <span class="keyword">return</span> a</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//动态规划的数组写法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">climbStairs</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum[]=<span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">        sum[<span class="number">0</span>]=<span class="number">0</span>;sum[<span class="number">1</span>]=<span class="number">1</span>;sum[<span class="number">2</span>]=<span class="number">2</span>;</span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>;i&lt;=n;i++)&#123;</span><br><span class="line">         sum[i]=sum[i-<span class="number">2</span>]+sum[i-<span class="number">1</span>];</span><br><span class="line">     &#125;</span><br><span class="line">        <span class="keyword">return</span> sum[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>递归的时间复杂度计算</strong></p>
+<p><1> 例：n!<br>算法的递归方程为： T(n) = T(n - 1) + O(1);<br>迭代展开： T(n) = T(n - 1) + O(1)<br>= T(n - 2) + O(1) + O(1)<br>= T(n - 3) + O(1) + O(1) + O(1)<br>= ……<br>= O(1) + … + O(1) + O(1) + O(1)<br>= n * O(1)<br>= O(n)<br>这个例子的时间复杂性是线性的。 </1></p>
+<p><2> 例：如下递归方程：<br>T(n) = 2T(n/2) + 2, 且假设n=2的k次方。<br>T(n) = 2T(n/2) + 2<br>= 2(2T(n/2<em>2) + 2) + 2<br>= 4T(n/2</em>2) + 4 + 2<br>= 4(2T(n/2<em>2</em>2) + 2) + 4 + 2<br>= 2<em>2</em>2T(n/2<em>2</em>2) + 8 + 4 + 2<br>= …<br>= 2的(k-1)次方 <em> T(n/2的(i-1)次方) + $(i:1~(k-1))2的i次方<br>= 2的(k-1)次方 + (2的k次方) - 2<br>= (3/2) </em> (2的k次方) - 2<br>= (3/2) * n - 2<br>= O(n)<br>这个例子的时间复杂性也是线性的。 </2></p>
+<p><3> 例：如下递归方程：<br>T(n) = 2T(n/2) + O(n), 且假设n=2的k次方。<br>T(n) = 2T(n/2) + O(n)<br>= 2T(n/4) + 2O(n/2) + O(n)<br>= …<br>= O(n) + O(n) + … + O(n) + O(n) + O(n)<br>= k <em> O(n)<br>= O(k</em>n)<br>= O(nlog2n) //以2为底<br>一般地，当递归方程为T(n) = aT(n/c) + O(n), T(n)的解为：<br>O(n) (a<c &&="" c="">1)<br>O(nlog2n) (a=c &amp;&amp; c&gt;1) //以2为底<br>O(nlogca) (a&gt;c &amp;&amp; c&gt;1) //n的(logca)次方，以c为底<br>上面介绍的3种递归调用形式，比较常用的是第一种情况，第二种形式也有时出现，而第三种形式(间接递归调用)使用的较少，且算法分析<br>比较复杂。 下面举个第二种形式的递归调用例子。 </c></3></p>
+<p><4> 递归方程为：T(n) = T(n/3) + T(2n/3) + n<br>为了更好的理解，先画出递归过程相应的递归树：<br>n ——–&gt; n<br>n/3 2n/3 ——–&gt; n<br>n/9 2n/9 2n/9 4n/9 ——–&gt; n </4></p>
+<h2 id="……-……-……-……-……"><a href="#……-……-……-……-……" class="headerlink" title="…… …… …… ……. …… "></a>…… …… …… ……. …… </h2><p>​                                总共O(nlogn)<br>累计递归树各层的非递归项的值，每一层和都等于n，从根到叶的最长路径是：<br>n –&gt; (2/3)n –&gt; (4/9)n –&gt; (12/27)n –&gt; … –&gt; 1<br>设最长路径为k，则应该有：<br>(2/3)的k次方 <em> n = 1<br>得到 k = log(2/3)n // 以(2/3)为底<br>于是 T(n) &lt;= (K + 1) </em> n = n (log(2/3)n + 1)<br>即 T(n) = O(nlogn)<br>由此例子表明，对于第二种递归形式调用，借助于递归树，用迭代法进行算法分析是简单易行的</p>
+<h2 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h2><h4 id="利用回溯算法求解八皇后问题"><a href="#利用回溯算法求解八皇后问题" class="headerlink" title="利用回溯算法求解八皇后问题"></a>利用回溯算法求解八皇后问题</h4><p>将八位皇后放在一张8x8的棋盘上，使得每位皇后都无法吃掉别的皇后，（即任意两个皇后都不在同一条横线，竖线和斜线上），问一共有多少种摆法。</p>
+<p>首先我们看一下特别暴力的方法：从8x8的格子里选8个格子，放皇后，然后测试是否满足条件，若满足则结果加1，否则换8个格子继续试。很显然，64选8，并不是个小数字，十亿级别的次数，够暴力。如果换成围棋的棋盘，画面就会太美而不敢算。<br>稍加分析，我们可以得到另一个不那么暴力的方法：显然，每行每列最多只能有一位皇后，如果基于这个事实再进行暴力破解，那结果会好很多。安排皇后时，第一行有8种选法，一旦第一行选定，假设选为（1，i），那么第二行只能选（2，j），其中，j不等于i，所以有7种选法。以此类推，需要穷举的情况有8！=40320种，比十亿级别的小很多了。<br>这看起来已经不错了，但尝试的次数还是随着问题规模按阶乘水平提高的，我们仍然不满意，所以，“递归回溯”的思想就被提出了，专治这种问题。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/10987373-90ccb49867f06a28?imageMogr2/auto-orient/&quot;两个个皇后的封锁范围&quot;" alt="test"></p>
+<p>如此继续下去，能安放下一位皇后的位置越来越少，那么我们最终如何能安放完这8位皇后呢？<br>首先我们看一下特别暴力的方法：从8x8的格子里选8个格子，放皇后，然后测试是否满足条件，若满足则结果加1，否则换8个格子继续试。很显然，64选8，并不是个小数字，十亿级别的次数，够暴力。如果换成围棋的棋盘，画面就会太美而不敢算。<br>稍加分析，我们可以得到另一个不那么暴力的方法：显然，每行每列最多只能有一位皇后，如果基于这个事实再进行暴力破解，那结果会好很多。安排皇后时，第一行有8种选法，一旦第一行选定，假设选为（1，i），那么第二行只能选（2，j），其中，j不等于i，所以有7种选法。以此类推，需要穷举的情况有8！=40320种，比十亿级别的小很多了。<br>这看起来已经不错了，但尝试的次数还是随着问题规模按阶乘水平提高的，我们仍然不满意，所以，“递归回溯”的思想就被提出了，专治这种问题。<br>为了理解“递归回溯”的思想，我们不妨先将4位皇后打入冷宫，留下剩下的4位安排进4x4的格子中且不能互相打架，有多少种安排方法呢？如果按照上面方式穷举，需要4！=24次尝试吗？<br>现在我们把第一个皇后放在第一个格子，被涂黑的地方是不能放皇后的</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/10987373-eccf38a9e988ed9c?imageMogr2/auto-orient/&quot;一个皇后的封锁范围&quot;" alt="test"></p>
+<p>第二行的皇后只能放在第三格或第四格，比如我们放在第三格：</p>
+<p>这样一来前面两位皇后已经把第三行全部锁死了，第三位皇后无论放在第三行的哪里都难逃被吃掉的厄运。于是在第一个皇后位于第一格，第二个皇后位于第三格的情况下此问题无解。所以我们只能返回上一步，来给2号皇后换个位置：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/10987373-433bd25fe98113ab?imageMogr2/auto-orient/&quot;给2号皇后换个位置&quot;" alt="test"></p>
+<p>此时，第三个皇后只有一个位置可选。当第三个皇后占据第三行蓝色空位时，第四行皇后无路可走，于是发生错误，则返回上层调整3号皇后，而3号皇后也别无可去，继续返回上层调整2号皇后，而2号皇后已然无路可去，则再继续返回上层调整1号皇后，于是1号皇后往后移一格位置如下，再继续往下安排：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/10987373-68a42d15b8ddd569?imageMogr2/auto-orient/&quot;回溯重新安排1号皇后&quot;" alt="test"></p>
+<p>上面的图例正是回溯递归思想的展现，然而知易行难，在代码中我们怎样来实现这种算法呢？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">count = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">queen</span><span class="params">(A, cur=<span class="number">0</span>)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> count</span><br><span class="line">    <span class="keyword">if</span> cur == len(A):</span><br><span class="line">        print(<span class="string">"-----------"</span>,count,<span class="string">"---------"</span>)</span><br><span class="line">        print(A)</span><br><span class="line">        print()</span><br><span class="line">        count +=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    <span class="keyword">for</span> col <span class="keyword">in</span> range(len(A)):</span><br><span class="line">        A[cur], flag = col, <span class="keyword">True</span></span><br><span class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> range(cur):</span><br><span class="line">            <span class="keyword">if</span> A[row] == col <span class="keyword">or</span> abs(col - A[row]) == cur - row:</span><br><span class="line">                flag = <span class="keyword">False</span>   <span class="comment">#满足条件</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">if</span> flag:</span><br><span class="line">            queen(A, cur+<span class="number">1</span>)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    queen([<span class="keyword">None</span>]*<span class="number">8</span>)</span><br></pre></td></tr></table></figure>
+<p>非递归解这个问题，很显然是要去维护一个stack来保存一个路径了。简单来说，这个栈中维护的应该是“尚未尝试去探索的可能”，当我开始检查一个特定的位置，如果检查通过，那么应该做的是首先将本位置右边一格加入栈，然后再把下一行的第一个格子加入栈。注意前半个操作很容易被忽视，但是如果不将本位置右边一格入栈，那么如果基于本格有皇后的情况进行的递归最终没有返回一个结果的话，接下来就不知道往哪走了。如果使用了栈，那么用于扫描棋盘的游标就不用自己在循环里+=1了，循环中游标的移动全权交给栈去维护。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">EightQueen</span><span class="params">(board)</span>:</span></span><br><span class="line">    blen = len(board)</span><br><span class="line">    stack = Queue.LifoQueue()</span><br><span class="line">    stack.put((<span class="number">0</span>,<span class="number">0</span>))    <span class="comment"># 为了自洽的初始化</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> stack.empty():</span><br><span class="line">        i,j = stack.get()</span><br><span class="line">        <span class="keyword">if</span> check(board,i,j):    <span class="comment"># 当检查通过</span></span><br><span class="line">            board[i] = j    <span class="comment"># 别忘了放Queen</span></span><br><span class="line">            <span class="keyword">if</span> i &gt;= blen - <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">print</span> board    <span class="comment"># i到达最后一行表明已经有了结果</span></span><br><span class="line">              <span class="comment">#  break   ###</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> j &lt; blen - <span class="number">1</span>:    <span class="comment"># 虽然说要把本位置右边一格入栈，但是如果本位置已经是行末尾，那就没必要了</span></span><br><span class="line">                    stack.put((i,j+<span class="number">1</span>))</span><br><span class="line">                stack.put((i+<span class="number">1</span>,<span class="number">0</span>))    <span class="comment"># 下一行第一个位置入栈，准备开始下一行的扫描</span></span><br><span class="line">        <span class="keyword">elif</span> j &lt; blen - <span class="number">1</span>:</span><br><span class="line">            stack.put((i,j+<span class="number">1</span>))    <span class="comment"># 对于未通过检验的情况，自然右移一格即可</span></span><br></pre></td></tr></table></figure>
+<p><strong> ps python global</strong><br>python 中，一个变量的作用域总是由在代码中被赋值的地方所决定的。</p>
+<p>函数定义了本地作用域，而模块定义的是全局作用域。<br>如果想要在函数内定义全局作用域，需要加上global修饰符。<br>变量名解析：<strong>LEGB原则</strong><br>当在函数中使用未认证的变量名时，Python搜索４个作用域</p>
+<ul>
+<li>[本地作用域(L)(函数内部声明但没有使用global的变量)，</li>
+<li>之后是上一层结构中def或者lambda的本地作用域(E),</li>
+<li>之后是全局作用域(G)（函数中使用global声明的变量或在模块层声明的变量），</li>
+<li>最后是内置作用域(B)（即python的内置类和函数等）］</li>
+</ul>
+<p>并且在第一处能够找到这个变量名的地方停下来。如果变量名在整个的搜索过程中都没有找到，Python就会报错。<br>补：上面的变量规则只适用于简单对象，当出现引用对象的属性时，则有另一套搜索规则:属性引用搜索一个或多个对象，而不是作用域，并且有可能涉及到所谓的”继承”</p>
+<h4 id="利用回溯算法求解-0-1-背包问题"><a href="#利用回溯算法求解-0-1-背包问题" class="headerlink" title="利用回溯算法求解 0-1 背包问题"></a>利用回溯算法求解 0-1 背包问题</h4><h2 id="分治"><a href="#分治" class="headerlink" title="分治"></a>分治</h2><h4 id="利用分治算法求一组数据的逆序对个数"><a href="#利用分治算法求一组数据的逆序对个数" class="headerlink" title="利用分治算法求一组数据的逆序对个数"></a>利用分治算法求一组数据的逆序对个数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>关键：找到递推式</p>
+<p><strong>0-1 背包问题</strong><br><strong>最小路径和（详细可看 Minimum Path Sum）</strong><br><strong>编程实现莱文斯坦最短编辑距离</strong><br><strong>编程实现查找两个字符串的最长公共子序列</strong><br><strong>编程实现一个数据序列的最长递增子序列</strong></p>
+<h2 id="LeetCode-练习题"><a href="#LeetCode-练习题" class="headerlink" title="LeetCode 练习题"></a>LeetCode 练习题</h2><h4 id="实战递归：完成Leetcode上的Letter-Combinations-of-a-Phone-Number-17-及permutations-46"><a href="#实战递归：完成Leetcode上的Letter-Combinations-of-a-Phone-Number-17-及permutations-46" class="headerlink" title="实战递归：完成Leetcode上的Letter Combinations of a Phone Number(17)及permutations(46)"></a>实战递归：完成Leetcode上的Letter Combinations of a Phone Number(17)及permutations(46)</h4><h4 id="实战DP：完成0-1背包问题实现-自我实现-及Leetcode上Palindrome-Partitioning-II-132"><a href="#实战DP：完成0-1背包问题实现-自我实现-及Leetcode上Palindrome-Partitioning-II-132" class="headerlink" title="实战DP：完成0-1背包问题实现(自我实现)及Leetcode上Palindrome  Partitioning  II(132)"></a>实战DP：完成0-1背包问题实现(自我实现)及Leetcode上Palindrome  Partitioning  II(132)</h4><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.jianshu.com/p/65c8c60b83b8" target="_blank" rel="noopener">https://www.jianshu.com/p/65c8c60b83b8</a></p>
+<p><a href="https://www.cnblogs.com/franknihao/p/9416145.html" target="_blank" rel="noopener">https://www.cnblogs.com/franknihao/p/9416145.html</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wechat.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/31/feature-engineering/" class="archive-article-date">
-  	<time datetime="2018-10-31T02:36:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/31/feature-engineering/">feature-engineering</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Data Structure</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+  <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+  <p>扫一扫，分享到微信</p>
+  <div class="wx-qrcode">
+    <img src="http://qr.liantu.com/api.php?text=http://sweets.ml/2019/03/14/datastructure-algrithm/" alt="微信分享二维码">
+  </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/28/deep-forest/" class="archive-article-date">
-  	<time datetime="2018-10-28T13:42:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-28</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/11/datastructure-graph/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据结构之图</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/28/deep-forest/">《Deep Forest：Towards an Alternative to Deep Neural Networks》学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">集成学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#几种算法思想"><span class="toc-number">1.</span> <span class="toc-text">几种算法思想</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#递归"><span class="toc-number">1.1.</span> <span class="toc-text">递归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#……-……-……-……-……"><span class="toc-number">1.2.</span> <span class="toc-text">…… …… …… ……. …… </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回溯"><span class="toc-number">1.3.</span> <span class="toc-text">回溯</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#利用回溯算法求解八皇后问题"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">利用回溯算法求解八皇后问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#利用回溯算法求解-0-1-背包问题"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">利用回溯算法求解 0-1 背包问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分治"><span class="toc-number">1.4.</span> <span class="toc-text">分治</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#利用分治算法求一组数据的逆序对个数"><span class="toc-number">1.4.0.1.</span> <span class="toc-text">利用分治算法求一组数据的逆序对个数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态规划"><span class="toc-number">1.5.</span> <span class="toc-text">动态规划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LeetCode-练习题"><span class="toc-number">1.6.</span> <span class="toc-text">LeetCode 练习题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实战递归：完成Leetcode上的Letter-Combinations-of-a-Phone-Number-17-及permutations-46"><span class="toc-number">1.6.0.1.</span> <span class="toc-text">实战递归：完成Leetcode上的Letter Combinations of a Phone Number(17)及permutations(46)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实战DP：完成0-1背包问题实现-自我实现-及Leetcode上Palindrome-Partitioning-II-132"><span class="toc-number">1.6.0.2.</span> <span class="toc-text">实战DP：完成0-1背包问题实现(自我实现)及Leetcode上Palindrome  Partitioning  II(132)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">1.7.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/28/hadoop-spark-conf/" class="archive-article-date">
-  	<time datetime="2018-10-28T02:43:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/28/hadoop-spark-conf/">云主机centos下配置hadoop+spark集群全记录</a>
-    </h1>
+        
+    </div>
+</aside>
+
+
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/22/reflections-on-management/" class="archive-article-date">
-  	<time datetime="2018-10-22T11:39:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-22</time>
-</a>
-        </div>
-    	 
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "GqKhi2RTAOP8F5e9aHUVGGaj-gzGzoHsz",
+            app_key: "CPSvvJWN1tjo5gAEqSajDqiO",
+            placeholder: "ヾﾉ≧∀≦)o感谢评论呀",
+            avatar:"mp"
+        });
+    }
+</script>
+  </section>
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/22/reflections-on-management/">开发活动中的管理方法-----《软件沉思录》读书笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">软件工程管理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/06/peopleware-reading/" class="archive-article-date">
-  	<time datetime="2018-10-06T11:05:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/06/peopleware-reading/">人的因素带来的软件管理方式   —《人件》读书笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">软件工程管理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/03/yilia-customization/" class="archive-article-date">
-  	<time datetime="2018-10-03T12:03:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/03/yilia-customization/">yilia主题个性化配置与修改</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">yilia</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/02/hexo-github-pages/" class="archive-article-date">
-  	<time datetime="2018-10-02T14:23:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/02/hexo-github-pages/">mac下hexo框架+github pages博客+个人域名配置</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/02/typora-image-setting/" class="archive-article-date">
-  	<time datetime="2018-10-02T12:48:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/02/typora-image-setting/">typora_image_setting</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/02/markdown-learn/" class="archive-article-date">
-  	<time datetime="2018-10-02T09:25:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/02/markdown-learn/">markdown+Typora基本语法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/02/hello-world/" class="archive-article-date">
-  	<time datetime="2018-10-02T09:19:27.863Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/02/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2018/">&laquo; Prev</a><a class="page-number" href="/archives/2018/">1</a><span class="page-number current">2</span>
-    </nav>
-  
 
 
           </div>
@@ -555,8 +446,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
