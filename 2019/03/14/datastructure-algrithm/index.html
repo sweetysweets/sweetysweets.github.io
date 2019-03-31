@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/10987373-eccf38a9e988ed9c?imageMogr2/auto-orient/"一个皇后的封锁范围"">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/10987373-433bd25fe98113ab?imageMogr2/auto-orient/"给2号皇后换个位置"">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/10987373-68a42d15b8ddd569?imageMogr2/auto-orient/"回溯重新安排1号皇后"">
-<meta property="og:updated_time" content="2019-03-21T08:44:22.505Z">
+<meta property="og:updated_time" content="2019-03-25T14:06:49.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构之算法思想">
 <meta name="twitter:description" content="递归思考以下几个问题：  边界条件 递归前进段    （子问题的递推公式） 递归返回段    （最小子问题，即在程序的边界）优化的递归方法—记忆化搜索（自顶向下,从n到1,先记录,后返回），dp是自底向上（从小到大）用斐波那契来描述123456789result = [-1 for i in range(n)]def fibonacci(n,result):	if n==0:		return 0">
@@ -199,7 +199,9 @@
 <p>f(2)=f(1)+f(0)<br>f(3)=f(2)+f(1)<br>f(4)=f(3)+f(2)<br>…….<br>f(n)=f(n-2)+f(n-1)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 动态规划的简单写法 ，因为这个题目正好是n-1+n-2，可以这样写，如果n-3+n-5，最好用数组</span></span><br><span class="line">		a = b = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            a, b = b, a + b</span><br><span class="line">        <span class="keyword">return</span> a</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//动态规划的数组写法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">climbStairs</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum[]=<span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">        sum[<span class="number">0</span>]=<span class="number">0</span>;sum[<span class="number">1</span>]=<span class="number">1</span>;sum[<span class="number">2</span>]=<span class="number">2</span>;</span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>;i&lt;=n;i++)&#123;</span><br><span class="line">         sum[i]=sum[i-<span class="number">2</span>]+sum[i-<span class="number">1</span>];</span><br><span class="line">     &#125;</span><br><span class="line">        <span class="keyword">return</span> sum[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="递归的时间复杂度计算"><a href="#递归的时间复杂度计算" class="headerlink" title="递归的时间复杂度计算"></a>递归的时间复杂度计算</h4><p><a href="https://www.cnblogs.com/cquljw/p/3807191.html" target="_blank" rel="noopener">https://www.cnblogs.com/cquljw/p/3807191.html</a> 递归树非常好的例子</p>
-<p><1> 例：n!<br>算法的递归方程为： T(n) = T(n - 1) + O(1);<br>迭代展开： T(n) = T(n - 1) + O(1)<br>= T(n - 2) + O(1) + O(1)<br>= T(n - 3) + O(1) + O(1) + O(1)<br>= ……<br>= O(1) + … + O(1) + O(1) + O(1)<br>= n * O(1)<br>= O(n)<br>这个例子的时间复杂性是线性的。 </1></p>
+<p><1> 例：n!<br>算法的递归方程为： T(n) = T(n - 1) + O(1); </1></p>
+<p>迭代展开： T(n) = T(n - 1) + O(1)<br>= T(n - 2) + O(1) + O(1)<br>= T(n - 3) + O(1) + O(1) + O(1)<br>= ……<br>= O(1) + … + O(1) + O(1) + O(1)<br>= n * O(1)<br>= O(n) </p>
+<p>这个例子的时间复杂性是线性的。 </p>
 <p><2> 例：如下递归方程：<br>T(n) = 2T(n/2) + 2, 且假设n=2的k次方。<br>T(n) = 2T(n/2) + 2<br>= 2(2T(n/2<em>2) + 2) + 2<br>= 4T(n/2</em>2) + 4 + 2<br>= 4(2T(n/2<em>2</em>2) + 2) + 4 + 2<br>= 2<em>2</em>2T(n/2<em>2</em>2) + 8 + 4 + 2<br>= …<br>= 2的(k-1)次方 <em> T(n/2的(i-1)次方) + $(i:1~(k-1))2的i次方<br>= 2的(k-1)次方 + (2的k次方) - 2<br>= (3/2) </em> (2的k次方) - 2<br>= (3/2) * n - 2<br>= O(n)<br>这个例子的时间复杂性也是线性的。 </2></p>
 <p><3> 例：如下递归方程：<br>T(n) = 2T(n/2) + O(n), 且假设n=2的k次方。<br>T(n) = 2T(n/2) + O(n)<br>= 2T(n/4) + 2O(n/2) + O(n)<br>= …<br>= O(n) + O(n) + … + O(n) + O(n) + O(n)<br>= k <em> O(n)<br>= O(k</em>n)<br>= O(nlog2n) //以2为底<br>一般地，当递归方程为T(n) = aT(n/c) + O(n), T(n)的解为： O(n) (a<c &&="" c="">1)<br>O(nlog2n) (a=c &amp;&amp; c&gt;1) //以2为底<br>O(nlogca) (a&gt;c &amp;&amp; c&gt;1) //n的(logca)次方，以c为底<br>上面介绍的3种递归调用形式，比较常用的是第一种情况，第二种形式也有时出现，而第三种形式(间接递归调用)使用的较少，且算法分析 比较复杂。 下面举个第二种形式的递归调用例子。 </c></3></p>
 <p><4> 递归方程为：T(n) = T(n/3) + T(2n/3) + n<br>为了更好的理解，先画出递归过程相应的递归树：<br>n ——–&gt; n<br>n/3 2n/3 ——–&gt; n<br>n/9 2n/9 2n/9 4n/9 ——–&gt; n<br>…… …… …… ……. ……<br>总共O(nlogn)<br>累计递归树各层的非递归项的值，每一层和都等于n，从根到叶的最长路径是：<br>n –&gt; (2/3)n –&gt; (4/9)n –&gt; (12/27)n –&gt; … –&gt; 1<br>设最长路径为k，则应该有：<br>(2/3)的k次方 <em> n = 1<br>得到 k = log(2/3)n // 以(2/3)为底<br>于是 T(n) &lt;= (K + 1) </em> n = n (log(2/3)n + 1)<br>即 T(n) = O(nlogn)<br>由此例子表明，对于第二种递归形式调用，借助于递归树，用迭代法进行算法分析是简单易行的</4></p>
@@ -592,11 +594,15 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">android</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">android</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -605,10 +611,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -640,15 +642,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">yilia</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
             
             <div class="clearfix"></div>
