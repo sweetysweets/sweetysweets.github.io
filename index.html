@@ -160,6 +160,329 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-April-summary" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/24/April-summary/">四月是offer的谎言</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/24/April-summary/" class="archive-article-date">
+  	<time datetime="2019-04-24T09:57:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近一个月真的是身心俱疲，每天要不就是在面试，要不就是在准备面试和赶工作的途中=。=</p>
+<p>心情也是发生了很大的变化，一开始非常想进大厂好好磨练自己的技术，但是又很菜，就很慌，不敢投简历，也不知道自己能干啥。</p>
+<p>后面自己也仔细地想了想以后做什么，要往什么方向努力，刷了很多面试题，陆续开始面试之后才稍微感觉好一些。</p>
+        
+          <a class="article-more-a" href="/2019/04/24/April-summary/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/24/April-summary/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
+    <article id="post-bug-mysql-limit" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/24/bug-mysql-limit/">mysql一对多查询+分页的踩坑日记</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/24/bug-mysql-limit/" class="archive-article-date">
+  	<time datetime="2019-04-24T09:40:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天app有一个奇怪的bug，数据变多之后显示的数据反而变少了，经过debug发现一个日常非常容易忽略的关于分页的错误，mark一下，后面不要再踩坑啦</p>
+<p>分页时我们一般会用（limit index，pageSize）来做，当面对一对多查询时，我们一般会用笛卡尔乘积进行联合查询，使用mybatis映射到相应的resultMap上。例如：</p>
+        
+          <a class="article-more-a" href="/2019/04/24/bug-mysql-limit/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">日常踩坑</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">database</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/24/bug-mysql-limit/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
+    <article id="post-jwt-refresh" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/11/jwt-refresh/">jwt刷新问题</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/11/jwt-refresh/" class="archive-article-date">
+  	<time datetime="2019-04-11T07:29:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="jwt-无感知刷新token"><a href="#jwt-无感知刷新token" class="headerlink" title="jwt 无感知刷新token"></a>jwt 无感知刷新token</h2><p><a href="https://blog.csdn.net/superdog007/article/details/80704234" target="_blank" rel="noopener">https://blog.csdn.net/superdog007/article/details/80704234</a></p>
+<p><a href="https://blog.csdn.net/sinat_25235033/article/details/80324006" target="_blank" rel="noopener">https://blog.csdn.net/sinat_25235033/article/details/80324006</a></p>
+<h2 id="jwt与token对比"><a href="#jwt与token对比" class="headerlink" title="jwt与token对比"></a>jwt与token对比</h2><p>（1）简单的说，token只是一个标识，以token加redis为例，服务端将token保存在redis中，客服端访问时带上token，如果在redis中能够查到这个token，说明身份有效。</p>
+<pre><code>（2）jwt不需要查库，本身已经包含了用户的相关信息，可以直接通过服务端解析出相关的信息，与session，token的最大区别就是服务端不保存任何信息。
+</code></pre><hr>
+<p>在postman中如果是redirct的请求会报错</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jwt</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/11/jwt-refresh/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
+    <article id="post-netty" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/06/netty/">netty原理大全解</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/06/netty/" class="archive-article-date">
+  	<time datetime="2019-04-06T06:25:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Netty是由<a href="https://baike.baidu.com/item/JBOSS" target="_blank" rel="noopener">JBOSS</a>提供的一个<a href="https://baike.baidu.com/item/java%E5%BC%80%E6%BA%90/10795649" target="_blank" rel="noopener">java开源</a>框架。Netty提供==异步的、<a href="https://baike.baidu.com/item/%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8/9597519" target="_blank" rel="noopener">事件驱动</a>的==网络应用程序框架和工具，用以快速开发高性能、高可靠性的<a href="https://baike.baidu.com/item/%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E5%99%A8/99096" target="_blank" rel="noopener">网络服务器</a>和客户端程序。</p>
+<p>Netty 是一个可以快速开发网络应用程序的 NIO 框架，它大大简化了 TCP 或者 UDP 服务器的网络编程。Netty 的简易和快速开发并不意味着由它开发的程序将失去可维护性或者存在性能问题，它的设计参考了许多协议的实现，比如 FTP，SMTP，HTTP 和各种二进制和基于文本的传统协议，因此 Netty 成功的实现了兼顾快速开发，性能，稳定性，灵活性为一体，不需要为了考虑一方面原因而妥协其他方面。Netty 的应用还是比较广泛的，比如阿里巴巴开源的 Dubbo 和 Sofa-Bolt 框架底层网络通讯都是基于 Netty 来实现的。</p>
+        
+          <a class="article-more-a" href="/2019/04/06/netty/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">netty</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/06/netty/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
     <article id="post-java-date" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -663,319 +986,6 @@
 
 
   
-    <article id="post-datastructure-string" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/08/datastructure-string/">数据结构之字符串</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/08/datastructure-string/" class="archive-article-date">
-  	<time datetime="2019-03-08T06:16:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><h2 id="实现一个字符集，只包含-a～z-这-26-个英文字母的-Trie-树"><a href="#实现一个字符集，只包含-a～z-这-26-个英文字母的-Trie-树" class="headerlink" title="实现一个字符集，只包含 a～z 这 26 个英文字母的 Trie 树"></a>实现一个字符集，只包含 a～z 这 26 个英文字母的 Trie 树</h2><p>Trie字典树主要用于存储字符串，<strong>Trie</strong> 的每个 <strong>Node</strong> 保存一个字符。用链表来描述的话，就是一个字符串就是一个链表。每个Node都保存了它的所有子节点。是一种哈希树的变种。典型应用是用于统计和排序大量的字符串（但不仅限于字符串），所以经常被搜索引擎系统用于文本词频统计。它的优点是：最大限度地减少无谓的字符串比较，查询效率比哈希表高。Trie树有一些特性：</p>
-        
-          <a class="article-more-a" href="/2019/03/08/datastructure-string/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Data Structure</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/08/datastructure-string/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-datastructure-hash" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/06/datastructure-hash/">数据结构之哈希 ! important</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/06/datastructure-hash/" class="archive-article-date">
-  	<time datetime="2019-03-06T11:13:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="散列表（哈希表）"><a href="#散列表（哈希表）" class="headerlink" title="散列表（哈希表）"></a>散列表（哈希表）</h3><p><a href="https://baike.baidu.com/item/%E6%95%A3%E5%88%97%E8%A1%A8/10027933" target="_blank" rel="noopener">散列表</a>（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的<a href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/1450" target="_blank" rel="noopener">数据结构</a>。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做<a href="https://baike.baidu.com/item/%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0/2366288" target="_blank" rel="noopener">散列函数</a>，存放记录的<a href="https://baike.baidu.com/item/%E6%95%B0%E7%BB%84/3794097" target="_blank" rel="noopener">数组</a>叫做<a href="https://baike.baidu.com/item/%E6%95%A3%E5%88%97%E8%A1%A8/10027933" target="_blank" rel="noopener">散列表</a>。</p>
-<p>给定表M，存在函数f(key)，对任意给定的关键字值key，代入函数后若能得到包含该关键字的记录在表中的地址，则称表M为哈希(Hash）表，函数f(key)为哈希(Hash) 函数。</p>
-        
-          <a class="article-more-a" href="/2019/03/06/datastructure-hash/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Data Structure</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/06/datastructure-hash/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-datastructure-sort" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/06/datastructure-sort/">数据结构之排序</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/06/datastructure-sort/" class="archive-article-date">
-  	<time datetime="2019-03-06T03:30:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p>排序真的是心头大病，年年学年年考年年忘233，老是搞得晕头转向的，希望这次能记长久一点……</p>
-        
-          <a class="article-more-a" href="/2019/03/06/datastructure-sort/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Data Structure</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/06/datastructure-sort/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-leetcode-557" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/03/leetcode-557/">leetcode-557 Reverse Words in a String III</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/03/leetcode-557/" class="archive-article-date">
-  	<time datetime="2019-03-03T03:35:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>Given a string, you need to reverse the order of characters in each word within a sentence while still preserving whitespace and initial word order.</p>
-        
-          <a class="article-more-a" href="/2019/03/03/leetcode-557/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/03/leetcode-557/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1082,6 +1092,14 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">日常踩坑</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">database</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">软件工程管理</a>
               </li>
              
@@ -1090,11 +1108,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
+                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1106,11 +1124,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">集成学习</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1122,15 +1140,23 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">jwt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+                <a href="javascript:void(0)" class="js-tag color1">netty</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">yilia</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
               </li>
             
             <div class="clearfix"></div>
